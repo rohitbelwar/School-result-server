@@ -1,0 +1,189 @@
+// server.js (Existing code will be here)
+
+// ... (Your existing express, fs, cors, app setup and student routes) ...
+
+// New imports for crypto for basic password hashing (for demonstration)
+const crypto = require('crypto');
+
+// Helper function to hash passwords (for demonstration purposes only, use bcrypt in production)
+function hashPassword(password) {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+// --- Teacher Management Routes ---
+
+// Route to add a new teacher
+app.post('/add-teacher', (req, res) => {
+  const { name, class: teacherClass, section, password } = req.body;
+
+  if (!name || !teacherClass || !section || !password) {
+    return res.status(400).send({ error: 'Missing required fields: name, class, section, password' });
+  }
+
+  fs.readFile('teachers.json', 'utf8', (err, data) => {
+    let teachers = [];
+    if (!err && data) {
+      try {
+        teachers = JSON.parse(data);
+      } catch (e) {
+        console.error("Error parsing teachers.json:", e);
+        return res.status(500).send({ error: 'teachers.json is corrupted or not valid JSON.' });
+      }
+    }
+
+    const hashedPassword = hashPassword(password); // Hash the password
+
+    const newTeacher = {
+      id: Date.now(), // Unique ID for the teacher
+      name: name,
+      class: teacherClass,
+      section: section,
+      password: hashedPassword // Store the hashed password
+    };
+
+    teachers.push(newTeacher);
+
+    fs.writeFile('teachers.json', JSON.stringify(teachers, null, 2), err => {
+      if (err) {
+        console.error("Error writing to teachers.json:", err);
+        return res.status(500).send({ error: 'Error writing to teachers.json' });
+      }
+      res.status(201).send({ message: 'Teacher added successfully!', teacher: newTeacher });
+    });
+  });
+});
+
+// Route to get all teachers
+app.get('/get-teachers', (req, res) => {
+  fs.readFile('teachers.json', 'utf8', (err, data) => {
+    if (err) {
+      if (err.code === 'ENOENT') { // File not found, return empty array
+        return res.json([]);
+      }
+      console.error("Error reading teachers.json:", err);
+      return res.status(500).send({ error: 'Error reading teachers.json' });
+    }
+    try {
+      const teachers = JSON.parse(data);
+      // Do not send password hashes to the frontend for security reasons
+      const teachersWithoutPasswords = teachers.map(({ password, ...rest }) => rest);
+      res.json(teachersWithoutPasswords);
+    } catch (e) {
+      console.error("Error parsing teachers.json:", e);
+      res.status(500).send({ error: 'teachers.json is corrupted or not valid JSON.' });
+    }
+  });
+});
+
+// Route to update a teacher
+app.put('/update-teacher/:id', (req, res) => {
+  const teacherId = parseInt(req.params.id);
+  const { name, class: teacherClass, section, password } = req.body;
+
+  if (!name || !teacherClass || !section) { // Password can be optional for update if not changed
+    return res.status(400).send({ error: 'Missing required fields: name, class, section' });
+  }
+
+  fs.readFile('teachers.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error("Error reading teachers.json for update:", err);
+      return res.status(500).send({ error: 'Error reading teachers.json' });
+    }
+    try {
+      let teachers = JSON.parse(data);
+      const teacherIndex = teachers.findIndex(t => t.id === teacherId);
+
+      if (teacherIndex === -1) {
+        return res.status(404).send({ error: 'Teacher not found.' });
+      }
+
+      teachers[teacherIndex].name = name;
+      teachers[teacherIndex].class = teacherClass;
+      teachers[teacherIndex].section = section;
+      if (password) { // Only update password if provided
+        teachers[teacherIndex].password = hashPassword(password);
+      }
+
+      fs.writeFile('teachers.json', JSON.stringify(teachers, null, 2), err => {
+        if (err) {
+          console.error("Error writing to teachers.json after update:", err);
+          return res.status(500).send({ error: 'Error writing to teachers.json' });
+        }
+        res.send({ message: 'Teacher updated successfully!', teacher: teachers[teacherIndex] });
+      });
+    } catch (e) {
+      console.error("Error processing teachers.json for update:", e);
+      res.status(500).send({ error: 'teachers.json is corrupted or not valid JSON.' });
+    }
+  });
+});
+
+// Route to delete a teacher
+app.delete('/delete-teacher/:id', (req, res) => {
+  const teacherId = parseInt(req.params.id);
+
+  fs.readFile('teachers.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error("Error reading teachers.json for deletion:", err);
+      return res.status(500).send({ error: 'Error reading teachers.json' });
+    }
+    try {
+      let teachers = JSON.parse(data);
+      const initialLength = teachers.length;
+      teachers = teachers.filter(t => t.id !== teacherId);
+
+      if (teachers.length === initialLength) {
+        return res.status(404).send({ error: 'Teacher not found.' });
+      }
+
+      fs.writeFile('teachers.json', JSON.stringify(teachers, null, 2), err => {
+        if (err) {
+          console.error("Error writing to teachers.json after deletion:", err);
+          return res.status(500).send({ error: 'Error writing to teachers.json' });
+        }
+        res.send({ message: 'Teacher deleted successfully!' });
+      });
+    } catch (e) {
+      console.error("Error processing teachers.json for deletion:", e);
+      res.status(500).send({ error: 'teachers.json is corrupted or not valid JSON.' });
+    }
+  });
+});
+
+// Route for teacher login (will be used by index.html for teacher login section)
+app.post('/teacher-login', (req, res) => {
+  const { name, class: teacherClass, section, password } = req.body;
+
+  if (!name || !teacherClass || !section || !password) {
+    return res.status(400).send({ error: 'Missing required credentials.' });
+  }
+
+  fs.readFile('teachers.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error("Error reading teachers.json for login:", err);
+      return res.status(500).send({ error: 'Error reading teacher data.' });
+    }
+    try {
+      const teachers = JSON.parse(data);
+      const hashedPassword = hashPassword(password);
+
+      const foundTeacher = teachers.find(t =>
+        t.name.toLowerCase() === name.toLowerCase() &&
+        t.class === teacherClass &&
+        t.section === section &&
+        t.password === hashedPassword // Compare with hashed password
+      );
+
+      if (foundTeacher) {
+        // Exclude password hash from response
+        const { password, ...teacherInfo } = foundTeacher;
+        res.send({ message: 'Login successful!', teacher: teacherInfo });
+      } else {
+        res.status(401).send({ error: 'Invalid teacher credentials.' });
+      }
+    } catch (e) {
+      console.error("Error parsing teachers.json for login:", e);
+      res.status(500).send({ error: 'Error processing teacher data.' });
+    }
+  });
+});

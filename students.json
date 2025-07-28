@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Sunny Kumar",
+    "dob": "2016-05-11",
+    "class": "III-A",
+    "rollNumber": "04",
+    "fatherName": "DILIP KR. SINGH",
+    "motherName": "CHANDRAMA DEVI",
+    "subjects": [
+      { "name": "ENGLISH", "marks": 43 },
+      { "name": "HINDI", "marks": 46 },
+      { "name": "MATHS", "marks": 42 },
+      { "name": "SCIENCE", "marks": 45 },
+      { "name": "S.ST", "marks": 47 },
+      { "name": "G.K", "marks": 44 },
+      { "name": "COMPUTER", "marks": 47 }
+    ],
+    "examTerm": "First Term",  // <-- यह जोड़ें
+    "fullMarks": "100",        // <-- यह भी जोड़ें
+    "total": 314,              // <-- यह भी जोड़ें (विषयों के अंकों का योग)
+    "percent": 89.71,          // <-- यह भी जोड़ें (गणना के बाद)
+    "id": 1234567890,          // <-- एक यूनिक ID भी जोड़ें
+    "rank": 1                  // <-- रैंक भी जोड़ें
+  },
+  {
+    "name": "Priya Singh",
+    "dob": "2004-11-22",
+    "class": "X-B",
+    "rollNumber": "05",
+    "fatherName": "RAJESH SINGH",
+    "motherName": "SITA SINGH",
+    "subjects": [
+      { "name": "ENGLISH", "marks": 78 },
+      { "name": "MATHS", "marks": 65 },
+      { "name": "SCIENCE", "marks": 70 },
+      { "name": "S.ST", "marks": 75 },
+      { "name": "HINDI", "marks": 80 }
+    ],
+    "examTerm": "Final Term", // <-- यह जोड़ें
+    "fullMarks": "100",      // <-- यह भी जोड़ें
+    "total": 368,            // <-- यह भी जोड़ें
+    "percent": 73.60,        // <-- यह भी जोड़ें
+    "id": 9876543210,        // <-- एक यूनिक ID भी जोड़ें
+    "rank": 1                // <-- रैंक भी जोड़ें
+  }
+]
