@@ -1,68 +1,91 @@
-// server.js
+// server.js (Updated for MongoDB)
 const express = require('express');
-const fs = require('fs');
-const cors = require('cors'); // CORS पैकेज आयात करें
+const cors = require('cors');
 const crypto = require('crypto'); // crypto मॉड्यूल को पासवर्ड हैशिंग के लिए आयात करें
+const mongoose = require('mongoose'); // Mongoose आयात करें
+require('dotenv').config(); // dotenv को कॉन्फ़िगर करें
 
 const app = express();
-const PORT = 3000; // सुनिश्चित करें कि यह पोर्ट आपके फ्रंटएंड में API_URL से मेल खाता हो
+const PORT = process.env.PORT |
+
+| 3000; // पोर्ट को पर्यावरण चर से लें या 3000 पर डिफ़ॉल्ट करें
 
 // CORS को सक्षम करें - इसे अपने अन्य मिडिलवेयर से पहले जोड़ें
 app.use(cors());
 // JSON बॉडी पार्स करने के लिए
 app.use(express.json());
 
+// MongoDB कनेक्शन
+mongoose.connect(process.env.MONGODB_URI)
+ .then(() => console.log('MongoDB Connected...'))
+ .catch(err => console.error('MongoDB connection error:', err));
+
+// Mongoose Models आयात करें
+const Teacher = require('./teacher.model');
+const Student = require('./student.model');
+
 // Helper function to hash passwords
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-// Helper function to calculate student metrics and rank
+// Helper function to calculate student metrics and rank (MongoDB objects के साथ काम करने के लिए अनुकूलित)
 function calculateStudentMetricsAndRank(students) {
-    const subjects = ['math', 'science', 'social', 'hindi', 'english']; // आपके विषयों के अनुसार अनुकूलित करें
+    const subjects = ['english', 'hindi', 'math', 'science', 'social', 'gk', 'computer']; // आपके student.model.js से मेल खाता है
 
     students.forEach(student => {
         let totalMarks = 0;
-        let maxMarksPossible = 0;
+        let fullMarksPossible = 0; // Each subject is 100 marks
         let failedSubjects = 0;
 
         subjects.forEach(subject => {
             if (student.marks && typeof student.marks[subject] === 'number') {
                 totalMarks += student.marks[subject];
-                maxMarksPossible += 100; // मानकर चल रहे हैं कि प्रत्येक विषय 100 अंकों का है
-                if (student.marks[subject] < 33) { // मानकर चल रहे हैं कि पास मार्क 33 है
+                fullMarksPossible += 100; // Assuming each subject is out of 100
+                if (student.marks[subject] < 33) { // Assuming pass mark is 33
                     failedSubjects++;
                 }
             }
         });
 
         student.totalMarks = totalMarks;
-        student.percent = maxMarksPossible > 0 ? (totalMarks / maxMarksPossible) * 100 : 0;
-        student.passFail = failedSubjects === 0 ? 'Pass' : 'Fail';
+        student.fullMarks = fullMarksPossible;
+        student.percent = fullMarksPossible > 0? (totalMarks / fullMarksPossible) * 100 : 0;
+        student.passFail = failedSubjects === 0? 'Pass' : 'Fail';
         student.failedSubjectsCount = failedSubjects;
     });
 
-    // Calculate ranks within each class/section
+    // Calculate ranks within each class for students who passed
     const classGroups = {};
     students.forEach(s => {
-        // Class-Section combination
-        const classKey = `${s.class}-${s.section}`;
-        if (!classGroups[classKey]) classGroups[classKey] = [];
-        classGroups[classKey].push(s);
+      // Group by combined class and exam term for ranking
+      const groupKey = `${s.class}-${s.examTerm}`;
+      if (!classGroups[groupKey]) classGroups[groupKey] =;
+      classGroups[groupKey].push(s);
     });
 
-    for (const classKey in classGroups) {
-        const classStudents = classGroups[classKey];
-        classStudents.sort((a, b) => b.percent - a.percent); // Sort by percentage descending
+    for (const groupKey in classGroups) {
+      const classStudents = classGroups[groupKey];
+      // Sort by percentage in descending order for ranking (only for passing students for rank calculation)
+      const passingStudents = classStudents.filter(s => s.passFail === 'Pass');
+      passingStudents.sort((a, b) => b.percent - a.percent);
 
-        let currentRank = 1;
-        for (let i = 0; i < classStudents.length; i++) {
-            if (i > 0 && classStudents[i].percent < classStudents[i - 1].percent) {
-                currentRank = i + 1;
-            }
-            classStudents[i].rank = currentRank;
+      let currentRank = 1;
+      for (let i = 0; i < passingStudents.length; i++) {
+        if (i > 0 && passingStudents[i].percent < passingStudents[i - 1].percent) {
+          currentRank = i + 1;
         }
+        passingStudents[i].rank = currentRank;
+      }
+
+      // Assign rank 0 (or null) to failing students for clarity
+      classStudents.forEach(s => {
+        if (s.passFail === 'Fail') {
+          s.rank = 0; // Or null, depending on how you want to represent it
+        }
+      });
     }
+
     return students;
 }
 
@@ -70,335 +93,303 @@ function calculateStudentMetricsAndRank(students) {
 // --- Teacher Management Routes ---
 
 // Route to add a new teacher
-app.post('/add-teacher', (req, res) => {
-    const newTeacher = req.body;
-    // आवश्यक फ़ील्ड की जाँच करें
-    if (!newTeacher.name || !newTeacher.class || !newTeacher.section || !newTeacher.password) {
-        return res.status(400).send({ error: 'Missing required fields: name, class, section, password' });
+app.post('/add-teacher', async (req, res) => {
+  try {
+    const newTeacherData = req.body;
+    if (!newTeacherData.name ||!newTeacherData.class ||!newTeacherData.section ||!newTeacherData.password) {
+      return res.status(400).send({ error: 'Missing required fields: name, class, section, password' });
     }
 
-    fs.readFile('teachers.json', 'utf8', (err, data) => {
-        let teachers = [];
-        if (!err && data) {
-            try {
-                teachers = JSON.parse(data);
-            } catch (e) {
-                console.error("Error parsing teachers.json:", e);
-                return res.status(500).send({ error: 'teachers.json is corrupted or not valid JSON.' });
-            }
-        }
+    // Check if teacher with same class/section already exists
+    const existingTeacher = await Teacher.findOne({ class: newTeacherData.class, section: newTeacherData.section });
+    if (existingTeacher) {
+      return res.status(409).send({ error: `Teacher already assigned to Class ${newTeacherData.class}, Section ${newTeacherData.section}.` });
+    }
 
-        // शिक्षक के लिए एक अद्वितीय आईडी असाइन करें
-        newTeacher.id = Date.now(); // Simple unique ID based on timestamp
-        // पासवर्ड को हैश करें
-        newTeacher.password = hashPassword(newTeacher.password);
-        teachers.push(newTeacher);
+    const hashedPassword = hashPassword(newTeacherData.password);
+    const teacherId = Date.now(); // Simple unique ID
 
-        fs.writeFile('teachers.json', JSON.stringify(teachers, null, 2), err => {
-            if (err) {
-                console.error("Error writing to teachers.json:", err);
-                return res.status(500).send({ error: 'Error writing teacher data.' });
-            }
-            res.status(201).send({ message: 'Teacher added successfully!' });
-        });
+    const newTeacher = new Teacher({
+      id: teacherId,
+      name: newTeacherData.name,
+      class: newTeacherData.class,
+      section: newTeacherData.section,
+      password: hashedPassword
     });
+
+    await newTeacher.save();
+    res.status(201).send({ message: 'Teacher added successfully!' });
+  } catch (error) {
+    console.error("Error adding teacher:", error);
+    res.status(500).send({ error: 'Error adding teacher.' });
+  }
 });
 
 // Route to get all teachers
-app.get('/get-teachers', (req, res) => {
-    fs.readFile('teachers.json', 'utf8', (err, data) => {
-        if (err) {
-            // यदि फ़ाइल नहीं मिली, तो एक खाली सरणी लौटाएँ
-            if (err.code === 'ENOENT') {
-                return res.json([]);
-            }
-            console.error("Error reading teachers.json:", err);
-            return res.status(500).send({ error: 'Error reading teacher data.' });
-        }
-        try {
-            const teachers = JSON.parse(data);
-            // सुरक्षा के लिए पासवर्ड हटाएँ (हालांकि आप इसे केवल फ्रंटएंड पर प्रदर्शित नहीं कर रहे हैं)
-            const teachersWithoutPasswords = teachers.map(({ password, ...rest }) => rest);
-            res.json(teachersWithoutPasswords);
-        } catch (e) {
-            console.error("Error parsing teachers.json:", e);
-            res.status(500).send({ error: 'teachers.json is corrupted or not valid JSON.' });
-        }
-    });
+app.get('/get-teachers', async (req, res) => {
+  try {
+    const teachers = await Teacher.find({}, { password: 0 }); // पासवर्ड को छोड़कर सभी शिक्षक प्राप्त करें
+    res.json(teachers);
+  } catch (e) {
+    console.error("Error fetching teachers:", e);
+    res.status(500).send({ error: 'Error reading teacher data from database.' });
+  }
 });
 
-// Route to update a teacher by ID
-app.put('/update-teacher/:id', (req, res) => {
-    const teacherId = parseInt(req.params.id);
-    const updatedTeacherData = req.body;
+// Route to update a teacher
+app.put('/update-teacher/:id', async (req, res) => {
+  const teacherId = parseInt(req.params.id);
+  const updatedTeacherData = req.body;
 
-    fs.readFile('teachers.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error("Error reading teachers.json for update:", err);
-            return res.status(500).send({ error: 'Error reading teacher data.' });
-        }
-        try {
-            let teachers = JSON.parse(data);
-            const index = teachers.findIndex(t => t.id === teacherId);
+  try {
+    const existingTeacher = await Teacher.findOne({ id: teacherId });
 
-            if (index === -1) {
-                return res.status(404).send({ error: 'Teacher not found.' });
-            }
+    if (!existingTeacher) {
+      return res.status(404).send({ error: 'Teacher not found.' });
+    }
 
-            // केवल अनुमत फ़ील्ड अपडेट करें
-            const existingTeacher = teachers[index];
-            existingTeacher.name = updatedTeacherData.name || existingTeacher.name;
-            existingTeacher.class = updatedTeacherData.class || existingTeacher.class;
-            existingTeacher.section = updatedTeacherData.section || existingTeacher.section;
-            // यदि नया पासवर्ड प्रदान किया गया है, तो उसे हैश करें और अपडेट करें
-            if (updatedTeacherData.password) {
-                existingTeacher.password = hashPassword(updatedTeacherData.password);
-            }
-            teachers[index] = existingTeacher;
+    // Update fields if provided
+    if (updatedTeacherData.name) existingTeacher.name = updatedTeacherData.name;
+    if (updatedTeacherData.class) existingTeacher.class = updatedTeacherData.class;
+    if (updatedTeacherData.section) existingTeacher.section = updatedTeacherData.section;
 
-            fs.writeFile('teachers.json', JSON.stringify(teachers, null, 2), err => {
-                if (err) {
-                    console.error("Error writing to teachers.json after update:", err);
-                    return res.status(500).send({ error: 'Error writing teacher data.' });
-                }
-                res.send({ message: 'Teacher updated successfully!' });
-            });
-        } catch (e) {
-            console.error("Error processing teachers.json for update:", e);
-            res.status(500).send({ error: 'Error processing teacher data.' });
-        }
-    });
+    // Only update password if a new one is provided
+    if (updatedTeacherData.password && updatedTeacherData.password!== '') {
+      existingTeacher.password = hashPassword(updatedTeacherData.password);
+    }
+
+    await existingTeacher.save();
+    res.send({ message: 'Teacher updated successfully!' });
+  } catch (e) {
+    console.error("Error updating teacher:", e);
+    res.status(500).send({ error: 'Error updating teacher data.' });
+  }
 });
 
-// Route to delete a teacher by ID
-app.delete('/delete-teacher/:id', (req, res) => {
-    const idToDelete = parseInt(req.params.id);
+// Route to delete a teacher
+app.delete('/delete-teacher/:id', async (req, res) => {
+  const idToDelete = parseInt(req.params.id);
+  try {
+    const result = await Teacher.deleteOne({ id: idToDelete });
 
-    fs.readFile('teachers.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error("Error reading teachers.json for deletion:", err);
-            return res.status(500).send({ error: 'Error reading teacher data.' });
-        }
-        try {
-            let teachers = JSON.parse(data);
-            const initialLength = teachers.length;
-            teachers = teachers.filter(teacher => teacher.id !== idToDelete);
+    if (result.deletedCount === 0) {
+      return res.status(404).send({ error: 'Teacher not found.' });
+    }
+    res.send({ message: 'Teacher deleted successfully!' });
+  } catch (e) {
+    console.error("Error deleting teacher:", e);
+    res.status(500).send({ error: 'Error deleting teacher data.' });
+  }
+});
 
-            if (teachers.length === initialLength) {
-                return res.status(404).send({ error: 'Teacher not found.' });
-            }
+// Route for teacher login
+app.post('/teacher-login', async (req, res) => {
+  const { name, class: teacherClass, section, password } = req.body;
 
-            fs.writeFile('teachers.json', JSON.stringify(teachers, null, 2), err => {
-                if (err) {
-                    console.error("Error writing to teachers.json after deletion:", err);
-                    return res.status(500).send({ error: 'Error writing teacher data.' });
-                }
-                res.send({ message: 'Teacher deleted successfully!' });
-            });
-        } catch (e) {
-                console.error("Error processing teachers.json for deletion:", e);
-                res.status(500).send({ error: 'Error processing teacher data.' });
-        }
+  if (!name ||!teacherClass ||!section ||!password) {
+    return res.status(400).send({ error: 'Missing required credentials.' });
+  }
+
+  try {
+    const hashedPassword = hashPassword(password);
+    const foundTeacher = await Teacher.findOne({
+      name: new RegExp(`^${name}$`, 'i'), // Case-insensitive name match
+      class: teacherClass,
+      section: section,
+      password: hashedPassword
     });
+
+    if (foundTeacher) {
+      const { password,...teacherInfo } = foundTeacher._doc; // _doc to get plain JS object
+      res.send({ message: 'Login successful!', teacher: teacherInfo });
+    } else {
+      res.status(401).send({ error: 'Invalid teacher credentials.' });
+    }
+  } catch (e) {
+    console.error("Error during teacher login:", e);
+    res.status(500).send({ error: 'Error during login.' });
+  }
 });
 
 
 // --- Student Result Management Routes with Authorization ---
 
 // Route to get all students (Admin can see all, Teacher can see their class)
-app.get('/get-students', (req, res) => {
-  const { role, teacherClass, teacherSection } = req.query; // Query पैरामीटर से भूमिका और शिक्षक जानकारी प्राप्त करें
-
-  fs.readFile('students.json', 'utf8', (err, data) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        return res.json([]); // यदि फ़ाइल नहीं मिली तो एक खाली सरणी लौटाएँ
-      }
-      console.error("Error reading students.json:", err);
-      return res.status(500).send({ error: 'Error reading student data.' });
-    }
-    try {
-      let students = JSON.parse(data);
-
-      // भूमिका के आधार पर फ़िल्टरिंग लागू करें
-      if (role === 'teacher' && teacherClass && teacherSection) {
-        // शिक्षक केवल अपनी कक्षा के छात्रों को देख सकते हैं
-        // सुनिश्चित करें कि छात्र का क्लास और सेक्शन सर्वर-साइड पर combined 'Class-Section' प्रारूप में सहेजा गया है
-        const fullClass = `${teacherClass}-${teacherSection}`;
-        students = students.filter(s => s.class === fullClass);
-      }
-      // यदि भूमिका 'admin' है या कोई भूमिका/शिक्षक जानकारी नहीं है, तो सभी छात्रों को भेजें
-
-      // छात्रों के मेट्रिक्स और रैंक की गणना करें
-      students = calculateStudentMetricsAndRank(students);
-
-      res.json(students);
-    } catch (e) {
-      console.error("Error parsing students.json:", e);
-      res.status(500).send({ error: 'students.json is corrupted or not valid JSON.' });
-    }
-  });
-});
-
-// Route to save/update student results
-app.post('/save-student', (req, res) => {
-  let newStudent = req.body;
+app.get('/get-students', async (req, res) => {
   const { role, teacherClass, teacherSection } = req.query; // Get role and teacher info from query parameters
 
-  // Basic validation
-  if (!newStudent.name || !newStudent.rollNumber || !newStudent.examTerm || !newStudent.class || !newStudent.section || !newStudent.marks) {
-    return res.status(400).send({ error: 'Missing required fields: name, rollNumber, examTerm, class, section, marks' });
+  try {
+    let students;
+    if (role === 'teacher' && teacherClass && teacherSection) {
+      students = await Student.find({ class: teacherClass, section: teacherSection });
+    } else {
+      students = await Student.find({}); // Admin or no role/teacher info, get all students
+    }
+    res.json(students);
+  } catch (e) {
+    console.error("Error fetching students:", e);
+    res.status(500).send({ error: 'Error reading student data.' });
   }
+});
 
-  // Combine class and section for internal storage consistency
-  // यह सुनिश्चित करता है कि 'class' फील्ड में 'V-A' जैसा कुछ स्टोर हो
-  newStudent.class = `${newStudent.class}-${newStudent.section}`; // Ensure consistency with student data structure
+// Route to add/update student result
+app.post('/save-student', async (req, res) => {
+  const studentData = req.body;
+  const { role, teacherClass, teacherSection } = req.query; // For authorization
 
   // Authorization check for teachers
   if (role === 'teacher' && teacherClass && teacherSection) {
-    const authorizedClass = `${teacherClass}-${teacherSection}`;
-    if (newStudent.class !== authorizedClass) {
-      return res.status(403).send({ error: 'Teachers can only save results for their assigned class.' });
+    if (studentData.class!== teacherClass |
+
+| studentData.section!== teacherSection) {
+      return res.status(403).send({ error: 'Teachers can only save/update students from their assigned class.' });
     }
+  } else if (role!== 'admin') {
+      return res.status(403).send({ error: 'Unauthorized access.' });
   }
 
-  fs.readFile('students.json', 'utf8', (err, data) => {
-    let students = [];
-    if (!err && data) {
-      try {
-        students = JSON.parse(data);
-      } catch (e) {
-        console.error("Error parsing students.json:", e);
-        return res.status(500).send({ error: 'students.json is corrupted or not valid JSON.' });
-      }
-    }
+  // Basic validation
+  if (!studentData.name ||!studentData.rollNumber ||!studentData.class ||!studentData.examTerm) {
+    return res.status(400).send({ error: 'Missing required student fields.' });
+  }
 
+  try {
+    let studentToSave;
     let isNewStudent = true;
-    let studentIndex = -1;
 
-    // Check if student exists based on ID if provided, otherwise by other unique fields
-    if (newStudent.id) { // If an ID is provided, assume it's an update for an existing student
-        studentIndex = students.findIndex(s => s.id === newStudent.id);
-    } else { // For new students, or if ID isn't passed, find by name, rollNumber, combined class, and examTerm
-        studentIndex = students.findIndex(s =>
-            s.name.toLowerCase() === newStudent.name.toLowerCase() &&
-            s.rollNumber === newStudent.rollNumber &&
-            s.class === newStudent.class && // Use combined class for lookup
-            s.examTerm === newStudent.examTerm
-        );
-    }
-
-
-    if (studentIndex !== -1) {
+    if (studentData.id) {
       // Update existing student
-      students[studentIndex] = { ...students[studentIndex], ...newStudent }; // Merge existing with new data
+      studentToSave = await Student.findOne({ id: studentData.id });
+      if (!studentToSave) {
+        return res.status(404).send({ error: 'Student not found for update.' });
+      }
+      Object.assign(studentToSave, studentData); // Update fields
       isNewStudent = false;
     } else {
       // Add new student
-      newStudent.id = Date.now(); // Simple unique ID
-      students.push(newStudent);
-    }
-
-    // Re-calculate ranks for the affected class
-    students = calculateStudentMetricsAndRank(students);
-
-    fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
-      if (err) {
-        console.error("Error writing to students.json:", err);
-        return res.status(500).send({ error: 'Error writing student data.' });
-      }
-      res.status(isNewStudent ? 201 : 200).send({ message: isNewStudent ? 'Student result added successfully!' : 'Student result updated successfully!', student: newStudent });
-    });
-  });
-});
-
-// Route to get a single student for editing (Teacher restricted to their class)
-app.get('/get-student/:id', (req, res) => {
-    const studentId = parseInt(req.params.id);
-    const { role, teacherClass, teacherSection } = req.query; // Get role and teacher info
-
-    fs.readFile('students.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error("Error reading students.json:", err);
-            return res.status(500).send({ error: 'Error reading student data.' });
-        }
-        try {
-            let students = JSON.parse(data);
-            // सुनिश्चित करें कि मेट्रिक्स और रैंक अपडेटेड हैं
-            students = calculateStudentMetricsAndRank(students);
-            const student = students.find(s => s.id === studentId);
-
-            if (!student) {
-                return res.status(404).send({ error: 'Student not found.' });
-            }
-
-            // Authorization check for teachers
-            if (role === 'teacher' && teacherClass && teacherSection) {
-                const authorizedClass = `${teacherClass}-${teacherSection}`;
-                if (student.class !== authorizedClass) {
-                    return res.status(403).send({ error: 'Teachers can only view/edit students in their assigned class.' });
-                }
-            }
-
-            res.json(student);
-        } catch (e) {
-            console.error("Error parsing students.json:", e);
-            res.status(500).send({ error: 'students.json is corrupted or not valid JSON.' });
-        }
-    });
-});
-
-// Route to delete a student (Teacher restricted to their class, Admin can delete any)
-app.delete('/delete-student/:id', (req, res) => {
-  const idToDelete = parseInt(req.params.id);
-  const { role, teacherClass, teacherSection } = req.query; // Get role and teacher info
-
-  fs.readFile('students.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error("Error reading students.json for deletion:", err);
-      return res.status(500).send({ error: 'Error reading student data.' });
-    }
-    try {
-      let students = JSON.parse(data);
-      const studentIndex = students.findIndex(s => s.id === idToDelete);
-
-      if (studentIndex === -1) {
-        return res.status(404).send({ error: 'Student not found.' });
-      }
-
-      const studentToDelete = students[studentIndex];
-
-      // Authorization check for teachers
-      if (role === 'teacher' && teacherClass && teacherSection) {
-        const authorizedClass = `${teacherClass}-${teacherSection}`;
-        if (studentToDelete.class !== authorizedClass) {
-          return res.status(403).send({ error: 'Teachers can only delete students from their assigned class.' });
-        }
-      }
-
-      const initialLength = students.length;
-      students = students.filter(student => student.id !== idToDelete);
-
-      if (students.length === initialLength) {
-        return res.status(404).send({ error: 'Student not found.' });
-      }
-
-      // Re-calculate ranks after deletion for all students (or just the affected class)
-      // For simplicity, recalculating for all; for large datasets, optimize to only affected class
-      students = calculateStudentMetricsAndRank(students);
-
-      fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
-        if (err) {
-          console.error("Error writing to students.json after deletion:", err);
-          return res.status(500).send({ error: 'Error writing student data.' });
-        }
-        res.send({ message: 'Student deleted successfully!' });
+      // Check if student with same roll number, class, and exam term already exists
+      const existingStudent = await Student.findOne({
+          rollNumber: studentData.rollNumber,
+          class: studentData.class,
+          examTerm: studentData.examTerm
       });
-    } catch (e) {
-      console.error("Error processing students.json for deletion:", e);
-      res.status(500).send({ error: 'Error processing student data.' });
+      if (existingStudent) {
+          return res.status(409).send({ error: `Student with Roll No. ${studentData.rollNumber} in Class ${studentData.class} for ${studentData.examTerm} already exists.` });
+      }
+
+      studentData.id = Date.now(); // Generate new ID for new student
+      studentToSave = new Student(studentData);
     }
-  });
+
+    // Calculate metrics and rank for all students in the same class/term
+    // This is crucial because a new student or updated score changes ranks of others.
+    let studentsInClassAndTerm = await Student.find({ class: studentToSave.class, examTerm: studentToSave.examTerm });
+    
+    // If it's a new student, add them to the list for calculation
+    if (isNewStudent) {
+        studentsInClassAndTerm.push(studentToSave);
+    } else {
+        // If it's an update, replace the old version with the updated one in the list
+        studentsInClassAndTerm = studentsInClassAndTerm.map(s => s.id === studentToSave.id? studentToSave : s);
+    }
+
+    calculateStudentMetricsAndRank(studentsInClassAndTerm); // This will update metrics and rank for all relevant students
+
+    // Save the current student with updated metrics and rank
+    await studentToSave.save(); 
+
+    // Update ranks for other students in the same class/term
+    for (const s of studentsInClassAndTerm) {
+        if (s.id!== studentToSave.id) { // Don't update the current student again
+            await Student.updateOne({ id: s.id }, { $set: { rank: s.rank, passFail: s.passFail, totalMarks: s.totalMarks, percent: s.percent, failedSubjectsCount: s.failedSubjectsCount } });
+        }
+    }
+
+    res.status(200).send({ message: 'Student data saved successfully!' });
+
+  } catch (e) {
+    console.error("Error saving student:", e);
+    res.status(500).send({ error: 'Error saving student data.' });
+  }
+});
+
+
+// Route to delete a student
+app.delete('/delete-student/:id', async (req, res) => {
+  const idToDelete = parseInt(req.params.id);
+  const { role, teacherClass, teacherSection } = req.query; // For authorization
+
+  try {
+    const studentToDelete = await Student.findOne({ id: idToDelete });
+
+    if (!studentToDelete) {
+      return res.status(404).send({ error: 'Student not found.' });
+    }
+
+    // Authorization check for teachers
+    if (role === 'teacher' && teacherClass && teacherSection) {
+      if (studentToDelete.class!== teacherClass |
+
+| studentToDelete.section!== teacherSection) {
+        return res.status(403).send({ error: 'Teachers can only delete students from their assigned class.' });
+      }
+    } else if (role!== 'admin') {
+      return res.status(403).send({ error: 'Unauthorized access.' });
+    }
+
+    const classOfDeletedStudent = studentToDelete.class;
+    const examTermOfDeletedStudent = studentToDelete.examTerm;
+
+    const result = await Student.deleteOne({ id: idToDelete });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).send({ error: 'Student not found.' });
+    }
+
+    // After deletion, re-calculate and update ranks for remaining students in that class/term
+    let remainingStudentsInClass = await Student.find({ class: classOfDeletedStudent, examTerm: examTermOfDeletedStudent });
+    if (remainingStudentsInClass.length > 0) {
+      calculateStudentMetricsAndRank(remainingStudentsInClass);
+      for (const s of remainingStudentsInClass) {
+          await Student.updateOne({ id: s.id }, { $set: { rank: s.rank, passFail: s.passFail, totalMarks: s.totalMarks, percent: s.percent, failedSubjectsCount: s.failedSubjectsCount } });
+      }
+    }
+
+    res.send({ message: 'Student deleted successfully!' });
+  } catch (e) {
+    console.error("Error deleting student:", e);
+    res.status(500).send({ error: 'Error deleting student data.' });
+  }
+});
+
+
+// Route for student login and result search
+app.post('/student-result', async (req, res) => {
+    const { name, rollNumber, dob, sclass, examTerm } = req.body; // sclass is the class from student input form
+
+    if (!name ||!rollNumber ||!dob ||!sclass ||!examTerm) {
+        return res.status(400).send({ error: 'All fields are required.' });
+    }
+
+    try {
+        const foundStudent = await Student.findOne({
+            name: new RegExp(`^${name}$`, 'i'), // Case-insensitive name match
+            rollNumber: rollNumber,
+            dob: dob,
+            class: sclass,
+            examTerm: examTerm
+        });
+
+        if (foundStudent) {
+            // Exclude sensitive fields if any, or just send the relevant info
+            res.json(foundStudent);
+        } else {
+            res.status(404).send({ error: 'Student not found or credentials do not match for the selected exam term.' });
+        }
+    } catch (e) {
+        console.error("Error during student result search:", e);
+        res.status(500).send({ error: 'Error searching for student result.' });
+    }
 });
 
 
