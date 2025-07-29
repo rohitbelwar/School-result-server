@@ -1,399 +1,350 @@
-// server.js (Updated for MongoDB)
 const express = require('express');
 const cors = require('cors');
-const crypto = require('crypto'); // crypto मॉड्यूल को पासवर्ड हैशिंग के लिए आयात करें
-const mongoose = require('mongoose'); // Mongoose आयात करें
-require('dotenv').config(); // dotenv को कॉन्फ़िगर करें
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
-const PORT = process.env.PORT |
+const PORT = process.env.PORT || 3000; // Render.com या किसी भी होस्टिंग के लिए PORT पर्यावरण वेरिएबल का उपयोग करें
 
-| 3000; // पोर्ट को पर्यावरण चर से लें या 3000 पर डिफ़ॉल्ट करें
+// Middleware
+app.use(cors()); // CORS सक्षम करें ताकि आपका फ्रंटएंड कनेक्ट हो सके
+app.use(bodyParser.json());
+app.use(express.json()); // express.json() भी JSON पार्सिंग के लिए है
 
-// CORS को सक्षम करें - इसे अपने अन्य मिडिलवेयर से पहले जोड़ें
-app.use(cors());
-// JSON बॉडी पार्स करने के लिए
-app.use(express.json());
+// MongoDB Connection
+const MONGODB_URI = process.env.MONGODB_URI || 'YOUR_MONGODB_CONNECTION_STRING_HERE'; // <--- इसे अपनी वास्तविक MongoDB URI से बदलें
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('MongoDB connected successfully!'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-// MongoDB कनेक्शन
-mongoose.connect(process.env.MONGODB_URI)
- .then(() => console.log('MongoDB Connected...'))
- .catch(err => console.error('MongoDB connection error:', err));
+// --- Mongoose Schemas ---
 
-// Mongoose Models आयात करें
-const Teacher = require('./teacher.model');
-const Student = require('./student.model');
+// Teacher Schema
+const teacherSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  class: { type: String, required: true, trim: true },
+  section: { type: String, required: true, trim: true },
+  password: { type: String, required: true },
+  teacherId: { type: Number, unique: true } // Auto-incrementing ID for teachers
+});
 
-// Helper function to hash passwords
-function hashPassword(password) {
-  return crypto.createHash('sha256').update(password).digest('hex');
-}
+// Pre-save hook to generate auto-incrementing teacherId
+teacherSchema.pre('save', async function(next) {
+  if (this.isNew) {
+    const lastTeacher = await this.constructor.findOne({}, {}, { sort: { 'teacherId': -1 } });
+    this.teacherId = lastTeacher ? lastTeacher.teacherId + 1 : 1;
+  }
+  next();
+});
 
-// Helper function to calculate student metrics and rank (MongoDB objects के साथ काम करने के लिए अनुकूलित)
-function calculateStudentMetricsAndRank(students) {
-    const subjects = ['english', 'hindi', 'math', 'science', 'social', 'gk', 'computer']; // आपके student.model.js से मेल खाता है
+const Teacher = mongoose.model('Teacher', teacherSchema);
 
-    students.forEach(student => {
-        let totalMarks = 0;
-        let fullMarksPossible = 0; // Each subject is 100 marks
-        let failedSubjects = 0;
+// Student Result Schema
+const studentResultSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  fatherName: { type: String, trim: true },
+  motherName: { type: String, trim: true },
+  rollNumber: { type: String, required: true, trim: true },
+  dob: { type: String, required: true }, // YYYY-MM-DD format
+  class: { type: String, required: true, trim: true }, // e.g., "III-A"
+  section: { type: String, required: true, trim: true },
+  examTerm: { type: String, required: true, trim: true },
+  fullMarks: { type: Number, required: true }, // Max marks per subject
+  subjects: [{
+    name: { type: String, required: true },
+    marks: { type: Number, required: true }
+  }],
+  total: { type: Number },
+  percent: { type: Number },
+  rank: { type: Number }
+});
 
-        subjects.forEach(subject => {
-            if (student.marks && typeof student.marks[subject] === 'number') {
-                totalMarks += student.marks[subject];
-                fullMarksPossible += 100; // Assuming each subject is out of 100
-                if (student.marks[subject] < 33) { // Assuming pass mark is 33
-                    failedSubjects++;
-                }
-            }
-        });
+// Pre-save hook to calculate total, percent and assign rank
+studentResultSchema.pre('save', async function(next) {
+  const totalSubjects = this.subjects.length;
+  this.total = this.subjects.reduce((sum, sub) => sum + sub.marks, 0);
+  this.percent = (this.total / (totalSubjects * this.fullMarks)) * 100;
 
-        student.totalMarks = totalMarks;
-        student.fullMarks = fullMarksPossible;
-        student.percent = fullMarksPossible > 0? (totalMarks / fullMarksPossible) * 100 : 0;
-        student.passFail = failedSubjects === 0? 'Pass' : 'Fail';
-        student.failedSubjectsCount = failedSubjects;
-    });
+  // Recalculate ranks for the specific class and exam term
+  if (this.isNew || this.isModified('total') || this.isModified('percent')) {
+    const studentsInSameGroup = await this.constructor.find({
+      class: this.class,
+      section: this.section,
+      examTerm: this.examTerm
+    }).sort({ percent: -1, total: -1 }); // Sort by percentage, then total
 
-    // Calculate ranks within each class for students who passed
-    const classGroups = {};
-    students.forEach(s => {
-      // Group by combined class and exam term for ranking
-      const groupKey = `${s.class}-${s.examTerm}`;
-      if (!classGroups[groupKey]) classGroups[groupKey] =;
-      classGroups[groupKey].push(s);
-    });
-
-    for (const groupKey in classGroups) {
-      const classStudents = classGroups[groupKey];
-      // Sort by percentage in descending order for ranking (only for passing students for rank calculation)
-      const passingStudents = classStudents.filter(s => s.passFail === 'Pass');
-      passingStudents.sort((a, b) => b.percent - a.percent);
-
-      let currentRank = 1;
-      for (let i = 0; i < passingStudents.length; i++) {
-        if (i > 0 && passingStudents[i].percent < passingStudents[i - 1].percent) {
-          currentRank = i + 1;
+    // Assign ranks
+    for (let i = 0; i < studentsInSameGroup.length; i++) {
+      studentsInSameGroup[i].rank = i + 1;
+      await studentsInSameGroup[i].save({ validateBeforeSave: false }); // Save without triggering pre-save hook again
+    }
+    // Set rank for the current student being saved (if it's new)
+    if (this.isNew) {
+        const currentStudentRank = studentsInSameGroup.findIndex(s =>
+            s.name === this.name && s.rollNumber === this.rollNumber
+        );
+        if (currentStudentRank !== -1) {
+            this.rank = currentStudentRank + 1;
         }
-        passingStudents[i].rank = currentRank;
-      }
-
-      // Assign rank 0 (or null) to failing students for clarity
-      classStudents.forEach(s => {
-        if (s.passFail === 'Fail') {
-          s.rank = 0; // Or null, depending on how you want to represent it
-        }
-      });
     }
-
-    return students;
-}
-
-
-// --- Teacher Management Routes ---
-
-// Route to add a new teacher
-app.post('/add-teacher', async (req, res) => {
-  try {
-    const newTeacherData = req.body;
-    if (!newTeacherData.name ||!newTeacherData.class ||!newTeacherData.section ||!newTeacherData.password) {
-      return res.status(400).send({ error: 'Missing required fields: name, class, section, password' });
-    }
-
-    // Check if teacher with same class/section already exists
-    const existingTeacher = await Teacher.findOne({ class: newTeacherData.class, section: newTeacherData.section });
-    if (existingTeacher) {
-      return res.status(409).send({ error: `Teacher already assigned to Class ${newTeacherData.class}, Section ${newTeacherData.section}.` });
-    }
-
-    const hashedPassword = hashPassword(newTeacherData.password);
-    const teacherId = Date.now(); // Simple unique ID
-
-    const newTeacher = new Teacher({
-      id: teacherId,
-      name: newTeacherData.name,
-      class: newTeacherData.class,
-      section: newTeacherData.section,
-      password: hashedPassword
-    });
-
-    await newTeacher.save();
-    res.status(201).send({ message: 'Teacher added successfully!' });
-  } catch (error) {
-    console.error("Error adding teacher:", error);
-    res.status(500).send({ error: 'Error adding teacher.' });
   }
+  next();
 });
 
-// Route to get all teachers
-app.get('/get-teachers', async (req, res) => {
-  try {
-    const teachers = await Teacher.find({}, { password: 0 }); // पासवर्ड को छोड़कर सभी शिक्षक प्राप्त करें
-    res.json(teachers);
-  } catch (e) {
-    console.error("Error fetching teachers:", e);
-    res.status(500).send({ error: 'Error reading teacher data from database.' });
-  }
-});
+const StudentResult = mongoose.model('StudentResult', studentResultSchema);
 
-// Route to update a teacher
-app.put('/update-teacher/:id', async (req, res) => {
-  const teacherId = parseInt(req.params.id);
-  const updatedTeacherData = req.body;
+// --- API Endpoints ---
 
-  try {
-    const existingTeacher = await Teacher.findOne({ id: teacherId });
-
-    if (!existingTeacher) {
-      return res.status(404).send({ error: 'Teacher not found.' });
-    }
-
-    // Update fields if provided
-    if (updatedTeacherData.name) existingTeacher.name = updatedTeacherData.name;
-    if (updatedTeacherData.class) existingTeacher.class = updatedTeacherData.class;
-    if (updatedTeacherData.section) existingTeacher.section = updatedTeacherData.section;
-
-    // Only update password if a new one is provided
-    if (updatedTeacherData.password && updatedTeacherData.password!== '') {
-      existingTeacher.password = hashPassword(updatedTeacherData.password);
-    }
-
-    await existingTeacher.save();
-    res.send({ message: 'Teacher updated successfully!' });
-  } catch (e) {
-    console.error("Error updating teacher:", e);
-    res.status(500).send({ error: 'Error updating teacher data.' });
-  }
-});
-
-// Route to delete a teacher
-app.delete('/delete-teacher/:id', async (req, res) => {
-  const idToDelete = parseInt(req.params.id);
-  try {
-    const result = await Teacher.deleteOne({ id: idToDelete });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).send({ error: 'Teacher not found.' });
-    }
-    res.send({ message: 'Teacher deleted successfully!' });
-  } catch (e) {
-    console.error("Error deleting teacher:", e);
-    res.status(500).send({ error: 'Error deleting teacher data.' });
-  }
-});
-
-// Route for teacher login
+// Teacher Login
 app.post('/teacher-login', async (req, res) => {
   const { name, class: teacherClass, section, password } = req.body;
-
-  if (!name ||!teacherClass ||!section ||!password) {
-    return res.status(400).send({ error: 'Missing required credentials.' });
-  }
-
   try {
-    const hashedPassword = hashPassword(password);
-    const foundTeacher = await Teacher.findOne({
-      name: new RegExp(`^${name}$`, 'i'), // Case-insensitive name match
-      class: teacherClass,
-      section: section,
-      password: hashedPassword
-    });
-
-    if (foundTeacher) {
-      const { password,...teacherInfo } = foundTeacher._doc; // _doc to get plain JS object
-      res.send({ message: 'Login successful!', teacher: teacherInfo });
+    const teacher = await Teacher.findOne({ name, class: teacherClass, section, password }); // In a real app, hash password
+    if (teacher) {
+      res.status(200).json({ message: 'Login successful', teacher: { id: teacher.teacherId, name: teacher.name, class: teacher.class, section: teacher.section } });
     } else {
-      res.status(401).send({ error: 'Invalid teacher credentials.' });
+      res.status(401).json({ error: 'Invalid credentials or teacher not found.' });
     }
-  } catch (e) {
-    console.error("Error during teacher login:", e);
-    res.status(500).send({ error: 'Error during login.' });
+  } catch (error) {
+    console.error('Teacher login error:', error);
+    res.status(500).json({ error: 'Server error during login.' });
   }
 });
 
-
-// --- Student Result Management Routes with Authorization ---
-
-// Route to get all students (Admin can see all, Teacher can see their class)
-app.get('/get-students', async (req, res) => {
-  const { role, teacherClass, teacherSection } = req.query; // Get role and teacher info from query parameters
-
+// Add Teacher
+app.post('/add-teacher', async (req, res) => {
+  const { name, class: teacherClass, section, password } = req.body;
   try {
-    let students;
-    if (role === 'teacher' && teacherClass && teacherSection) {
-      students = await Student.find({ class: teacherClass, section: teacherSection });
-    } else {
-      students = await Student.find({}); // Admin or no role/teacher info, get all students
+    // Check if teacher with same class and section already exists
+    const existingTeacher = await Teacher.findOne({ class: teacherClass, section: section });
+    if (existingTeacher) {
+        return res.status(400).json({ error: 'इस क्लास और सेक्शन के लिए एक शिक्षक पहले से मौजूद है।' });
     }
-    res.json(students);
-  } catch (e) {
-    console.error("Error fetching students:", e);
-    res.status(500).send({ error: 'Error reading student data.' });
+
+    const newTeacher = new Teacher({ name, class: teacherClass, section, password });
+    await newTeacher.save();
+    res.status(201).json({ message: 'शिक्षक सफलतापूर्वक जोड़ा गया!' });
+  } catch (error) {
+    console.error('Error adding teacher:', error);
+    res.status(500).json({ error: 'शिक्षक को जोड़ते समय सर्वर त्रुटि हुई।' });
   }
 });
 
-// Route to add/update student result
-app.post('/save-student', async (req, res) => {
-  const studentData = req.body;
-  const { role, teacherClass, teacherSection } = req.query; // For authorization
-
-  // Authorization check for teachers
-  if (role === 'teacher' && teacherClass && teacherSection) {
-    if (studentData.class!== teacherClass |
-
-| studentData.section!== teacherSection) {
-      return res.status(403).send({ error: 'Teachers can only save/update students from their assigned class.' });
-    }
-  } else if (role!== 'admin') {
-      return res.status(403).send({ error: 'Unauthorized access.' });
-  }
-
-  // Basic validation
-  if (!studentData.name ||!studentData.rollNumber ||!studentData.class ||!studentData.examTerm) {
-    return res.status(400).send({ error: 'Missing required student fields.' });
-  }
-
+// Get All Teachers
+app.get('/get-teachers', async (req, res) => {
   try {
-    let studentToSave;
-    let isNewStudent = true;
+    const teachers = await Teacher.find({});
+    res.status(200).json(teachers.map(t => ({ id: t.teacherId, name: t.name, class: t.class, section: t.section })));
+  } catch (error) {
+    console.error('Error fetching teachers:', error);
+    res.status(500).json({ error: 'शिक्षकों को प्राप्त करते समय सर्वर त्रुटि हुई।' });
+  }
+});
 
-    if (studentData.id) {
-      // Update existing student
-      studentToSave = await Student.findOne({ id: studentData.id });
-      if (!studentToSave) {
-        return res.status(404).send({ error: 'Student not found for update.' });
-      }
-      Object.assign(studentToSave, studentData); // Update fields
-      isNewStudent = false;
-    } else {
-      // Add new student
-      // Check if student with same roll number, class, and exam term already exists
-      const existingStudent = await Student.findOne({
-          rollNumber: studentData.rollNumber,
-          class: studentData.class,
-          examTerm: studentData.examTerm
-      });
-      if (existingStudent) {
-          return res.status(409).send({ error: `Student with Roll No. ${studentData.rollNumber} in Class ${studentData.class} for ${studentData.examTerm} already exists.` });
-      }
+// Update Teacher
+app.put('/update-teacher/:id', async (req, res) => {
+    const teacherId = req.params.id;
+    const { name, class: teacherClass, section, password } = req.body;
 
-      studentData.id = Date.now(); // Generate new ID for new student
-      studentToSave = new Student(studentData);
-    }
-
-    // Calculate metrics and rank for all students in the same class/term
-    // This is crucial because a new student or updated score changes ranks of others.
-    let studentsInClassAndTerm = await Student.find({ class: studentToSave.class, examTerm: studentToSave.examTerm });
-    
-    // If it's a new student, add them to the list for calculation
-    if (isNewStudent) {
-        studentsInClassAndTerm.push(studentToSave);
-    } else {
-        // If it's an update, replace the old version with the updated one in the list
-        studentsInClassAndTerm = studentsInClassAndTerm.map(s => s.id === studentToSave.id? studentToSave : s);
-    }
-
-    calculateStudentMetricsAndRank(studentsInClassAndTerm); // This will update metrics and rank for all relevant students
-
-    // Save the current student with updated metrics and rank
-    await studentToSave.save(); 
-
-    // Update ranks for other students in the same class/term
-    for (const s of studentsInClassAndTerm) {
-        if (s.id!== studentToSave.id) { // Don't update the current student again
-            await Student.updateOne({ id: s.id }, { $set: { rank: s.rank, passFail: s.passFail, totalMarks: s.totalMarks, percent: s.percent, failedSubjectsCount: s.failedSubjectsCount } });
+    try {
+        const teacher = await Teacher.findOne({ teacherId: teacherId });
+        if (!teacher) {
+            return res.status(404).json({ error: 'शिक्षक नहीं मिला।' });
         }
+
+        // Check if updating class/section would conflict with another existing teacher
+        if ((teacherClass && teacherClass !== teacher.class) || (section && section !== teacher.section)) {
+            const existingTeacherInNewClassSection = await Teacher.findOne({
+                class: teacherClass || teacher.class,
+                section: section || teacher.section,
+                teacherId: { $ne: teacherId } // Exclude current teacher
+            });
+            if (existingTeacherInNewClassSection) {
+                return res.status(400).json({ error: 'इस क्लास और सेक्शन के लिए एक शिक्षक पहले से मौजूद है।' });
+            }
+        }
+
+        if (name) teacher.name = name;
+        if (teacherClass) teacher.class = teacherClass;
+        if (section) teacher.section = section;
+        if (password) teacher.password = password; // In a real app, hash password here
+
+        await teacher.save();
+        res.status(200).json({ message: 'शिक्षक सफलतापूर्वक अपडेट किया गया!' });
+    } catch (error) {
+        console.error('Error updating teacher:', error);
+        res.status(500).json({ error: 'शिक्षक को अपडेट करते समय सर्वर त्रुटि हुई।' });
     }
+});
 
-    res.status(200).send({ message: 'Student data saved successfully!' });
 
-  } catch (e) {
-    console.error("Error saving student:", e);
-    res.status(500).send({ error: 'Error saving student data.' });
+// Delete Teacher
+app.delete('/delete-teacher/:id', async (req, res) => {
+  const teacherId = req.params.id;
+  try {
+    const result = await Teacher.deleteOne({ teacherId: teacherId });
+    if (result.deletedCount > 0) {
+      res.status(200).json({ message: 'शिक्षक सफलतापूर्वक हटा दिया गया।' });
+    } else {
+      res.status(404).json({ error: 'शिक्षक नहीं मिला।' });
+    }
+  } catch (error) {
+    console.error('Error deleting teacher:', error);
+    res.status(500).json({ error: 'शिक्षक को हटाते समय सर्वर त्रुटि हुई।' });
   }
 });
 
 
-// Route to delete a student
-app.delete('/delete-student/:id', async (req, res) => {
-  const idToDelete = parseInt(req.params.id);
-  const { role, teacherClass, teacherSection } = req.query; // For authorization
+// Save (Add/Update) Student Result
+app.post('/save-student', async (req, res) => {
+  const { name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, subjects, fullMarks, id } = req.body;
+  const { role, teacherClass, teacherSection } = req.query; // Query params from teacher dashboard
+
+  // Server-side validation for teacher's class
+  if (role === 'teacher' && (studentClass !== teacherClass || section !== teacherSection)) {
+      return res.status(403).json({ error: 'आप केवल अपने क्लास के छात्रों के परिणाम सहेज सकते हैं।' });
+  }
 
   try {
-    const studentToDelete = await Student.findOne({ id: idToDelete });
-
-    if (!studentToDelete) {
-      return res.status(404).send({ error: 'Student not found.' });
-    }
-
-    // Authorization check for teachers
-    if (role === 'teacher' && teacherClass && teacherSection) {
-      if (studentToDelete.class!== teacherClass |
-
-| studentToDelete.section!== teacherSection) {
-        return res.status(403).send({ error: 'Teachers can only delete students from their assigned class.' });
+    let studentResult;
+    if (id) { // If ID is provided, try to update
+      studentResult = await StudentResult.findById(id);
+      if (!studentResult) {
+        return res.status(404).json({ error: 'अपडेट करने के लिए छात्र परिणाम नहीं मिला।' });
       }
-    } else if (role!== 'admin') {
-      return res.status(403).send({ error: 'Unauthorized access.' });
+
+      // Update fields
+      studentResult.name = name;
+      studentResult.fatherName = fatherName;
+      studentResult.motherName = motherName;
+      studentResult.rollNumber = rollNumber;
+      studentResult.dob = dob;
+      studentResult.class = studentClass; // Can change if class/section change is allowed (teacher side logic needs to match)
+      studentResult.section = section;
+      studentResult.examTerm = examTerm;
+      studentResult.subjects = subjects;
+      studentResult.fullMarks = fullMarks;
+
+    } else { // Otherwise, create new
+      studentResult = new StudentResult({
+        name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, subjects, fullMarks
+      });
     }
 
-    const classOfDeletedStudent = studentToDelete.class;
-    const examTermOfDeletedStudent = studentToDelete.examTerm;
-
-    const result = await Student.deleteOne({ id: idToDelete });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).send({ error: 'Student not found.' });
-    }
-
-    // After deletion, re-calculate and update ranks for remaining students in that class/term
-    let remainingStudentsInClass = await Student.find({ class: classOfDeletedStudent, examTerm: examTermOfDeletedStudent });
-    if (remainingStudentsInClass.length > 0) {
-      calculateStudentMetricsAndRank(remainingStudentsInClass);
-      for (const s of remainingStudentsInClass) {
-          await Student.updateOne({ id: s.id }, { $set: { rank: s.rank, passFail: s.passFail, totalMarks: s.totalMarks, percent: s.percent, failedSubjectsCount: s.failedSubjectsCount } });
-      }
-    }
-
-    res.send({ message: 'Student deleted successfully!' });
-  } catch (e) {
-    console.error("Error deleting student:", e);
-    res.status(500).send({ error: 'Error deleting student data.' });
+    await studentResult.save();
+    res.status(200).json({ message: 'छात्र परिणाम सफलतापूर्वक सहेजा/अपडेट किया गया!' });
+  } catch (error) {
+    console.error('Error saving student result:', error);
+    res.status(500).json({ error: 'छात्र परिणाम सहेजते समय सर्वर त्रुटि हुई।' });
   }
 });
 
+// Get Student Results (filtered by teacher's class if role=teacher, or all for public)
+app.get('/get-students', async (req, res) => {
+    const { role, teacherClass, teacherSection } = req.query; // Query parameters
+    let filter = {};
 
-// Route for student login and result search
-app.post('/student-result', async (req, res) => {
-    const { name, rollNumber, dob, sclass, examTerm } = req.body; // sclass is the class from student input form
-
-    if (!name ||!rollNumber ||!dob ||!sclass ||!examTerm) {
-        return res.status(400).send({ error: 'All fields are required.' });
+    if (role === 'teacher' && teacherClass && teacherSection) {
+        filter = { class: teacherClass, section: teacherSection };
+    } else if (role !== 'teacher') {
+        // For public access (result.html), allow fetching all or by specific criteria if provided in query
+        const { name, rollNumber, dob, studentClass, section, examTerm } = req.query;
+        if (name) filter.name = new RegExp(name, 'i'); // Case-insensitive search
+        if (rollNumber) filter.rollNumber = rollNumber;
+        if (dob) filter.dob = dob;
+        if (studentClass) filter.class = studentClass;
+        if (section) filter.section = section;
+        if (examTerm) filter.examTerm = examTerm;
     }
 
     try {
-        const foundStudent = await Student.findOne({
-            name: new RegExp(`^${name}$`, 'i'), // Case-insensitive name match
-            rollNumber: rollNumber,
-            dob: dob,
-            class: sclass,
-            examTerm: examTerm
-        });
+        const studentResults = await StudentResult.find(filter).sort({ class: 1, section: 1, examTerm: 1, percent: -1, total: -1 });
 
-        if (foundStudent) {
-            // Exclude sensitive fields if any, or just send the relevant info
-            res.json(foundStudent);
-        } else {
-            res.status(404).send({ error: 'Student not found or credentials do not match for the selected exam term.' });
+        // Recalculate and update ranks for each group (class, section, examTerm)
+        const groupedResults = studentResults.reduce((acc, student) => {
+            const key = `${student.class}-${student.section}-${student.examTerm}`;
+            if (!acc[key]) {
+                acc[key] = [];
+            }
+            acc[key].push(student);
+            return acc;
+        }, {});
+
+        for (const key in groupedResults) {
+            groupedResults[key].sort((a, b) => {
+                if (b.percent !== a.percent) return b.percent - a.percent;
+                return b.total - a.total;
+            });
+            for (let i = 0; i < groupedResults[key].length; i++) {
+                groupedResults[key][i].rank = i + 1;
+                await groupedResults[key][i].save({ validateBeforeSave: false }); // Update rank in DB
+            }
         }
-    } catch (e) {
-        console.error("Error during student result search:", e);
-        res.status(500).send({ error: 'Error searching for student result.' });
+
+        res.status(200).json(studentResults); // Return the updated list
+    } catch (error) {
+        console.error('Error fetching student results:', error);
+        res.status(500).json({ error: 'छात्र परिणाम प्राप्त करते समय सर्वर त्रुटि हुई।' });
     }
 });
 
 
-// सर्वर को निर्दिष्ट पोर्ट पर चलाएँ
+// Get Single Student Result by ID (for edit operations on teacher dashboard)
+app.get('/get-student/:id', async (req, res) => {
+  const studentId = req.params.id;
+  const { role, teacherClass, teacherSection } = req.query; // Query params for teacher auth
+
+  try {
+    const student = await StudentResult.findById(studentId);
+    if (!student) {
+      return res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' });
+    }
+
+    // Server-side authorization check: ensure teacher can only view/edit their class's students
+    if (role === 'teacher' && (student.class !== teacherClass || student.section !== teacherSection)) {
+        return res.status(403).json({ error: 'आप इस छात्र को देखने/संपादित करने के लिए अधिकृत नहीं हैं।' });
+    }
+
+    res.status(200).json(student);
+  } catch (error) {
+    console.error('Error fetching single student result:', error);
+    res.status(500).json({ error: 'एकल छात्र परिणाम प्राप्त करते समय सर्वर त्रुटि हुई।' });
+  }
+});
+
+
+// Delete Student Result
+app.delete('/delete-student/:id', async (req, res) => {
+  const studentId = req.params.id;
+  const { role, teacherClass, teacherSection } = req.query; // Query params for teacher auth
+
+  try {
+    const studentToDelete = await StudentResult.findById(studentId);
+
+    if (!studentToDelete) {
+        return res.status(404).json({ error: 'हटाने के लिए छात्र परिणाम नहीं मिला।' });
+    }
+
+    // Server-side authorization check: ensure teacher can only delete their class's students
+    if (role === 'teacher' && (studentToDelete.class !== teacherClass || studentToDelete.section !== teacherSection)) {
+        return res.status(403).json({ error: 'आप इस छात्र को हटाने के लिए अधिकृत नहीं हैं।' });
+    }
+
+    const result = await StudentResult.deleteOne({ _id: studentId });
+    if (result.deletedCount > 0) {
+      res.status(200).json({ message: 'छात्र परिणाम सफलतापूर्वक हटा दिया गया।' });
+      // Ranks for the affected class/term should be recalculated implicitly when `get-students` is called after deletion
+    } else {
+      res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' });
+    }
+  } catch (error) {
+    console.error('Error deleting student:', error);
+    res.status(500).json({ error: 'छात्र परिणाम हटाते समय सर्वर त्रुटि हुई।' });
+  }
+});
+
+
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
