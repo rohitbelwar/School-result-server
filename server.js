@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load environment variables from .env file
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -12,10 +14,13 @@ app.use(bodyParser.json());
 app.use(express.json()); // express.json() भी JSON पार्सिंग के लिए है
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'YOUR_MONGODB_CONNECTION_STRING_HERE'; // <--- इसे अपनी वास्तविक MongoDB URI से बदलें
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('MongoDB connected successfully!'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const MONGODB_URI = process.env.MONGODB_URI; // .env फाइल से URI का उपयोग करें
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
 // --- Mongoose Schemas ---
 
