@@ -4,6 +4,7 @@ const express = require('express'); //
 const cors = require('cors'); //
 const bodyParser = require('body-parser'); //
 const mongoose = require('mongoose'); //
+const fs = require('fs'); // fs module added to handle file operations as per the new route
 
 const app = express(); //
 const PORT = process.env.PORT || 3000; // Render.com या किसी भी होस्टिंग के लिए PORT पर्यावरण वेरिएबल का उपयोग करें
@@ -367,6 +368,50 @@ app.delete('/delete-student/:id', async (req, res) => {
   }
 });
 
+// --- NEW ROUTE ADDED ---
+// This route is for adding basic student details using a JSON file.
+// NOTE: This approach (using a JSON file) is different from the rest of the application
+// which uses MongoDB. For consistency, it's better to use MongoDB for all data,
+// but the requested route has been added as-is.
+app.post('/add-student-details', (req, res) => {
+  const newStudent = req.body;
+
+  if (!newStudent.name || !newStudent.rollNumber || !newStudent.class || !newStudent.section || !newStudent.dob) {
+    return res.status(400).send({ error: 'Missing required student fields.' });
+  }
+
+  // Use fs module to read the JSON file
+  fs.readFile('students.json', 'utf8', (err, data) => {
+    let students = [];
+    if (!err && data) {
+      try {
+        students = JSON.parse(data);
+      } catch {
+        return res.status(500).send({ error: 'Invalid students.json format.' });
+      }
+    }
+
+    // Check for duplicate student in the same class and section
+    const duplicate = students.find(s =>
+      s.rollNumber === newStudent.rollNumber &&
+      s.class === newStudent.class &&
+      s.section === newStudent.section
+    );
+
+    if (duplicate) {
+      return res.status(400).send({ error: 'Student with this Roll No. already exists in the class-section.' });
+    }
+
+    const id = Date.now();
+    students.push({ ...newStudent, id });
+
+    // Write the updated data back to the JSON file
+    fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
+      if (err) return res.status(500).send({ error: 'Error saving student.' });
+      res.status(201).send({ message: 'Student added successfully!', id });
+    });
+  });
+});
 
 // 👇 Example Routes (from the second provided code snippet)
 // These lines imply you have separate route files.
