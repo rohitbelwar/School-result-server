@@ -15,12 +15,12 @@
       { "name": "G.K", "marks": 44 },
       { "name": "COMPUTER", "marks": 47 }
     ],
-    "examTerm": "First Term",  // <-- यह जोड़ें
-    "fullMarks": "100",        // <-- यह भी जोड़ें
-    "total": 314,              // <-- यह भी जोड़ें (विषयों के अंकों का योग)
-    "percent": 89.71,          // <-- यह भी जोड़ें (गणना के बाद)
-    "id": 1234567890,          // <-- एक यूनिक ID भी जोड़ें
-    "rank": 1                  // <-- रैंक भी जोड़ें
+    "examTerm": "First Term",
+    "fullMarks": "100",
+    "total": 314,
+    "percent": 89.71,
+    "id": 1234567890,
+    "rank": 1
   },
   {
     "name": "Priya Singh",
@@ -36,11 +36,11 @@
       { "name": "S.ST", "marks": 75 },
       { "name": "HINDI", "marks": 80 }
     ],
-    "examTerm": "Final Term", // <-- यह जोड़ें
-    "fullMarks": "100",      // <-- यह भी जोड़ें
-    "total": 368,            // <-- यह भी जोड़ें
-    "percent": 73.60,        // <-- यह भी जोड़ें
-    "id": 9876543210,        // <-- एक यूनिक ID भी जोड़ें
-    "rank": 1                // <-- रैंक भी जोड़ें
+    "examTerm": "Final Term",
+    "fullMarks": "100",
+    "total": 368,
+    "percent": 73.6,
+    "id": 9876543210,
+    "rank": 1
   }
 ]
