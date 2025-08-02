@@ -364,7 +364,7 @@ app.delete('/delete-student/:id', async (req, res) => {
     }
   } catch (error) {
     console.error('Error deleting student:', error); //
-    res.status(500).json({ error: 'छात्र परिणाम हटाते समय सर्वर त्रुटि हुई।' }); //
+    res.status(500).json({ error: 'छात्र परिणाम हटाते समय एक त्रुटि हुई।' }); //
   }
 });
 
@@ -377,7 +377,7 @@ app.post('/add-student-details', (req, res) => {
   const newStudent = req.body;
 
   if (!newStudent.name || !newStudent.rollNumber || !newStudent.class || !newStudent.section || !newStudent.dob) {
-    return res.status(400).send({ error: 'Missing required student fields.' });
+    return res.status(400).send({ error: 'Missing required fields: name, rollNumber, class, section, or dob.' });
   }
 
   // Use fs module to read the JSON file
@@ -399,7 +399,7 @@ app.post('/add-student-details', (req, res) => {
     );
 
     if (duplicate) {
-      return res.status(400).send({ error: 'Student with this Roll No. already exists in the class-section.' });
+      return res.status(400).send({ error: 'Student with same Roll Number already exists in this class-section.' });
     }
 
     const id = Date.now();
@@ -407,28 +407,121 @@ app.post('/add-student-details', (req, res) => {
 
     // Write the updated data back to the JSON file
     fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
-      if (err) return res.status(500).send({ error: 'Error saving student.' });
+      if (err) {
+        return res.status(500).send({ error: 'Error writing to students.json file.' });
+      }
       res.status(201).send({ message: 'Student added successfully!', id });
     });
   });
 });
 
-// 👇 Example Routes (from the second provided code snippet)
-// These lines imply you have separate route files.
-// For this code to work, you need to create 'student.model.js' and 'teacher.model.js'
-// and export an Express Router from them, containing the respective API endpoints.
-// Example: In student.model.js: module.exports = router;
-// and in teacher.model.js: module.exports = router;
+// Get All Students (from the JSON file)
+app.get('/get-all-students', (req, res) => {
+    fs.readFile('students.json', 'utf8', (err, data) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                return res.status(200).json([]);
+            }
+            return res.status(500).send({ error: 'Error reading students file.' });
+        }
+        try {
+            const students = JSON.parse(data);
+            res.status(200).json(students);
+        } catch (e) {
+            res.status(500).send({ error: 'Invalid students.json format.' });
+        }
+    });
+});
 
-// app.get("/", (req, res) => { // This route is from the second snippet
-//   res.send("Server is running...");
-// });
+// Get a single student's details (from the JSON file)
+app.get('/get-student-details/:id', (req, res) => {
+    const studentId = parseInt(req.params.id);
+    fs.readFile('students.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send({ error: 'Error reading students file.' });
+        }
+        try {
+            const students = JSON.parse(data);
+            const student = students.find(s => s.id === studentId);
+            if (student) {
+                res.status(200).json(student);
+            } else {
+                res.status(404).send({ error: 'Student not found.' });
+            }
+        } catch (e) {
+            res.status(500).send({ error: 'Invalid students.json format.' });
+        }
+    });
+});
 
-// const studentRoutes = require('./student.model'); // This line means student.model.js should export a router
-// const teacherRoutes = require('./teacher.model'); // This line means teacher.model.js should export a router
+// Update a student's details (in the JSON file)
+app.put('/update-student-details/:id', (req, res) => {
+    const studentId = parseInt(req.params.id);
+    const updatedStudent = req.body;
+    fs.readFile('students.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send({ error: 'Error reading students file.' });
+        }
+        try {
+            let students = JSON.parse(data);
+            const studentIndex = students.findIndex(s => s.id === studentId);
+            if (studentIndex === -1) {
+                return res.status(404).send({ error: 'Student not found.' });
+            }
+            
+            // Check for duplicate roll number, excluding the current student
+            const duplicate = students.find((s, index) =>
+                index !== studentIndex &&
+                s.rollNumber === updatedStudent.rollNumber &&
+                s.class === updatedStudent.class &&
+                s.section === updatedStudent.section
+            );
 
-// app.use("/api/students", studentRoutes); // All routes defined in student.model.js will be prefixed with /api/students
-// app.use("/api/teachers", teacherRoutes); // All routes defined in teacher.model.js will be prefixed with /api/teachers
+            if (duplicate) {
+                return res.status(400).send({ error: 'Student with same Roll No. already exists in the class-section.' });
+            }
+
+            students[studentIndex] = { ...updatedStudent, id: studentId };
+
+            fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
+                if (err) {
+                    return res.status(500).send({ error: 'Error saving student.' });
+                }
+                res.status(200).send({ message: 'Student updated successfully!' });
+            });
+        } catch (e) {
+            res.status(500).send({ error: 'Invalid students.json format.' });
+        }
+    });
+});
+
+// Delete a student's details (from the JSON file)
+app.delete('/delete-student-details/:id', (req, res) => {
+    const studentId = parseInt(req.params.id);
+    fs.readFile('students.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send({ error: 'Error reading students file.' });
+        }
+        try {
+            let students = JSON.parse(data);
+            const originalLength = students.length;
+            students = students.filter(s => s.id !== studentId);
+
+            if (students.length === originalLength) {
+                return res.status(404).send({ error: 'Student not found.' });
+            }
+
+            fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
+                if (err) {
+                    return res.status(500).send({ error: 'Error deleting student.' });
+                }
+                res.status(200).send({ message: 'Student deleted successfully!' });
+            });
+        } catch (e) {
+            res.status(500).send({ error: 'Invalid students.json format.' });
+        }
+    });
+});
 
 // Start the server
 app.listen(PORT, () => {
