@@ -364,7 +364,7 @@ app.delete('/delete-student/:id', async (req, res) => {
     }
   } catch (error) {
     console.error('Error deleting student:', error); //
-    res.status(500).json({ error: 'छात्र परिणाम हटाते समय एक त्रुटि हुई।' }); //
+    res.status(500).json({ error: 'छात्र परिणाम हटाते समय सर्वर त्रुटि हुई।' }); //
   }
 });
 
@@ -522,6 +522,74 @@ app.delete('/delete-student-details/:id', (req, res) => {
         }
     });
 });
+
+// --- NEW ROUTES ADDED AS PER YOUR REQUEST ---
+
+// Route to get a single student by roll number
+app.get("/get-student-by-roll", (req, res) => {
+  const { rollNumber, class: studentClass, section } = req.query;
+
+  fs.readFile('students.json', 'utf8', (err, data) => {
+    if (err) return res.status(500).send({ error: 'Error reading student data' });
+
+    try {
+      const students = JSON.parse(data);
+      const found = students.find(s =>
+        s.rollNumber === rollNumber &&
+        s.class === studentClass &&
+        s.section === section
+      );
+
+      if (!found) return res.status(404).send({ error: 'Student not found.' });
+      res.send(found);
+    } catch (e) {
+      return res.status(500).send({ error: 'Invalid JSON data.' });
+    }
+  });
+});
+
+// Route to add a student's result
+app.post("/add-student-result/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const resultData = req.body;
+
+  fs.readFile('students.json', 'utf8', (err, data) => {
+    if (err) return res.status(500).send({ error: 'Error reading student data' });
+
+    try {
+      let students = JSON.parse(data);
+      const studentIndex = students.findIndex(s => s.id === id);
+
+      if (studentIndex === -1) return res.status(404).send({ error: 'Student not found.' });
+
+      // Update student result
+      students[studentIndex].subjects = resultData.subjects;
+      students[studentIndex].examTerm = resultData.examTerm;
+      students[studentIndex].total = resultData.total;
+      students[studentIndex].percent = resultData.percent;
+
+      // Rank calculation
+      const group = students.filter(s =>
+        s.class === students[studentIndex].class &&
+        s.section === students[studentIndex].section &&
+        s.examTerm === students[studentIndex].examTerm
+      );
+
+      group.sort((a, b) => b.percent - a.percent);
+      group.forEach((stu, i) => {
+        stu.rank = i + 1;
+      });
+
+      fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
+        if (err) return res.status(500).send({ error: 'Error saving student data.' });
+        res.send({ message: 'Result saved successfully!' });
+      });
+    } catch (e) {
+      return res.status(500).send({ error: 'Invalid student data format.' });
+    }
+  });
+});
+
 
 // Start the server
 app.listen(PORT, () => {
