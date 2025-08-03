@@ -102,6 +102,18 @@ studentResultSchema.pre('save', async function(next) {
 
 const StudentResult = mongoose.model('StudentResult', studentResultSchema); //
 
+// Subject Schema
+const subjectSchema = new mongoose.Schema({
+  class: { type: String, required: true },
+  section: { type: String, required: true },
+  term: { type: String, required: true },
+  name: { type: String, required: true },
+  fullMarks: { type: Number, required: true }
+});
+
+const Subject = mongoose.model('Subject', subjectSchema);
+
+
 // --- API Endpoints ---
 // The following routes are moved to separate files as per the second provided code snippet's structure.
 // If you intend to keep them in server.js, uncomment and keep them here.
@@ -588,6 +600,42 @@ app.post("/add-student-result/:id", (req, res) => {
       return res.status(500).send({ error: 'Invalid student data format.' });
     }
   });
+});
+
+
+// Add Subject
+app.post('/add-subject', async (req, res) => {
+  const { class: subjectClass, section, term, name, fullMarks } = req.body;
+
+  if (!subjectClass || !section || !term || !name || !fullMarks) {
+    return res.status(400).json({ error: 'सभी फ़ील्ड आवश्यक हैं।' });
+  }
+
+  try {
+    const existing = await Subject.findOne({ class: subjectClass, section, term, name });
+    if (existing) {
+      return res.status(400).json({ error: 'यह विषय पहले से मौजूद है।' });
+    }
+
+    const subject = new Subject({ class: subjectClass, section, term, name, fullMarks });
+    await subject.save();
+    res.status(201).json({ message: 'Subject सफलतापूर्वक जोड़ा गया!' });
+  } catch (err) {
+    console.error('Error adding subject:', err);
+    res.status(500).json({ error: 'Subject जोड़ने में सर्वर त्रुटि हुई।' });
+  }
+});
+
+
+// Get All Subjects
+app.get('/get-subjects', async (req, res) => {
+  try {
+    const subjects = await Subject.find({});
+    res.status(200).json(subjects);
+  } catch (err) {
+    console.error('Error fetching subjects:', err);
+    res.status(500).json({ error: 'Subjects प्राप्त करने में त्रुटि हुई।' });
+  }
 });
 
 
