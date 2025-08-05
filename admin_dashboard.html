@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Teacher & Student Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .form-input, .form-select {
+      border: 1px solid #d1d5db;
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+      width: 100%;
+    }
+
+    /* Updated and Improved Main Navigation Buttons */
+    .nav-btn {
+      background-color: #ffffff; /* White background */
+      color: #4a5568; /* Dark gray text color */
+      padding: 0.75rem 1.75rem;
+      border-radius: 9999px; /* Fully rounded pills */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      border: 2px solid #e2e8f0; /* Light gray border */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .nav-btn:hover {
+      background-color: #2c5282; /* Dark blue on hover */
+      color: white;
+      border-color: #2c5282;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
+    }
+    .nav-btn.active {
+      background: linear-gradient(45deg, #4299e1, #667eea); /* Blue gradient */
+      color: white;
+      border: 2px solid transparent; /* No border for active state */
+      box-shadow: 0 4px 12px rgba(66, 153, 225, 0.5);
+      transform: translateY(0);
+    }
+    .nav-btn-container {
+      border-bottom: 2px solid #e9ecef;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    /* Primary Action Buttons (Add, Save, etc.) */
+    .btn-primary {
+      background: #10b981; /* Professional green */
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 700;
+      box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #059669;
+      box-shadow: 0 6px 10px rgba(5, 150, 105, 0.4);
+    }
+
+    /* Info Buttons (Clear) */
+    .btn-info {
+      background: #6c757d; /* Gray color */
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    .btn-info:hover {
+      background: #5a6268;
+    }
+
+    /* Small Action Buttons (Edit, Delete) */
+    .btn-action {
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      margin-right: 0.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn-delete { background-color: #dc3545; color: white; }
+    .btn-delete:hover { background-color: #c82333; transform: scale(1.05); }
+    .btn-edit { background-color: #28a745; color: white; }
+    .btn-edit:hover { background-color: #218838; transform: scale(1.05); }
+    .btn-logout { 
+      background: #dc3545;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(220, 53, 69, 0.3);
+      font-weight: 600;
+      border: none;
+      transition: background 0.3s ease;
+    }
+    .btn-logout:hover { 
+      background: #c82333;
+    }
+    
+    .table-header { background-color: #e5e7eb; font-weight: 600; color: #374151; }
+    .table-cell { padding: 0.75rem; border: 1px solid #e5e7eb; }
+  </style>
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-xl my-8">
+    <h2 class="text-4xl font-extrabold mb-8 text-center text-blue-800 border-b-2 pb-4 border-blue-200">
+      Admin Dashboard - Management
+    </h2>
+    <div class="flex justify-between items-center mb-4">
+      <div class="text-xl font-bold">Admin Panel</div>
+      <button onclick="logoutAdmin()" class="btn-logout">Logout</button>
+    </div>
+
+    <div class="nav-btn-container">
+      <button id="showStudentsBtn" onclick="showSection('student')" class="nav-btn active">Student Details</button>
+      <button id="showTeachersBtn" onclick="showSection('teacher')" class="nav-btn">Teacher Details</button>
+      <button id="showResultsBtn" onclick="showSection('result')" class="nav-btn">Result Print</button>
+      <button id="showSubjectsBtn" onclick="showSection('subject')" class="nav-btn">Subject Setup</button>
+    </div>
+
+    <div id="studentSectionContainer">
+      <h3 class="text-2xl font-bold mt-12 mb-4 text-gray-800">Manage Students</h3>
+      <button onclick="toggleStudentForm()" class="btn-primary mb-6">Add/Edit Student Details</button>
+      <div id="studentFormContainer" class="space-y-6" style="display: none;">
+        <form id="studentDetailsForm">
+          <input type="hidden" id="studentDetailsId" value="" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div><label for="studentName" class="font-medium text-gray-700">Student's Name</label><input type="text" id="studentDetailsName" class="form-input" required /></div>
+            <div><label for="fatherName" class="font-medium text-gray-700">Father's Name</label><input type="text" id="fatherName" class="form-input" required /></div>
+            <div><label for="motherName" class="font-medium text-gray-700">Mother's Name</label><input type="text" id="motherName" class="form-input" required /></div>
+            <div><label for="address" class="font-medium text-gray-700">Address (Optional)</label><input type="text" id="address" class="form-input" /></div>
+            <div><label for="dob" class="font-medium text-gray-700">Date of Birth</label><input type="date" id="dob" class="form-input" required /></div>
+            <div><label for="studentDetailsClass" class="font-medium text-gray-700">Class</label>
+              <select id="studentDetailsClass" class="form-select" required>
+                <option value="">-- Select Class --</option>
+                <option>Pre Nursery</option><option>Nursery</option><option>LKG</option><option>UKG</option>
+                <option>I</option><option>II</option><option>III</option><option>IV</option>
+                <option>V</option><option>VI</option><option>VII</option><option>VIII</option>
+                <option>IX</option><option>X</option>
+              </select>
+            </div>
+            <div><label for="studentDetailsRoll" class="font-medium text-gray-700">Roll Number</label><input type="text" id="studentDetailsRoll" class="form-input" required /></div>
+            <div><label for="studentDetailsSection" class="font-medium text-gray-700">Section</label>
+              <select id="studentDetailsSection" class="form-select" required>
+                <option value="">-- Select Section --</option>
+                <option>A</option><option>B</option><option>C</option><option>D</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary mt-6 w-full" id="saveStudentBtn">Add Student Details</button>
+          <button type="button" onclick="clearStudentForm()" class="btn-info mt-2 w-full">Clear Form</button>
+        </form>
+      </div>
+      <div id="studentsContainer" class="mt-4 overflow-x-auto rounded-lg shadow-sm"></div>
+    </div>
+
+    <div id="teacherSectionContainer" style="display: none;">
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-gray-800 border-t-2 pt-6 border-gray-200">Add/Edit Class Teacher</h3>
+      <form id="teacherForm" class="space-y-6">
+        <input type="hidden" id="teacherId" value="" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div><label for="teacherName" class="font-medium text-gray-700">Teacher Name</label><input type="text" id="teacherName" class="form-input" required /></div>
+          <div>
+            <label for="teacherClass" class="font-medium text-gray-700">Class</label>
+            <select id="teacherClass" class="form-select" required>
+              <option value="">-- Select Class --</option>
+              <option>Pre Nursery</option> <option>Nursery</option> <option>LKG</option> <option>UKG</option>
+              <option>I</option><option>II</option><option>III</option><option>IV</option>
+              <option>V</option><option>VI</option><option>VII</option><option>VIII</option>
+              <option>IX</option><option>X</option>
+            </select>
+          </div>
+          <div>
+            <label for="teacherSection" class="font-medium text-gray-700">Section</label>
+            <select id="teacherSection" class="form-select" required>
+              <option value="">-- Select Section --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+            </select>
+          </div>
+          <div><label for="teacherPassword" class="font-medium text-gray-700">Password</label><input type="password" id="teacherPassword" class="form-input" placeholder="Leave blank to keep current" /></div>
+        </div>
+        <button type="submit" class="btn-primary mt-6 w-full" id="saveTeacherBtn">Add Teacher</button>
+        <button type="button" onclick="clearTeacherForm()" class="btn-info mt-2 w-full">Clear Form</button>
+      </form>
+      <h3 class="text-2xl font-bold mt-12 mb-4 text-gray-800 border-t-2 pt-6 border-gray-200">Manage Teachers</h3>
+      <div class="mb-4">
+        <label class="font-medium text-gray-700 mr-2">Filter Teachers:</label>
+        <select id="teacherStatusFilter" onchange="filterTeachers()" class="form-select w-60 inline-block">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <div id="teachersContainer" class="mt-4 overflow-x-auto rounded-lg shadow-sm"></div>
+    </div>
+
+    <div id="resultSectionContainer" style="display: none;">
+      <h3 class="text-2xl font-bold mt-12 mb-4 text-gray-800">Print Student Results</h3>
+      <div class="p-6 bg-gray-50 rounded-lg shadow-md">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div><label for="printClass" class="font-medium text-gray-700">Select Class</label>
+            <select id="printClass" class="form-select" required>
+              <option value="">-- Select Class --</option>
+              <option>Pre Nursery</option><option>Nursery</option><option>LKG</option><option>UKG</option>
+              <option>I</option><option>II</option><option>III</option><option>IV</option>
+              <option>V</option><option>VI</option><option>VII</option><option>VIII</option>
+              <option>IX</option><option>X</option>
+            </select>
+          </div>
+          <div><label for="printSection" class="font-medium text-gray-700">Select Section</label>
+            <select id="printSection" class="form-select" required>
+              <option value="">-- Select Section --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+            </select>
+          </div>
+          <div>
+            <label for="printTerm" class="font-medium text-gray-700">Exam Term</label>
+            <select id="printTerm" class="form-select">
+                <option value="">-- Select Term --</option>
+                <option>First Term</option>
+                <option>Second Term</option>
+                <option>Third Term</option>
+                <optgroup label="Monthly Test">
+                  <option>Monthly Test - January</option>
+                  <option>Monthly Test - February</option>
+                  <option>Monthly Test - March</option>
+                  <option>Monthly Test - April</option>
+                  <option>Monthly Test - May</option>
+                  <option>Monthly Test - June</option>
+                  <option>Monthly Test - July</option>
+                  <option>Monthly Test - August</option>
+                  <option>Monthly Test - September</option>
+                  <option>Monthly Test - October</option>
+                  <option>Monthly Test - November</option>
+                  <option>Monthly Test - December</option>
+                </optgroup>
+              </select>
+          </div>
+          <div class="flex flex-col justify-end gap-2">
+            <button onclick="printResults()" class="btn-primary w-full">Print</button>
+            <button onclick="publishResults()" class="btn-info w-full">📢 Publish Result</button>
+            <button onclick="downloadResultsPDF()" class="btn-primary w-full bg-indigo-600 hover:bg-indigo-700">⬇️ Download PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="subjectSectionContainer" style="display: none;">
+      <h3 class="text-2xl font-bold mt-12 mb-4 text-gray-800">Class-Wise Subject & Full Marks Setup</h3>
+      <form id="subjectForm" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div>
+            <label class="font-medium text-gray-700">Class</label>
+            <select id="subjectClass" class="form-select" required>
+              <option value="">-- Select Class --</option>
+              <option>Pre Nursery</option><option>Nursery</option><option>LKG</option><option>UKG</option>
+              <option>I</option><option>II</option><option>III</option><option>IV</option>
+              <option>V</option><option>VI</option><option>VII</option><option>VIII</option>
+              <option>IX</option><option>X</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-medium text-gray-700">Exam Term</label>
+            <select id="examTerm" class="form-select" required>
+              <option value="">-- Select Term --</option>
+              <option>First Term</option>
+              <option>Second Term</option>
+              <option>Third Term</option>
+              <optgroup label="Monthly Tests">
+                <option value="Monthly Test - January">Monthly Test - January</option>
+                <option value="Monthly Test - February">Monthly Test - February</option>
+                <option value="Monthly Test - March">Monthly Test - March</option>
+                <option value="Monthly Test - April">Monthly Test - April</option>
+                <option value="Monthly Test - May">Monthly Test - May</option>
+                <option value="Monthly Test - June">Monthly Test - June</option>
+                <option value="Monthly Test - July">Monthly Test - July</option>
+                <option value="Monthly Test - August">Monthly Test - August</option>
+                <option value="Monthly Test - September">Monthly Test - September</option>
+                <option value="Monthly Test - October">Monthly Test - October</option>
+                <option value="Monthly Test - November">Monthly Test - November</option>
+                <option value="Monthly Test - December">Monthly Test - December</option>
+              </optgroup>
+            </select>
+          </div>
+          
+          <div>
+            <label class="font-medium text-gray-700">Section</label>
+            <select id="subjectSection" class="form-select" required>
+              <option value="">-- Select Section --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+            </select>
+          </div>
+        <div>
+            <label class="font-medium text-gray-700">Subject Name</label>
+            <select id="subjectName" class="form-select" required>
+              <option value="">-- Select Subject --</option>
+              <option>English</option>
+              <option>Hindi</option>
+              <option>Math</option>
+              <option>Science</option>
+              <option>Social Studies</option>
+              <option>Computer</option>
+              <option>G.K.</option>
+              <option>Moral Science</option>
+              <option>Art</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-medium text-gray-700">Full Marks</label>
+            <input type="number" id="subjectFullMarks" class="form-input" placeholder="e.g. 100" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary mt-6 w-full">Add Subject</button>
+      </form>
+
+      <h4 class="text-xl font-semibold mt-10 mb-3 text-gray-700">Added Subjects</h4>
+      <div id="subjectsContainer" class="overflow-x-auto bg-gray-50 rounded-lg shadow-md p-4"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const API_URL = 'https://school-result-server.onrender.com';
+
+    function logoutAdmin() {
+      // Logic for admin logout, if any
+      window.location.href = 'index.html';
+    }
+
+    // --- Section Visibility Logic ---
+    const sectionContainers = {
+        student: document.getElementById('studentSectionContainer'),
+        teacher: document.getElementById('teacherSectionContainer'),
+        result: document.getElementById('resultSectionContainer'),
+        subject: document.getElementById('subjectSectionContainer')
+    };
+
+    const navButtons = {
+        student: document.getElementById('showStudentsBtn'),
+        teacher: document.getElementById('showTeachersBtn'),
+        result: document.getElementById('showResultsBtn'),
+        subject: document.getElementById('showSubjectsBtn')
+    };
+
+    function showSection(sectionId) {
+        // Hide all sections and deactivate all buttons
+        for (const id in sectionContainers) {
+            sectionContainers[id].style.display = 'none';
+            navButtons[id].classList.remove('active');
+        }
+        // Show the selected section and activate its button
+        sectionContainers[sectionId].style.display = 'block';
+        navButtons[sectionId].classList.add('active');
+    }
+
+    // Show student section by default on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        showSection('student');
+        filterTeachers();
+        displayStudents();
+        displaySubjects();
+    });
+
+    // --- Teacher Management Functions ---
+    document.getElementById('teacherForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const teacherId = document.getElementById('teacherId').value;
+      const name = document.getElementById('teacherName').value.trim();
+      const teacherClass = document.getElementById('teacherClass').value;
+      const teacherSection = document.getElementById('teacherSection').value;
+      const password = document.getElementById('teacherPassword').value;
+
+      if (!name || !teacherClass || !teacherSection) {
+        alert('कृपया सभी आवश्यक फ़ील्ड भरें (शिक्षक का नाम, क्लास, सेक्शन)।');
+        return;
+      }
+
+      let url = `${API_URL}/add-teacher`;
+      let method = 'POST';
+      const teacherData = { name, class: teacherClass, section: teacherSection };
+
+      if (teacherId) {
+        url = `${API_URL}/update-teacher/${teacherId}`;
+        method = 'PUT';
+        if (password) { teacherData.password = password; }
+      } else {
+        if (!password) { alert('नए शिक्षक के लिए पासवर्ड आवश्यक है।'); return; }
+        teacherData.password = password;
+      }
+
+      try {
+        const response = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(teacherData)
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(`✅ ${result.message}`);
+          clearTeacherForm();
+          filterTeachers();
+        } else {
+          alert(`❌ Error: ${result.error}`);
+        }
+      } catch (error) {
+        console.error('Error saving teacher:', error);
+        alert('❌ शिक्षक को सहेजते समय एक त्रुटि हुई।');
+      }
+    });
+
+    function clearTeacherForm() {
+      document.getElementById('teacherId').value = '';
+      document.getElementById('teacherName').value = '';
+      document.getElementById('teacherClass').value = '';
+      document.getElementById('teacherSection').value = '';
+      document.getElementById('teacherPassword').value = '';
+      document.getElementById('saveTeacherBtn').innerText = 'Add Teacher';
+      document.getElementById('teacherPassword').placeholder = 'Leave blank to keep current password';
+    }
+
+    async function filterTeachers() {
+      const filter = document.getElementById('teacherStatusFilter').value;
+      const response = await fetch(`${API_URL}/get-teachers`);
+      const teachers = await response.json();
+      let filtered = teachers;
+
+      if (filter === 'active') {
+        filtered = teachers.filter(t => (t.status || 'active') === 'active');
+      } else if (filter === 'inactive') {
+        filtered = teachers.filter(t => t.status === 'inactive');
+      }
+
+      renderTeachers(filtered);
+    }
+
+    function renderTeachers(teachers) {
+      const container = document.getElementById('teachersContainer');
+      if (teachers.length === 0) {
+        container.innerHTML = "<p class='text-gray-500 text-center py-4'>कोई शिक्षक नहीं मिला।</p>";
+        return;
+      }
+
+      let html = `<table class="min-w-full bg-white border border-gray-200">
+        <thead class="table-header"><tr>
+            <th class="table-cell">ID</th><th class="table-cell">Name</th>
+            <th class="table-cell">Class</th><th class="table-cell">Section</th>
+            <th class="table-cell">Status</th><th class="table-cell">Actions</th>
+        </tr></thead><tbody>`;
+        
+      teachers.forEach(teacher => {
+        html += `<tr class="hover:bg-gray-50"><td class="table-cell">${teacher.id}</td>
+          <td class="table-cell">${teacher.name}</td><td class="table-cell">${teacher.class}</td>
+          <td class="table-cell">${teacher.section}</td>
+          <td class="table-cell">${teacher.status || 'active'}</td>
+          <td class="table-cell">
+            <button onclick="editTeacher('${teacher.id}')" class="btn-action btn-edit">Edit</button>
+            <button onclick="deleteTeacher('${teacher.id}')" class="btn-action btn-delete">Delete</button>
+          </td></tr>`;
+      });
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    async function editTeacher(idToEdit) {
+      try {
+        const response = await fetch(`${API_URL}/get-teachers`);
+        const allTeachers = await response.json();
+        const teacherToEdit = allTeachers.find(t => t.id === parseInt(idToEdit));
+        if (teacherToEdit) {
+          document.getElementById('teacherId').value = teacherToEdit.id;
+          document.getElementById('teacherName').value = teacherToEdit.name;
+          document.getElementById('teacherClass').value = teacherToEdit.class;
+          document.getElementById('teacherSection').value = teacherToEdit.section;
+          document.getElementById('teacherPassword').value = '';
+          document.getElementById('teacherPassword').placeholder = 'Leave blank to keep current password';
+          document.getElementById('saveTeacherBtn').innerText = 'Update Teacher';
+          showSection('teacher');
+          window.scrollTo(0, 0);
+        } else { alert('संपादित करने के लिए शिक्षक नहीं मिला।'); }
+      } catch (error) {
+        console.error('Error fetching teacher for edit:', error);
+        alert('शिक्षक जानकारी प्राप्त करते समय त्रुटि हुई।');
+      }
+    }
+
+    async function deleteTeacher(idToDelete) {
+      if (confirm('क्या आप वाकई इस शिक्षक को हटाना चाहते हैं?')) {
+        try {
+          const response = await fetch(`${API_URL}/delete-teacher/${idToDelete}`, { method: 'DELETE' });
+          const result = await response.json();
+          if (response.ok) {
+            alert(`✅ ${result.message}`);
+            filterTeachers();
+          } else { alert(`❌ Error: ${result.error}`); }
+        } catch (error) {
+          console.error('Error deleting teacher:', error);
+          alert('❌ शिक्षक को हटाते समय एक त्रुटि हुई।');
+        }
+      }
+    }
+    
+    // --- Student Management Functions ---
+    function toggleStudentForm() {
+      const formContainer = document.getElementById('studentFormContainer');
+      if (formContainer.style.display === 'none') {
+        formContainer.style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+      } else {
+        formContainer.style.display = 'none';
+        clearStudentForm();
+      }
+    }
+
+    document.getElementById('studentDetailsForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const studentId = document.getElementById('studentDetailsId').value;
+      const name = document.getElementById('studentDetailsName').value.trim();
+      const fatherName = document.getElementById('fatherName').value.trim();
+      const motherName = document.getElementById('motherName').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const dob = document.getElementById('dob').value.trim();
+      const studentClass = document.getElementById('studentDetailsClass').value;
+      const rollNumber = document.getElementById('studentDetailsRoll').value.trim();
+      const section = document.getElementById('studentDetailsSection').value;
+
+      const studentData = { name, fatherName, motherName, address, dob, class: studentClass, rollNumber, section };
+      
+      let url = `${API_URL}/add-student-details`;
+      let method = 'POST';
+
+      if (studentId) {
+        url = `${API_URL}/update-student-details/${studentId}`;
+        method = 'PUT';
+      }
+
+      try {
+        const response = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(studentData)
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(`✅ ${result.message}`);
+          clearStudentForm();
+          displayStudents();
+          toggleStudentForm();
+        } else {
+          alert(`❌ ${result.error}`);
+        }
+      } catch (error) {
+        console.error('Error saving student details:', error);
+        alert('❌ छात्र का विवरण सहेजते समय एक त्रुटि हुई।');
+      }
+    });
+
+    function clearStudentForm() {
+      document.getElementById('studentDetailsId').value = '';
+      document.getElementById('studentDetailsName').value = '';
+      document.getElementById('fatherName').value = '';
+      document.getElementById('motherName').value = '';
+      document.getElementById('address').value = '';
+      document.getElementById('dob').value = '';
+      document.getElementById('studentDetailsClass').value = '';
+      document.getElementById('studentDetailsRoll').value = '';
+      document.getElementById('studentDetailsSection').value = '';
+      document.getElementById('saveStudentBtn').innerText = 'Add Student Details';
+    }
+
+    async function displayStudents() {
+      try {
+        const response = await fetch(`${API_URL}/get-all-students`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const students = await response.json();
+        
+        const container = document.getElementById('studentsContainer');
+        if (students.length === 0) {
+          container.innerHTML = "<p class='text-gray-500 text-center py-4'>कोई छात्र अभी तक जोड़े नहीं गए हैं।</p>";
+          return;
+        }
+
+        let html = `<table class="min-w-full bg-white border border-gray-200">
+          <thead class="table-header"><tr>
+            <th class="table-cell text-left">Name</th><th class="table-cell text-left">Roll No.</th>
+            <th class="table-cell text-left">Class</th><th class="table-cell text-left">Section</th>
+            <th class="table-cell text-left">DOB</th><th class="table-cell text-left">Actions</th>
+          </tr></thead><tbody>`;
+
+        students.forEach(student => {
+          html += `<tr class="hover:bg-gray-50">
+            <td class="table-cell">${student.name}</td><td class="table-cell">${student.rollNumber}</td>
+            <td class="table-cell">${student.class}</td><td class="table-cell">${student.section}</td>
+            <td class="table-cell">${student.dob || '-'}</td><td class="table-cell">
+              <button onclick="editStudentDetails('${student.id}')" class="btn-action btn-edit">Edit</button>
+              <button onclick="deleteStudentDetails('${student.id}')" class="btn-action btn-delete">Delete</button>
+            </td></tr>`;
+        });
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (error) {
+        console.error('Error fetching students:', error);
+        container.innerHTML = "<p class='text-danger text-center py-4'>छात्रों को लोड करते समय एक त्रुटि हुई।</p>";
+      }
+    }
+
+    async function editStudentDetails(idToEdit) {
+      try {
+        const response = await fetch(`${API_URL}/get-student-details/${idToEdit}`);
+        if (!response.ok) throw new Error('Student not found');
+        const student = await response.json();
+
+        showSection('student');
+        const formContainer = document.getElementById('studentFormContainer');
+        formContainer.style.display = 'block';
+
+        document.getElementById('studentDetailsId').value = student.id;
+        document.getElementById('studentDetailsName').value = student.name;
+        document.getElementById('fatherName').value = student.fatherName;
+        document.getElementById('motherName').value = student.motherName;
+        document.getElementById('address').value = student.address || '';
+        document.getElementById('dob').value = student.dob;
+        document.getElementById('studentDetailsClass').value = student.class;
+        document.getElementById('studentDetailsRoll').value = student.rollNumber;
+        document.getElementById('studentDetailsSection').value = student.section;
+        document.getElementById('saveStudentBtn').innerText = 'Update Student Details';
+        window.scrollTo(0, document.body.scrollHeight);
+      } catch (error) {
+        console.error('Error fetching student for edit:', error);
+        alert('छात्र का विवरण प्राप्त करते समय त्रुटि हुई।');
+      }
+    }
+
+    async function deleteStudentDetails(idToDelete) {
+      if (confirm('क्या आप वाकई इस छात्र के विवरण को हटाना चाहते हैं?')) {
+        try {
+          const response = await fetch(`${API_URL}/delete-student-details/${idToDelete}`, { method: 'DELETE' });
+          const result = await response.json();
+          if (response.ok) {
+            alert(`✅ ${result.message}`);
+            displayStudents();
+          } else { alert(`❌ Error: ${result.error}`); }
+        } catch (error) {
+          console.error('Error deleting student:', error);
+          alert('❌ छात्र का विवरण हटाते समय एक त्रुटि हुई।');
+        }
+      }
+    }
+    
+    // --- Result Print Functions ---
+    async function printResults() {
+        const classToPrint = document.getElementById('printClass').value;
+        const sectionToPrint = document.getElementById('printSection').value;
+        const termToPrint = document.getElementById('printTerm').value;
+
+        if (!classToPrint || !sectionToPrint || !termToPrint) {
+            alert('कृपया कक्षा, सेक्शन और टर्म तीनों चुनें।');
+            return;
+        }
+
+        alert(`Printing results for Class: ${classToPrint}, Section: ${sectionToPrint}, Term: ${termToPrint}`);
+        
+        // This is where you would call your backend API to get the results.
+        // For example:
+        // try {
+        //   const response = await fetch(`${API_URL}/get-results-by-class-section-term?class=${classToPrint}&section=${sectionToPrint}&term=${termToPrint}`);
+        //   const results = await response.json();
+        //   // Logic to format and print the results
+        // } catch (error) {
+        //   console.error('Error fetching results:', error);
+        //   alert('परिणाम प्राप्त करते समय त्रुटि हुई।');
+        // }
+    }
+
+    async function publishResults() {
+      const cls = document.getElementById('printClass').value;
+      const sec = document.getElementById('printSection').value;
+      const term = document.getElementById('printTerm').value;
+      if (!cls || !sec || !term) {
+        alert('Class, Section और Term चुनना ज़रूरी है।');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/publish-results`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ class: cls, section: sec, term })
+        });
+        const result = await res.json();
+        alert(result.message || 'Result published successfully!');
+      } catch (error) {
+        alert('Result publish करते समय त्रुटि हुई।');
+      }
+    }
+
+    async function downloadResultsPDF() {
+      const cls = document.getElementById('printClass').value;
+      const sec = document.getElementById('printSection').value;
+      const term = document.getElementById('printTerm').value;
+      if (!cls || !sec || !term) {
+        alert('कृपया सभी फ़ील्ड भरें।');
+        return;
+      }
+
+      window.open(`${API_URL}/download-results-pdf?class=${cls}&section=${sec}&term=${term}`, '_blank');
+    }
+
+    // --- Subject Setup Functions ---
+    document.getElementById('subjectForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const subjectClass = document.getElementById('subjectClass').value;
+      const examTerm = document.getElementById('examTerm').value;
+      const section = document.getElementById('subjectSection').value;
+      const subjectName = document.getElementById('subjectName').value.trim();
+      const fullMarks = parseInt(document.getElementById('subjectFullMarks').value);
+
+      if (!subjectClass || !examTerm || !subjectName || !fullMarks) {
+        alert('सभी फ़ील्ड भरना अनिवार्य है।');
+        return;
+      }
+
+      const subjectData = {
+        class: subjectClass,
+        section: section,
+        term: examTerm,
+        name: subjectName,
+        fullMarks: fullMarks
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/add-subject`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(subjectData)
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert('Subject सफलतापूर्वक जोड़ा गया!');
+          displaySubjects();
+          document.getElementById('subjectForm').reset();
+        } else {
+          alert(`❌ ${result.error}`);
+        }
+      } catch (error) {
+        alert('Subject जोड़ने में त्रुटि हुई।');
+      }
+    });
+
+    async function displaySubjects() {
+      try {
+        const response = await fetch(`${API_URL}/get-subjects`);
+        const subjects = await response.json();
+        const container = document.getElementById('subjectsContainer');
+
+        if (!subjects.length) {
+          container.innerHTML = `<p class='text-gray-500'>कोई Subject जोड़ा नहीं गया है।</p>`;
+          return;
+        }
+
+        let html = `<table class="min-w-full bg-white border"><thead class="table-header">
+          <tr><th class="table-cell">Class</th><th class="table-cell">Term</th><th class="table-cell">Subject</th><th class="table-cell">Full Marks</th></tr></thead><tbody>`;
+
+        subjects.forEach(s => {
+          html += `<tr><td class="table-cell">${s.class}</td><td class="table-cell">${s.term}</td>
+            <td class="table-cell">${s.name}</td><td class="table-cell">${s.fullMarks}</td></tr>`;
+        });
+
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      } catch (error) {
+        console.error('Subjects fetch error:', error);
+      }
+    }
+  </script>
+</body>
+</html>
