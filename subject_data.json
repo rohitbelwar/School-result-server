@@ -1,0 +1,9634 @@
+[
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "I",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "II",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "III",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IV",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "V",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VI",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "VIII",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "IX",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Science",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "SSt",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "G.K",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Computer",
+    "fullMarks": 20
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "First Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Science",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "SSt",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Science",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "SSt",
+    "fullMarks": 100
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "G.K",
+    "fullMarks": 50
+  },
+  {
+    "class": "X",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Computer",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Pre Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "Nursery",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "LKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "A",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "B",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "C",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "English",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Hindi",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Maths",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Monthly Test",
+    "name": "Drawing",
+    "fullMarks": 20
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "First Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "English",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Hindi",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Maths",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Second Term",
+    "name": "Drawing",
+    "fullMarks": 50
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "English",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Hindi",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Maths",
+    "fullMarks": 100
+  },
+  {
+    "class": "UKG",
+    "section": "D",
+    "term": "Final Term",
+    "name": "Drawing",
+    "fullMarks": 100
+  }
+]
