@@ -604,6 +604,23 @@ app.post("/add-student-result/:id", (req, res) => {
 
 
 // Add Subject
+// Read and serve subject data from JSON file
+app.get('/api/subjects', (req, res) => {
+  fs.readFile('subject_data.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading subject_data.json:', err);
+      return res.status(500).send('Error reading subject data');
+    }
+    try {
+      const subjects = JSON.parse(data);
+      res.json(subjects);
+    } catch (parseErr) {
+      console.error('Error parsing subject_data.json:', parseErr);
+      res.status(500).send('Error parsing subject data');
+    }
+  });
+});
+
 app.post('/add-subject', async (req, res) => {
   const { class: subjectClass, section, term, name, fullMarks } = req.body;
 
