@@ -641,8 +641,7 @@ app.post('/add-subject', async (req, res) => {
     console.error('Error adding subject:', err);
     res.status(500).json({ error: 'Subject जोड़ने में सर्वर त्रुटि हुई।' });
   }
-});
-
+}
 
 // Get All Subjects
 app.get('/get-subjects', async (req, res) => {
@@ -654,6 +653,8 @@ app.get('/get-subjects', async (req, res) => {
     res.status(500).json({ error: 'Subjects प्राप्त करने में त्रुटि हुई।' });
   }
 });
+
+
 
 
 // Start the server
