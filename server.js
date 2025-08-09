@@ -102,18 +102,6 @@ studentResultSchema.pre('save', async function(next) {
 
 const StudentResult = mongoose.model('StudentResult', studentResultSchema); //
 
-// Subject Schema
-const subjectSchema = new mongoose.Schema({
-  class: { type: String, required: true },
-  section: { type: String, required: true },
-  term: { type: String, required: true },
-  name: { type: String, required: true },
-  fullMarks: { type: Number, required: true }
-});
-
-const Subject = mongoose.model('Subject', subjectSchema);
-
-
 // --- API Endpoints ---
 // The following routes are moved to separate files as per the second provided code snippet's structure.
 // If you intend to keep them in server.js, uncomment and keep them here.
@@ -376,7 +364,7 @@ app.delete('/delete-student/:id', async (req, res) => {
     }
   } catch (error) {
     console.error('Error deleting student:', error); //
-    res.status(500).json({ error: 'छात्र परिणाम हटाते समय सर्वर त्रुटि हुई।' }); //
+    res.status(500).json({ error: 'छात्र परिणाम हटाते समय एक त्रुटि हुई।' }); //
   }
 });
 
@@ -534,128 +522,6 @@ app.delete('/delete-student-details/:id', (req, res) => {
         }
     });
 });
-
-// --- NEW ROUTES ADDED AS PER YOUR REQUEST ---
-
-// Route to get a single student by roll number
-app.get("/get-student-by-roll", (req, res) => {
-  const { rollNumber, class: studentClass, section } = req.query;
-
-  fs.readFile('students.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send({ error: 'Error reading student data' });
-
-    try {
-      const students = JSON.parse(data);
-      const found = students.find(s =>
-        s.rollNumber === rollNumber &&
-        s.class === studentClass &&
-        s.section === section
-      );
-
-      if (!found) return res.status(404).send({ error: 'Student not found.' });
-      res.send(found);
-    } catch (e) {
-      return res.status(500).send({ error: 'Invalid JSON data.' });
-    }
-  });
-});
-
-// Route to add a student's result
-app.post("/add-student-result/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const resultData = req.body;
-
-  fs.readFile('students.json', 'utf8', (err, data) => {
-    if (err) return res.status(500).send({ error: 'Error reading student data' });
-
-    try {
-      let students = JSON.parse(data);
-      const studentIndex = students.findIndex(s => s.id === id);
-
-      if (studentIndex === -1) return res.status(404).send({ error: 'Student not found.' });
-
-      // Update student result
-      students[studentIndex].subjects = resultData.subjects;
-      students[studentIndex].examTerm = resultData.examTerm;
-      students[studentIndex].total = resultData.total;
-      students[studentIndex].percent = resultData.percent;
-
-      // Rank calculation
-      const group = students.filter(s =>
-        s.class === students[studentIndex].class &&
-        s.section === students[studentIndex].section &&
-        s.examTerm === students[studentIndex].examTerm
-      );
-
-      group.sort((a, b) => b.percent - a.percent);
-      group.forEach((stu, i) => {
-        stu.rank = i + 1;
-      });
-
-      fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
-        if (err) return res.status(500).send({ error: 'Error saving student data.' });
-        res.send({ message: 'Result saved successfully!' });
-      });
-    } catch (e) {
-      return res.status(500).send({ error: 'Invalid student data format.' });
-    }
-  });
-});
-
-
-// Add Subject
-// Read and serve subject data from JSON file
-app.get('/api/subjects', (req, res) => {
-  fs.readFile('subject_data.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading subject_data.json:', err);
-      return res.status(500).send('Error reading subject data');
-    }
-    try {
-      const subjects = JSON.parse(data);
-      res.json(subjects);
-    } catch (parseErr) {
-      console.error('Error parsing subject_data.json:', parseErr);
-      res.status(500).send('Error parsing subject data');
-    }
-  });
-});
-
-app.post('/add-subject', async (req, res) => {
-  const { class: subjectClass, section, term, name, fullMarks } = req.body;
-
-  if (!subjectClass || !section || !term || !name || !fullMarks) {
-    return res.status(400).json({ error: 'सभी फ़ील्ड आवश्यक हैं।' });
-  }
-
-  try {
-    const existing = await Subject.findOne({ class: subjectClass, section, term, name });
-    if (existing) {
-      return res.status(400).json({ error: 'यह विषय पहले से मौजूद है।' });
-    }
-
-    const subject = new Subject({ class: subjectClass, section, term, name, fullMarks });
-    await subject.save();
-    res.status(201).json({ message: 'Subject सफलतापूर्वक जोड़ा गया!' });
-  } catch (err) {
-    console.error('Error adding subject:', err);
-    res.status(500).json({ error: 'Subject जोड़ने में सर्वर त्रुटि हुई।' });
-  }
-}
-
-// Get All Subjects
-app.get('/get-subjects', async (req, res) => {
-  try {
-    const subjects = await Subject.find({});
-    res.status(200).json(subjects);
-  } catch (err) {
-    console.error('Error fetching subjects:', err);
-    res.status(500).json({ error: 'Subjects प्राप्त करने में त्रुटि हुई।' });
-  }
-});
-
-
-
 
 // Start the server
 app.listen(PORT, () => {
