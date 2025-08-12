@@ -4,7 +4,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const fs = require('fs');
 
-// आपके server.js से StudentResult का Schema कॉपी करें
+// आपके server.js से StudentResult का Schema कॉपी करें (इसे server.js के Schema जैसा ही रखें)
 const studentResultSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   fatherName: { type: String, trim: true },
@@ -13,8 +13,9 @@ const studentResultSchema = new mongoose.Schema({
   dob: { type: String, required: true },
   class: { type: String, required: true, trim: true },
   section: { type: String, required: true, trim: true },
-  examTerm: { type: String, trim: true },
-  fullMarks: { type: Number },
+  // समस्या यहाँ थी: server.js में यह दोनों फ़ील्ड 'required' हैं
+  examTerm: { type: String, required: true, trim: true },
+  fullMarks: { type: Number, required: true },
   subjects: [{
     name: { type: String, required: true },
     marks: { type: Number, required: true }
@@ -29,6 +30,11 @@ const StudentResult = mongoose.model('StudentResult', studentResultSchema);
 const MONGODB_URI = process.env.MONGODB_URI;
 
 async function migrateData() {
+  if (!MONGODB_URI) {
+    console.error('❌ MONGODB_URI नहीं मिली। कृपया अपनी .env फ़ाइल जांचें।');
+    return;
+  }
+
   try {
     // MongoDB से कनेक्ट करें
     await mongoose.connect(MONGODB_URI, {
@@ -62,9 +68,14 @@ async function migrateData() {
           dob: student.dob,
           class: student.class,
           section: student.section,
-          // बाकी फ़ील्ड्स अभी खाली रहेंगे, उन्हें बाद में अपडेट किया जा सकता है
+          
+          // --- समाधान ---
+          // अगर JSON में examTerm खाली है, तो एक डिफ़ॉल्ट मान दें
+          examTerm: student.examTerm || 'Not Available', 
+          // अगर JSON में fullMarks खाली है, तो एक डिफ़ॉल्ट मान (जैसे 100) दें
+          fullMarks: student.fullMarks || 100, 
+          
           subjects: student.subjects || [],
-          examTerm: student.examTerm || '',
           total: student.total || 0,
           percent: student.percent || 0
         });
