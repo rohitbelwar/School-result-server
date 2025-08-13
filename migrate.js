@@ -1,10 +1,9 @@
-// migrate.js
 
 require('dotenv').config();
 const mongoose = require('mongoose');
 const fs = require('fs');
 
-// आपके server.js से StudentResult का Schema कॉपी करें (इसे server.js के Schema जैसा ही रखें)
+// Server.js वाला schema और hook
 const studentResultSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   fatherName: { type: String, trim: true },
@@ -13,7 +12,6 @@ const studentResultSchema = new mongoose.Schema({
   dob: { type: String, required: true },
   class: { type: String, required: true, trim: true },
   section: { type: String, required: true, trim: true },
-  // समस्या यहाँ थी: server.js में यह दोनों फ़ील्ड 'required' हैं
   examTerm: { type: String, required: true, trim: true },
   fullMarks: { type: Number, required: true },
   subjects: [{
@@ -25,41 +23,60 @@ const studentResultSchema = new mongoose.Schema({
   rank: { type: Number }
 });
 
-const StudentResult = mongoose.model('StudentResult', studentResultSchema);
+studentResultSchema.pre('save', async function(next) {
+  const totalSubjects = this.subjects.length;
+  this.total = this.subjects.reduce((sum, sub) => sum + sub.marks, 0);
+  this.percent = (this.total / (totalSubjects * this.fullMarks)) * 100;
 
+  if (this.isNew || this.isModified('total') || this.isModified('percent')) {
+    const studentsInSameGroup = await this.constructor.find({
+      class: this.class,
+      section: this.section,
+      examTerm: this.examTerm
+    }).sort({ percent: -1, total: -1 });
+
+    for (let i = 0; i < studentsInSameGroup.length; i++) {
+      studentsInSameGroup[i].rank = i + 1;
+      await studentsInSameGroup[i].save({ validateBeforeSave: false });
+    }
+    if (this.isNew) {
+      const currentStudentRank = studentsInSameGroup.findIndex(s =>
+        s.name === this.name && s.rollNumber === this.rollNumber
+      );
+      if (currentStudentRank !== -1) {
+        this.rank = currentStudentRank + 1;
+      }
+    }
+  }
+  next();
+});
+
+const StudentResult = mongoose.model('StudentResult', studentResultSchema);
 const MONGODB_URI = process.env.MONGODB_URI;
 
 async function migrateData() {
   if (!MONGODB_URI) {
-    console.error('❌ MONGODB_URI नहीं मिली। कृपया अपनी .env फ़ाइल जांचें।');
+    console.error('❌ MONGODB_URI नहीं मिली।');
     return;
   }
 
   try {
-    // MongoDB से कनेक्ट करें
-    await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log('✅ MongoDB से सफलतापूर्वक कनेक्ट हो गया।');
+    await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('✅ MongoDB connected.');
 
-    // students.json फ़ाइल पढ़ें
-    const jsonData = fs.readFileSync('students.json', 'utf-8');
-    const students = JSON.parse(jsonData);
-    console.log(`JSON फ़ाइल में ${students.length} छात्र मिले।`);
+    const students = JSON.parse(fs.readFileSync('students.json', 'utf-8'));
+    console.log(`JSON में ${students.length} छात्र मिले।`);
 
-    let newStudentsAdded = 0;
+    let added = 0;
 
-    // हर छात्र के डेटा को MongoDB में डालें
     for (const student of students) {
-      // पहले जांचें कि छात्र पहले से मौजूद है या नहीं
-      const existingStudent = await StudentResult.findOne({
+      const exists = await StudentResult.findOne({
         rollNumber: student.rollNumber,
         class: student.class,
         section: student.section
       });
 
-      if (!existingStudent) {
+      if (!exists) {
         const newStudent = new StudentResult({
           name: student.name,
           fatherName: student.fatherName,
@@ -68,35 +85,27 @@ async function migrateData() {
           dob: student.dob,
           class: student.class,
           section: student.section,
-          
-          // --- समाधान ---
-          // अगर JSON में examTerm खाली है, तो एक डिफ़ॉल्ट मान दें
-          examTerm: student.examTerm || 'Not Available', 
-          // अगर JSON में fullMarks खाली है, तो एक डिफ़ॉल्ट मान (जैसे 100) दें
-          fullMarks: student.fullMarks || 100, 
-          
-          subjects: student.subjects || [],
-          total: student.total || 0,
-          percent: student.percent || 0
+          examTerm: student.examTerm?.trim() || 'Not Available',
+          fullMarks: Number(student.fullMarks) || 100,
+          subjects: student.subjects.length > 0
+            ? student.subjects
+            : [{ name: 'N/A', marks: 0 }]
         });
+
         await newStudent.save();
-        newStudentsAdded++;
-        console.log(`नया छात्र जोड़ा गया: ${student.name} (रोल नंबर: ${student.rollNumber}, क्लास: ${student.class})`);
+        added++;
+        console.log(`✅ नया छात्र जोड़ा: ${student.name} (${student.class}-${student.section})`);
       } else {
-        console.log(`छात्र पहले से मौजूद है, इसलिए छोड़ा जा रहा है: ${student.name}`);
+        console.log(`⚠ पहले से मौजूद: ${student.name}`);
       }
     }
 
-    console.log(`\n🎉 माइग्रेशन पूरा हुआ! ${newStudentsAdded} नए छात्र MongoDB में जोड़े गए।`);
-
-  } catch (error) {
-    console.error('❌ माइग्रेशन के दौरान त्रुटि हुई:', error);
+    console.log(`🎉 Migration पूरा! ${added} नए छात्र जोड़े गए।`);
+  } catch (err) {
+    console.error('❌ Error:', err);
   } finally {
-    // कनेक्शन बंद करें
     await mongoose.disconnect();
-    console.log('MongoDB कनेक्शन बंद कर दिया गया।');
   }
 }
 
-// स्क्रिप्ट चलाएँ
 migrateData();
