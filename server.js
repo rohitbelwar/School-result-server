@@ -283,7 +283,7 @@ app.delete('/delete-teacher/:id', async (req, res) => {
 // Save (Add/Update) Student Result
 app.post('/save-student', async (req, res) => {
   const { name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, subjects, fullMarks, id } = req.body;
-  const { role, teacherClass, teacherSection } = req.query;
+  const { role, teacherClass, teacherSection, rollNumber } = req.query;
 
   if (role === 'teacher' && (studentClass !== teacherClass || section !== teacherSection)) {
       return res.status(403).json({ error: 'आप केवल अपने क्लास के छात्रों के परिणाम सहेज सकते हैं।' });
@@ -324,11 +324,14 @@ app.post('/save-student', async (req, res) => {
 
 // Get Student Results (filtered by teacher's class if role=teacher, or all for public)
 app.get('/get-students', async (req, res) => {
-    const { role, teacherClass, teacherSection } = req.query;
+    const { role, teacherClass, teacherSection, rollNumber } = req.query;
     let filter = {};
 
     if (role === 'teacher' && teacherClass && teacherSection) {
         filter = { class: teacherClass, section: teacherSection };
+        if (rollNumber) {
+            filter.rollNumber = rollNumber; // ✅ allow roll number search for teacher
+        }
     } else if (role !== 'teacher') {
         const { name, rollNumber, dob, studentClass, section, examTerm } = req.query;
         if (name) filter.name = new RegExp(name, 'i');
@@ -373,7 +376,7 @@ app.get('/get-students', async (req, res) => {
 // Get Single Student Result by ID (for edit operations on teacher dashboard)
 app.get('/get-student/:id', async (req, res) => {
   const studentId = req.params.id;
-  const { role, teacherClass, teacherSection } = req.query;
+  const { role, teacherClass, teacherSection, rollNumber } = req.query;
 
   try {
     const student = await StudentResult.findById(studentId);
@@ -396,7 +399,7 @@ app.get('/get-student/:id', async (req, res) => {
 // Delete Student Result
 app.delete('/delete-student/:id', async (req, res) => {
   const studentId = req.params.id;
-  const { role, teacherClass, teacherSection } = req.query;
+  const { role, teacherClass, teacherSection, rollNumber } = req.query;
 
   try {
     const studentToDelete = await StudentResult.findById(studentId);
