@@ -48,10 +48,16 @@ const studentResultSchema = new mongoose.Schema({
   class: { type: String, required: true, trim: true },
   section: { type: String, required: true, trim: true },
   examTerm: { type: String, required: true, trim: true },
+  academicSession: { type: String }, // ✅ जोड़ा गया: एकेडमिक सेशन
+  attendance: { type: String },      // ✅ जोड़ा गया: अटेंडेंस
   fullMarks: { type: Number, required: true },
   subjects: [{
     name: { type: String, required: true },
     marks: { type: Number, required: true }
+  }],
+  coScholastic: [{                    // ✅ जोड़ा गया: को-स्कॉलैस्टिक एरिया
+    name: { type: String, required: true },
+    grade: { type: String, required: true }
   }],
   total: { type: Number },
   percent: { type: Number },
@@ -59,27 +65,41 @@ const studentResultSchema = new mongoose.Schema({
 });
 
 studentResultSchema.pre('save', async function(next) {
+  // यदि कोई विषय नहीं हैं, तो कुल और प्रतिशत 0 होंगे
   const totalSubjects = this.subjects.length;
+  // सुनिश्चित करें कि fullMarks मौजूद है ताकि गणना त्रुटि न हो
+  const maxPossibleMarks = this.subjects.reduce((sum, sub) => sum + this.fullMarks, 0); 
+  
   this.total = this.subjects.reduce((sum, sub) => sum + sub.marks, 0);
-  this.percent = totalSubjects > 0 && this.fullMarks > 0 ? (this.total / (totalSubjects * this.fullMarks)) * 100 : 0;
+  this.percent = maxPossibleMarks > 0 ? (this.total / maxPossibleMarks) * 100 : 0;
 
-  if (this.isNew || this.isModified('total') || this.isModified('percent')) {
+
+  if (this.isNew || this.isModified('total') || this.isModified('percent') || this.isModified('examTerm')) {
     const studentsInSameGroup = await this.constructor.find({
       class: this.class,
       section: this.section,
       examTerm: this.examTerm
     }).sort({ percent: -1, total: -1 });
 
+    // रैंक अपडेट करें
     for (let i = 0; i < studentsInSameGroup.length; i++) {
       studentsInSameGroup[i].rank = i + 1;
       await studentsInSameGroup[i].save({ validateBeforeSave: false });
     }
+    
+    // वर्तमान छात्र की रैंक सेट करें यदि वह नया है
     if (this.isNew) {
         const currentStudentRank = studentsInSameGroup.findIndex(s =>
             s._id.equals(this._id)
         );
         if (currentStudentRank !== -1) {
             this.rank = currentStudentRank + 1;
+        }
+    } else {
+        // यदि मौजूदा छात्र को अपडेट किया जा रहा है, तो उसकी रैंक फिर से गणना करें
+        const updatedStudentInGroup = studentsInSameGroup.find(s => s._id.equals(this._id));
+        if (updatedStudentInGroup) {
+            this.rank = updatedStudentInGroup.rank;
         }
     }
   }
@@ -282,8 +302,12 @@ app.delete('/delete-teacher/:id', async (req, res) => {
 
 // ✅ FIXED: Save (Add/Update) Student Result
 app.post('/save-student', async (req, res) => {
-  const { name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, subjects, fullMarks, id } = req.body;
-  const { role, teacherClass, teacherSection } = req.query; // Removed rollNumber from here
+  const { 
+    name, fatherName, motherName, rollNumber, dob, 
+    class: studentClass, section, examTerm, academicSession, attendance, // ✅ जोड़ा गया
+    subjects, coScholastic, fullMarks, id // ✅ जोड़ा गया coScholastic
+  } = req.body;
+  const { role, teacherClass, teacherSection } = req.query; 
 
   if (role === 'teacher' && (studentClass !== teacherClass || section !== teacherSection)) {
       return res.status(403).json({ error: 'आप केवल अपने क्लास के छात्रों के परिणाम सहेज सकते हैं।' });
@@ -304,11 +328,16 @@ app.post('/save-student', async (req, res) => {
       studentResult.class = studentClass;
       studentResult.section = section;
       studentResult.examTerm = examTerm;
+      studentResult.academicSession = academicSession; // ✅ अपडेट किया गया
+      studentResult.attendance = attendance;           // ✅ अपडेट किया गया
       studentResult.subjects = subjects;
+      studentResult.coScholastic = coScholastic;       // ✅ अपडेट किया गया
       studentResult.fullMarks = fullMarks;
     } else {
       studentResult = new StudentResult({
-        name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, subjects, fullMarks
+        name, fatherName, motherName, rollNumber, dob, 
+        class: studentClass, section, examTerm, academicSession, attendance, // ✅ जोड़ा गया
+        subjects, coScholastic, fullMarks // ✅ जोड़ा गया coScholastic
       });
     }
 
