@@ -88,12 +88,14 @@ studentResultSchema.pre('save', async function(next) {
 
 const StudentResult = mongoose.model('StudentResult', studentResultSchema);
 
+// --- FIX #1: Added `passingMarks` to the Schema ---
 const subjectSchema = new mongoose.Schema({
   class: { type: String, required: true },
   section: { type: String, required: true },
   term: { type: String, required: true },
   name: { type: String, required: true },
-  fullMarks: { type: Number, required: true }
+  fullMarks: { type: Number, required: true },
+  passingMarks: { type: Number } // This field was added
 });
 
 const Subject = mongoose.model('Subject', subjectSchema);
@@ -111,9 +113,10 @@ app.get('/api/subjects', async (req, res) => {
 });
 
 app.post('/api/subjects', async (req, res) => {
-  const { class: subjectClass, section, term, name, fullMarks } = req.body;
+  // --- FIX #2: Receiving and saving `passingMarks` when a subject is created ---
+  const { class: subjectClass, section, term, name, fullMarks, passingMarks } = req.body;
 
-  if (!subjectClass || !section || !term || !name || !fullMarks) {
+  if (!subjectClass || !section || !term || !name || fullMarks == null || passingMarks == null) {
     return res.status(400).json({ error: 'सभी फ़ील्ड आवश्यक हैं।' });
   }
 
@@ -123,7 +126,7 @@ app.post('/api/subjects', async (req, res) => {
       return res.status(400).json({ error: 'यह विषय पहले से मौजूद है।' });
     }
 
-    const subject = new Subject({ class: subjectClass, section, term, name, fullMarks });
+    const subject = new Subject({ class: subjectClass, section, term, name, fullMarks, passingMarks });
     await subject.save();
     res.status(201).json({ message: 'Subject सफलतापूर्वक जोड़ा गया!' });
   } catch (err) {
@@ -144,12 +147,14 @@ app.put('/api/subjects', async (req, res) => {
         name: original.name 
       },
       { 
+        // --- FIX #3: Updating `passingMarks` when a subject is edited ---
         $set: { 
           class: updated.class, 
           section: updated.section, 
           term: updated.term, 
           name: updated.name, 
-          fullMarks: updated.fullMarks 
+          fullMarks: updated.fullMarks,
+          passingMarks: updated.passingMarks // This field was added for update
         } 
       }
     );
