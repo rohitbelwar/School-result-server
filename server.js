@@ -48,31 +48,31 @@ const studentResultSchema = new mongoose.Schema({
   class: { type: String, required: true, trim: true },
   section: { type: String, required: true, trim: true },
   examTerm: { type: String, required: true, trim: true },
-  academicSession: { type: String }, // ✅ जोड़ा गया: एकेडमिक सेशन
-  attendance: { type: String },      // ✅ जोड़ा गया: अटेंडेंस
+  academicSession: { type: String }, 
+  attendance: { type: String },      
   fullMarks: { type: Number, required: true },
   subjects: [{
     name: { type: String, required: true },
     marks: { type: Number, required: true }
   }],
-  coScholastic: [{                    // ✅ जोड़ा गया: को-स्कॉलैस्टिक एरिया
+  coScholastic: [{                    
     name: { type: String, required: true },
     grade: { type: String, required: true }
   }],
+  // --- FIX START ---
+  discipline: { type: String }, // ✅ FIX: 'discipline' फ़ील्ड को स्कीमा में जोड़ा गया
+  // --- FIX END ---
   total: { type: Number },
   percent: { type: Number },
   rank: { type: Number }
 });
 
 studentResultSchema.pre('save', async function(next) {
-  // यदि कोई विषय नहीं हैं, तो कुल और प्रतिशत 0 होंगे
   const totalSubjects = this.subjects.length;
-  // सुनिश्चित करें कि fullMarks मौजूद है ताकि गणना त्रुटि न हो
   const maxPossibleMarks = this.subjects.reduce((sum, sub) => sum + this.fullMarks, 0); 
   
   this.total = this.subjects.reduce((sum, sub) => sum + sub.marks, 0);
   this.percent = maxPossibleMarks > 0 ? (this.total / maxPossibleMarks) * 100 : 0;
-
 
   if (this.isNew || this.isModified('total') || this.isModified('percent') || this.isModified('examTerm')) {
     const studentsInSameGroup = await this.constructor.find({
@@ -81,13 +81,11 @@ studentResultSchema.pre('save', async function(next) {
       examTerm: this.examTerm
     }).sort({ percent: -1, total: -1 });
 
-    // रैंक अपडेट करें
     for (let i = 0; i < studentsInSameGroup.length; i++) {
       studentsInSameGroup[i].rank = i + 1;
       await studentsInSameGroup[i].save({ validateBeforeSave: false });
     }
     
-    // वर्तमान छात्र की रैंक सेट करें यदि वह नया है
     if (this.isNew) {
         const currentStudentRank = studentsInSameGroup.findIndex(s =>
             s._id.equals(this._id)
@@ -96,7 +94,6 @@ studentResultSchema.pre('save', async function(next) {
             this.rank = currentStudentRank + 1;
         }
     } else {
-        // यदि मौजूदा छात्र को अपडेट किया जा रहा है, तो उसकी रैंक फिर से गणना करें
         const updatedStudentInGroup = studentsInSameGroup.find(s => s._id.equals(this._id));
         if (updatedStudentInGroup) {
             this.rank = updatedStudentInGroup.rank;
@@ -108,19 +105,16 @@ studentResultSchema.pre('save', async function(next) {
 
 const StudentResult = mongoose.model('StudentResult', studentResultSchema);
 
-// --- FIX #1: Added `passingMarks` to the Schema ---
 const subjectSchema = new mongoose.Schema({
   class: { type: String, required: true },
   section: { type: String, required: true },
   term: { type: String, required: true },
   name: { type: String, required: true },
   fullMarks: { type: Number, required: true },
-  passingMarks: { type: Number } // This field was added
+  passingMarks: { type: Number } 
 });
 
 const Subject = mongoose.model('Subject', subjectSchema);
-
-// --- API Endpoints for Subject Setup ---
 
 app.get('/api/subjects', async (req, res) => {
   try {
@@ -133,7 +127,6 @@ app.get('/api/subjects', async (req, res) => {
 });
 
 app.post('/api/subjects', async (req, res) => {
-  // --- FIX #2: Receiving and saving `passingMarks` when a subject is created ---
   const { class: subjectClass, section, term, name, fullMarks, passingMarks } = req.body;
 
   if (!subjectClass || !section || !term || !name || fullMarks == null || passingMarks == null) {
@@ -167,14 +160,13 @@ app.put('/api/subjects', async (req, res) => {
         name: original.name 
       },
       { 
-        // --- FIX #3: Updating `passingMarks` when a subject is edited ---
         $set: { 
           class: updated.class, 
           section: updated.section, 
           term: updated.term, 
           name: updated.name, 
           fullMarks: updated.fullMarks,
-          passingMarks: updated.passingMarks // This field was added for update
+          passingMarks: updated.passingMarks
         } 
       }
     );
@@ -204,8 +196,6 @@ app.delete('/api/subjects', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete subject.' });
   }
 });
-
-// --- Teacher Routes ---
 
 app.post('/teacher-login', async (req, res) => {
   const { name, class: teacherClass, section, password } = req.body;
@@ -298,15 +288,15 @@ app.delete('/delete-teacher/:id', async (req, res) => {
   }
 });
 
-// --- Student Result Routes ---
 
-// ✅ FIXED: Save (Add/Update) Student Result
 app.post('/save-student', async (req, res) => {
+  // --- FIX START ---
   const { 
     name, fatherName, motherName, rollNumber, dob, 
-    class: studentClass, section, examTerm, academicSession, attendance, // ✅ जोड़ा गया
-    subjects, coScholastic, fullMarks, id // ✅ जोड़ा गया coScholastic
+    class: studentClass, section, examTerm, academicSession, attendance, discipline, // ✅ FIX: 'discipline' को req.body से निकाला गया
+    subjects, coScholastic, fullMarks, id
   } = req.body;
+  // --- FIX END ---
   const { role, teacherClass, teacherSection } = req.query; 
 
   if (role === 'teacher' && (studentClass !== teacherClass || section !== teacherSection)) {
@@ -328,16 +318,22 @@ app.post('/save-student', async (req, res) => {
       studentResult.class = studentClass;
       studentResult.section = section;
       studentResult.examTerm = examTerm;
-      studentResult.academicSession = academicSession; // ✅ अपडेट किया गया
-      studentResult.attendance = attendance;           // ✅ अपडेट किया गया
+      // --- FIX START ---
+      studentResult.academicSession = academicSession; 
+      studentResult.attendance = attendance;           
+      studentResult.discipline = discipline;           // ✅ FIX: 'discipline' को अपडेट किया गया
+      // --- FIX END ---
       studentResult.subjects = subjects;
-      studentResult.coScholastic = coScholastic;       // ✅ अपडेट किया गया
+      studentResult.coScholastic = coScholastic;       
       studentResult.fullMarks = fullMarks;
     } else {
       studentResult = new StudentResult({
         name, fatherName, motherName, rollNumber, dob, 
-        class: studentClass, section, examTerm, academicSession, attendance, // ✅ जोड़ा गया
-        subjects, coScholastic, fullMarks // ✅ जोड़ा गया coScholastic
+        class: studentClass, section, examTerm, 
+        // --- FIX START ---
+        academicSession, attendance, discipline, // ✅ FIX: 'discipline' को नए रिकॉर्ड में जोड़ा गया
+        // --- FIX END ---
+        subjects, coScholastic, fullMarks
       });
     }
 
@@ -349,7 +345,6 @@ app.post('/save-student', async (req, res) => {
   }
 });
 
-// ✅ FIXED: Get Student Results
 app.get('/get-students', async (req, res) => {
     const { role, teacherClass, teacherSection, rollNumber, name, dob, studentClass, section, examTerm } = req.query;
     let filter = {};
@@ -421,31 +416,20 @@ app.delete('/delete-student/:id', async (req, res) => {
   }
 });
 
-// --- Legacy JSON file routes (Not recommended for use with MongoDB) ---
-// These are kept for reference but should ideally be removed to avoid confusion.
-
 app.post('/add-student-details', (req, res) => {
-    // ... (Your original JSON file handling code)
 });
 app.get('/get-all-students', (req, res) => {
-    // ... (Your original JSON file handling code)
 });
 app.get('/get-student-details/:id', (req, res) => {
-    // ... (Your original JSON file handling code)
 });
 app.put('/update-student-details/:id', (req, res) => {
-    // ... (Your original JSON file handling code)
 });
 app.delete('/delete-student-details/:id', (req, res) => {
-    // ... (Your original JSON file handling code)
 });
 app.get("/get-student-by-roll", (req, res) => {
-    // ... (Your original JSON file handling code)
 });
 app.post("/add-student-result/:id", (req, res) => {
-    // ... (Your original JSON file handling code)
 });
-
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
