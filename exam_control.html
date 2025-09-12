@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Mock Test - Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: Inter, system-ui, Arial; margin: 16px; background: #f7fafc; }
+    .tab-button { padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; }
+    .tab-button.active { border-bottom-color: #2563eb; color: #2563eb; font-weight: 600; }
+    #main-content { display: none; }
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #e2e8f0;
+    }
+    .login-box {
+        background: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-container" class="login-container">
+      <div class="login-box">
+          <h2 class="text-2xl font-bold mb-4">Admin Access Required</h2>
+          <p class="mb-4 text-slate-600">Please enter credentials to continue.</p>
+          <button id="login-button" class="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login</button>
+      </div>
+  </div>
+
+  <div id="main-content">
+    <div id="root"></div>
+  </div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+  const { useState, useEffect, useMemo } = React;
+
+  // --- लोकल स्टोरेज के लिए हेल्पर फंक्शन्स ---
+  const getFromStorage = (key, defaultValue = []) => JSON.parse(localStorage.getItem(key) || JSON.stringify(defaultValue));
+  const saveToStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+  // --- कंपोनेंट्स ---
+
+  function QuestionManager() {
+    const [questions, setQuestions] = useState(() => getFromStorage('mockQuestions', []));
+    const [form, setForm] = useState({
+        subject: '', chapter: '', question_en: '', question_hi: '',
+        options_en: '', options_hi: '', correct: 0
+    });
+
+    useEffect(() => {
+      saveToStorage('mockQuestions', questions);
+    }, [questions]);
+
+    const handleTranslate = () => {
+        const textToTranslate = `Question: ${form.question_en}\n\nOptions:\n${form.options_en}`;
+        const encodedText = encodeURIComponent(textToTranslate);
+        const url = `https://translate.google.com/?sl=en&tl=hi&text=${encodedText}&op=translate`;
+        window.open(url, '_blank');
+    };
+
+    const addQuestion = (e) => {
+      e.preventDefault();
+      const opts_en = form.options_en.split('\n').map(s => s.trim()).filter(Boolean);
+      const opts_hi = form.options_hi.split('\n').map(s => s.trim()).filter(Boolean);
+
+      if (!form.subject || !form.chapter || !form.question_en || !form.question_hi || opts_en.length < 2 || opts_en.length !== opts_hi.length) {
+        alert("Please fill all fields. English and Hindi options must have the same number of lines.");
+        return;
+      }
+      
+      const newQuestion = {
+        id: Date.now(), subject: form.subject, chapter: form.chapter,
+        question: { en: form.question_en, hi: form.question_hi },
+        options: opts_en.map((opt, index) => ({ en: opt, hi: opts_hi[index] })),
+        correctAnswer: Number(form.correct)
+      };
+
+      setQuestions(prev => [...prev, newQuestion]);
+      setForm({ subject: '', chapter: '', question_en: '', question_hi: '', options_en: '', options_hi: '', correct: 0 });
+    };
+
+    const removeQuestion = (id) => {
+      if (!confirm('Are you sure you want to delete this question?')) return;
+      setQuestions(prev => prev.filter(q => q.id !== id));
+    };
+    
+    return (
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold">Add a New Question</h3>
+        <form onSubmit={addQuestion} className="mt-4 p-4 border rounded-lg bg-slate-50 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input className="w-full p-2 border rounded" placeholder="Subject (e.g., Maths)" value={form.subject} onChange={e=>setForm({...form, subject:e.target.value})} required/>
+            <input className="w-full p-2 border rounded" placeholder="Chapter (e.g., Algebra)" value={form.chapter} onChange={e=>setForm({...form, chapter:e.target.value})} required/>
+          </div>
+          <div>
+            <input className="w-full p-2 border rounded" placeholder="Question (English)" value={form.question_en} onChange={e=>setForm({...form, question_en:e.target.value})} required/>
+          </div>
+           <div>
+            <textarea className="w-full p-2 border rounded" placeholder="Options in English (one per line)" rows="4" value={form.options_en} onChange={e=>setForm({...form, options_en:e.target.value})} required></textarea>
+          </div>
+          <div>
+            <button type="button" onClick={handleTranslate} className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 text-sm">
+              Generate Hindi Translation
+            </button>
+            <p className="text-xs text-slate-500 mt-1">This will open Google Translate. Copy the translated text into the Hindi fields below.</p>
+          </div>
+          <hr/>
+          <div>
+            <input className="w-full p-2 border rounded" placeholder="Question (Hindi)" value={form.question_hi} onChange={e=>setForm({...form, question_hi:e.target.value})} required/>
+          </div>
+          <div>
+            <textarea className="w-full p-2 border rounded" placeholder="Options in Hindi (one per line, in same order)" rows="4" value={form.options_hi} onChange={e=>setForm({...form, options_hi:e.target.value})} required></textarea>
+          </div>
+          <input className="w-full p-2 border rounded" placeholder="Correct option index (0-based)" type="number" value={form.correct} onChange={e=>setForm({...form, correct:e.target.value})} required/>
+          <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Question</button>
+        </form>
+
+        <h3 className="text-xl font-semibold mt-8">Existing Questions</h3>
+        <div className="overflow-x-auto mt-4">
+          <table className="min-w-full bg-white border rounded-lg">
+            <thead className="bg-slate-100">
+              <tr>
+                <th className="p-3 text-left">Subject/Chapter</th>
+                <th className="p-3 text-left">Question</th>
+                <th className="p-3 text-left">Options</th>
+                <th className="p-3 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {questions.map(q => (
+                <tr key={q.id} className="border-b">
+                  <td className="p-3"><strong>{q.subject}</strong><br/>{q.chapter}</td>
+                  <td className="p-3 max-w-sm"><strong>EN:</strong> {q.question.en}<br/><strong>HI:</strong> {q.question.hi}</td>
+                  <td className="p-3">{(q.options||[]).map((o,i)=>(
+                      <div key={i} className={i === q.correctAnswer ? 'font-bold text-green-600' : ''}>
+                          {i}. {o.en} / {o.hi}
+                      </div>))
+                  }</td>
+                  <td className="p-3"><button className="px-3 py-1 bg-red-500 text-white rounded text-sm" onClick={() => removeQuestion(q.id)}>Delete</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  function ResultMonitor() {
+    const [results, setResults] = useState(() => getFromStorage('testResults', []));
+    const [allQuestions, setAllQuestions] = useState(() => getFromStorage('mockQuestions', []));
+    const [filters, setFilters] = useState({ studentClass: '', section: '', roll: '', subject: '', name: '', chapter: '' });
+    const [selectedResult, setSelectedResult] = useState(null);
+
+    const handleFilterChange = e => setFilters({ ...filters, [e.target.name]: e.target.value });
+    
+    const filteredResults = useMemo(() => {
+        return results.filter(r => {
+            const { studentDetails } = r;
+            return (
+                (!filters.studentClass || studentDetails.studentClass?.includes(filters.studentClass)) &&
+                (!filters.section || studentDetails.section?.toLowerCase().includes(filters.section.toLowerCase())) &&
+                (!filters.roll || studentDetails.roll?.includes(filters.roll)) &&
+                (!filters.subject || studentDetails.subject === filters.subject) &&
+                (!filters.name || studentDetails.studentName?.toLowerCase().includes(filters.name.toLowerCase())) &&
+                (!filters.chapter || studentDetails.chapter === filters.chapter)
+            );
+        });
+    }, [results, filters]);
+    
+    const questionsForSelectedResult = useMemo(() => {
+        if (!selectedResult) return [];
+        return allQuestions.filter(q => 
+            q.subject === selectedResult.studentDetails.subject && 
+            q.chapter === selectedResult.studentDetails.chapter
+        );
+    }, [selectedResult, allQuestions]);
+
+    const allSubjects = [...new Set(results.map(r => r.studentDetails.subject))];
+    const allChapters = [...new Set(results.map(r => r.studentDetails.chapter))];
+
+    return (
+      <div className="mt-6">
+        <div className="p-4 border rounded-lg bg-slate-50 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input name="name" value={filters.name} onChange={handleFilterChange} className="p-2 border rounded" placeholder="Filter by Name..." />
+          <input name="roll" value={filters.roll} onChange={handleFilterChange} className="p-2 border rounded" placeholder="Filter by Roll No..." />
+          <input name="studentClass" value={filters.studentClass} onChange={handleFilterChange} className="p-2 border rounded" placeholder="Filter by Class..." />
+          <input name="section" value={filters.section} onChange={handleFilterChange} className="p-2 border rounded" placeholder="Filter by Section..." />
+          <select name="subject" value={filters.subject} onChange={handleFilterChange} className="p-2 border rounded bg-white">
+            <option value="">All Subjects</option>
+            {allSubjects.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+          <select name="chapter" value={filters.chapter} onChange={handleFilterChange} className="p-2 border rounded bg-white">
+            <option value="">All Chapters</option>
+            {allChapters.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+        </div>
+
+        <div className="overflow-x-auto mt-4">
+          <table className="min-w-full bg-white border rounded-lg">
+            <thead className="bg-slate-100">
+              <tr>
+                <th className="p-3 text-left">Name</th>
+                <th className="p-3 text-left">Roll No.</th>
+                <th className="p-3 text-left">Class/Sec</th>
+                <th className="p-3 text-left">Subject/Chapter</th>
+                <th className="p-3 text-left">Score</th>
+                <th className="p-3 text-left">Date</th>
+                <th className="p-3 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredResults.map((res, i) => (
+                <tr key={i} className="border-b">
+                  <td className="p-3">{res.studentDetails.studentName}</td>
+                  <td className="p-3">{res.studentDetails.roll}</td>
+                  <td className="p-3">{res.studentDetails.studentClass}{res.studentDetails.section}</td>
+                  <td className="p-3"><strong>{res.studentDetails.subject}</strong><br/>{res.studentDetails.chapter}</td>
+                  <td className="p-3 font-semibold">{res.score}</td>
+                  <td className="p-3 text-sm text-slate-500">{new Date(res.timestamp).toLocaleString()}</td>
+                  <td className="p-3">
+                    <button onClick={() => setSelectedResult(res)} className="px-3 py-1 bg-sky-500 text-white rounded text-sm">View</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        
+        {/* Result Detail Modal */}
+        {selectedResult && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50" onClick={() => setSelectedResult(null)}>
+            <div className="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+               <div className="flex justify-between items-start">
+                 <div>
+                    <h3 className="text-lg font-bold">Test Details</h3>
+                    <p>{selectedResult.studentDetails.studentName} ({selectedResult.studentDetails.roll})</p>
+                    <p>Subject: {selectedResult.studentDetails.subject} | Score: {selectedResult.score}</p>
+                 </div>
+                 <button onClick={() => setSelectedResult(null)} className="text-2xl font-bold">&times;</button>
+               </div>
+               <div className="mt-4 space-y-4">
+                    {questionsForSelectedResult.map((q, index) => {
+                        const studentAnswerIndex = selectedResult.answers[index];
+                        const isCorrect = studentAnswerIndex === q.correctAnswer;
+                        return (
+                            <div key={q.id} className="p-3 border rounded-md">
+                                <p className="font-semibold">Q{index+1}: {q.question.en}</p>
+                                <div className="mt-2 space-y-1 pl-4">
+                                    {q.options.map((opt, optIndex) => {
+                                        let classes = "p-1 rounded ";
+                                        if (optIndex === q.correctAnswer) {
+                                            classes += "bg-green-100 text-green-800 font-bold"; // Correct answer
+                                        }
+                                        if (studentAnswerIndex === optIndex && !isCorrect) {
+                                            classes += "bg-red-100 text-red-800 line-through"; // Student's wrong answer
+                                        }
+                                        return <p key={optIndex} className={classes}>{opt.en}</p>;
+                                    })}
+                                </div>
+                                <div className="mt-2 text-sm">
+                                    {studentAnswerIndex !== null ? (
+                                        isCorrect ? 
+                                        <p className="font-semibold text-green-600">Your Answer: Correct</p> :
+                                        <p className="font-semibold text-red-600">Your Answer: Incorrect</p>
+                                    ) : <p className="font-semibold text-slate-500">Not Attempted</p>}
+                                </div>
+                            </div>
+                        )
+                    })}
+                    {questionsForSelectedResult.length === 0 && <p>Question data for this test could not be found.</p>}
+               </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+
+  function App() {
+    const [activeTab, setActiveTab] = useState('results');
+    
+    return (
+      <div className="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-bold">Admin Dashboard</h2>
+        <p className="text-slate-600">Manage questions and monitor student results.</p>
+        
+        <div className="border-b mt-4">
+          <button className={`tab-button ${activeTab === 'results' ? 'active' : ''}`} onClick={() => setActiveTab('results')}>Result Monitor</button>
+          <button className={`tab-button ${activeTab === 'questions' ? 'active' : ''}`} onClick={() => setActiveTab('questions')}>Question Manager</button>
+        </div>
+        
+        {activeTab === 'questions' && <QuestionManager />}
+        {activeTab === 'results' && <ResultMonitor />}
+      </div>
+    );
+  }
+  
+  // This part will be rendered only after successful login
+  // ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <script>
+    // Login protection script
+    function handleLogin() {
+        const correctUser = "Exam2025";
+        const correctPass = "TBWSEXAM2025";
+
+        let attempts = 3;
+        while (attempts > 0) {
+            const user = prompt("Enter Username:");
+            if (user === null) return false; // User cancelled
+
+            const pass = prompt("Enter Password:");
+            if (pass === null) return false; // User cancelled
+
+            if (user === correctUser && pass === correctPass) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.body.style.background = '#fff'; // Reset background
+                
+                // Now render the React app
+                ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+                return true;
+            } else {
+                attempts--;
+                if (attempts > 0) {
+                    alert(`Incorrect credentials. You have ${attempts} attempts left.`);
+                } else {
+                    alert("Too many failed attempts. Access denied.");
+                    document.getElementById('login-box').innerHTML = '<h2 class="text-2xl font-bold mb-4 text-red-600">Access Denied</h2><p>Please refresh to try again.</p>';
+                    return false;
+                }
+            }
+        }
+    }
+    
+    document.getElementById('login-button').addEventListener('click', handleLogin);
+  </script>
+</body>
+</html>
+
