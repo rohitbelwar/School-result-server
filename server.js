@@ -108,8 +108,6 @@ const Subject = mongoose.model('Subject', subjectSchema);
 
 
 // --- NEW: SCHEMAS FOR MOCK TEST SYSTEM ---
-// This section adds the necessary database models for the mock test functionality.
-
 const mockTestQuestionSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
   subject: { type: String, required: true },
@@ -125,7 +123,7 @@ const mockTestQuestionSchema = new mongoose.Schema({
 const MockTestQuestion = mongoose.model('MockTestQuestion', mockTestQuestionSchema);
 
 const mockTestSettingsSchema = new mongoose.Schema({
-  singleton: { type: Boolean, default: true, unique: true }, // Used to ensure only one settings document exists
+  singleton: { type: Boolean, default: true, unique: true },
   duration: { type: Number, default: 5 },
   correctMark: { type: Number, default: 3 },
   incorrectMark: { type: Number, default: -1 }
@@ -144,9 +142,10 @@ const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
 
 
 // --- EXISTING API ROUTES FOR SCHOOL RESULTS ---
+// ... (यह सेक्शन पहले जैसा ही है, इसमें कोई बदलाव नहीं है)
 app.get('/api/subjects', async (req, res) => {
   try {
-    const subjects = await Subject.find({});
+    const subjects = await Subject.find({}).lean(); // .lean() जोड़ा गया
     res.status(200).json(subjects);
   } catch (err) {
     res.status(500).json({ error: 'Subjects प्राप्त करने में त्रुटि हुई।' });
@@ -204,7 +203,7 @@ app.delete('/api/subjects', async (req, res) => {
 app.post('/teacher-login', async (req, res) => {
   const { name, class: teacherClass, section, password } = req.body;
   try {
-    const teacher = await Teacher.findOne({ name, class: teacherClass, section, password });
+    const teacher = await Teacher.findOne({ name, class: teacherClass, section, password }).lean();
     if (teacher) {
       res.status(200).json({ message: 'Login successful', teacher: { id: teacher.teacherId, name: teacher.name, class: teacher.class, section: teacher.section } });
     } else {
@@ -232,7 +231,7 @@ app.post('/add-teacher', async (req, res) => {
 
 app.get('/get-teachers', async (req, res) => {
   try {
-    const teachers = await Teacher.find({});
+    const teachers = await Teacher.find({}).lean();
     res.status(200).json(teachers.map(t => ({ id: t.teacherId, name: t.name, class: t.class, section: t.section })));
   } catch (error) {
     res.status(500).json({ error: 'शिक्षकों को प्राप्त करते समय सर्वर त्रुटि हुई।' });
@@ -333,7 +332,7 @@ app.get('/get-students', async (req, res) => {
         if (examTerm) filter.examTerm = examTerm;
     }
     try {
-        const studentResults = await StudentResult.find(filter).sort({ rank: 1 });
+        const studentResults = await StudentResult.find(filter).sort({ rank: 1 }).lean();
         res.status(200).json(studentResults);
     } catch (error) {
         res.status(500).json({ error: 'छात्र परिणाम प्राप्त करते समय सर्वर त्रुटि हुई।' });
@@ -344,7 +343,7 @@ app.get('/get-student/:id', async (req, res) => {
   const studentId = req.params.id;
   const { role, teacherClass, teacherSection } = req.query;
   try {
-    const student = await StudentResult.findById(studentId);
+    const student = await StudentResult.findById(studentId).lean();
     if (!student) { return res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' }); }
     if (role === 'teacher' && (student.class !== teacherClass || student.section !== teacherSection)) {
         return res.status(403).json({ error: 'आप इस छात्र को देखने/संपादित करने के लिए अधिकृत नहीं हैं।' });
@@ -371,13 +370,14 @@ app.delete('/delete-student/:id', async (req, res) => {
   }
 });
 
+
 // --- NEW: API ROUTES FOR MOCK TEST SYSTEM ---
-// This section adds the API endpoints from question.js, now adapted to use MongoDB.
 
 // 1. Questions API
 app.get('/api/questions', async (req, res) => {
     try {
-        const questions = await MockTestQuestion.find({});
+        // FIXED: .lean() जोड़ा गया ताकि शुद्ध डेटा भेजा जा सके
+        const questions = await MockTestQuestion.find({}).lean();
         res.json(questions);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching questions', error });
@@ -387,7 +387,7 @@ app.get('/api/questions', async (req, res) => {
 app.post('/api/questions', async (req, res) => {
     try {
         const newQuestionData = req.body;
-        newQuestionData.id = Date.now(); // Create a unique ID like in the original file
+        newQuestionData.id = Date.now();
         const newQuestion = new MockTestQuestion(newQuestionData);
         await newQuestion.save();
         res.status(201).json(newQuestion);
@@ -413,10 +413,9 @@ app.delete('/api/questions/:id', async (req, res) => {
 // 2. Settings API
 app.get('/api/settings', async (req, res) => {
     try {
-        let settings = await MockTestSettings.findOne({ singleton: true });
+        let settings = await MockTestSettings.findOne({ singleton: true }).lean();
         if (!settings) {
-            settings = new MockTestSettings({ duration: 5, correctMark: 3, incorrectMark: -1 });
-            await settings.save();
+            settings = await new MockTestSettings({ duration: 5, correctMark: 3, incorrectMark: -1 }).save();
         }
         res.json(settings);
     } catch (error) {
@@ -429,7 +428,7 @@ app.post('/api/settings', async (req, res) => {
         const newSettings = req.body;
         const updatedSettings = await MockTestSettings.findOneAndUpdate(
             { singleton: true }, newSettings, { new: true, upsert: true }
-        );
+        ).lean();
         res.status(200).json(updatedSettings);
     } catch (error) {
         res.status(500).json({ message: 'Error saving settings', error });
@@ -439,7 +438,8 @@ app.post('/api/settings', async (req, res) => {
 // 3. Results API
 app.get('/api/results', async (req, res) => {
     try {
-        const results = await MockTestResult.find({}).sort({ timestamp: -1 });
+        // FIXED: .lean() जोड़ा गया
+        const results = await MockTestResult.find({}).sort({ timestamp: -1 }).lean();
         res.json(results);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching results', error });
