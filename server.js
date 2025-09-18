@@ -4,7 +4,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +19,8 @@ mongoose.connect(MONGODB_URI, {
 })
   .then(() => console.log('✅ MongoDB Connected Successfully'))
   .catch(err => console.error('❌ MongoDB Connection Failed:', err));
+
+// --- EXISTING SCHEMAS FOR SCHOOL RESULTS ---
 
 const teacherSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
@@ -59,9 +60,7 @@ const studentResultSchema = new mongoose.Schema({
     name: { type: String, required: true },
     grade: { type: String, required: true }
   }],
-  // --- FIX START ---
-  discipline: { type: String }, // ✅ FIX: 'discipline' फ़ील्ड को स्कीमा में जोड़ा गया
-  // --- FIX END ---
+  discipline: { type: String },
   total: { type: Number },
   percent: { type: Number },
   rank: { type: Number }
@@ -69,7 +68,7 @@ const studentResultSchema = new mongoose.Schema({
 
 studentResultSchema.pre('save', async function(next) {
   const totalSubjects = this.subjects.length;
-  const maxPossibleMarks = this.subjects.reduce((sum, sub) => sum + this.fullMarks, 0); 
+  const maxPossibleMarks = this.fullMarks * totalSubjects;
   
   this.total = this.subjects.reduce((sum, sub) => sum + sub.marks, 0);
   this.percent = maxPossibleMarks > 0 ? (this.total / maxPossibleMarks) * 100 : 0;
@@ -86,18 +85,9 @@ studentResultSchema.pre('save', async function(next) {
       await studentsInSameGroup[i].save({ validateBeforeSave: false });
     }
     
-    if (this.isNew) {
-        const currentStudentRank = studentsInSameGroup.findIndex(s =>
-            s._id.equals(this._id)
-        );
-        if (currentStudentRank !== -1) {
-            this.rank = currentStudentRank + 1;
-        }
-    } else {
-        const updatedStudentInGroup = studentsInSameGroup.find(s => s._id.equals(this._id));
-        if (updatedStudentInGroup) {
-            this.rank = updatedStudentInGroup.rank;
-        }
+    const currentStudentRank = studentsInSameGroup.findIndex(s => s._id.equals(this._id));
+    if (currentStudentRank !== -1) {
+        this.rank = currentStudentRank + 1;
     }
   }
   next();
@@ -116,68 +106,83 @@ const subjectSchema = new mongoose.Schema({
 
 const Subject = mongoose.model('Subject', subjectSchema);
 
+
+// --- NEW: SCHEMAS FOR MOCK TEST SYSTEM ---
+// This section adds the necessary database models for the mock test functionality.
+
+const mockTestQuestionSchema = new mongoose.Schema({
+  id: { type: Number, unique: true, required: true },
+  subject: { type: String, required: true },
+  chapter: { type: String, required: true },
+  question: {
+    en: { type: String, required: true },
+  },
+  options: [{
+    en: { type: String, required: true },
+  }],
+  correctAnswer: { type: Number, required: true }
+});
+const MockTestQuestion = mongoose.model('MockTestQuestion', mockTestQuestionSchema);
+
+const mockTestSettingsSchema = new mongoose.Schema({
+  singleton: { type: Boolean, default: true, unique: true }, // Used to ensure only one settings document exists
+  duration: { type: Number, default: 5 },
+  correctMark: { type: Number, default: 3 },
+  incorrectMark: { type: Number, default: -1 }
+});
+const MockTestSettings = mongoose.model('MockTestSettings', mockTestSettingsSchema);
+
+const mockTestResultSchema = new mongoose.Schema({
+  studentDetails: { type: Object, required: true },
+  answers: { type: Array, required: true },
+  score: { type: Object, required: true },
+  timestamp: { type: Date, default: Date.now }
+});
+const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
+
+// --- END OF NEW SCHEMAS ---
+
+
+// --- EXISTING API ROUTES FOR SCHOOL RESULTS ---
 app.get('/api/subjects', async (req, res) => {
   try {
     const subjects = await Subject.find({});
     res.status(200).json(subjects);
   } catch (err) {
-    console.error('Error fetching subjects:', err);
     res.status(500).json({ error: 'Subjects प्राप्त करने में त्रुटि हुई।' });
   }
 });
 
 app.post('/api/subjects', async (req, res) => {
   const { class: subjectClass, section, term, name, fullMarks, passingMarks } = req.body;
-
   if (!subjectClass || !section || !term || !name || fullMarks == null || passingMarks == null) {
     return res.status(400).json({ error: 'सभी फ़ील्ड आवश्यक हैं।' });
   }
-
   try {
     const existing = await Subject.findOne({ class: subjectClass, section, term, name });
     if (existing) {
       return res.status(400).json({ error: 'यह विषय पहले से मौजूद है।' });
     }
-
     const subject = new Subject({ class: subjectClass, section, term, name, fullMarks, passingMarks });
     await subject.save();
     res.status(201).json({ message: 'Subject सफलतापूर्वक जोड़ा गया!' });
   } catch (err) {
-    console.error('Error adding subject:', err);
     res.status(500).json({ error: 'Subject जोड़ने में सर्वर त्रुटि हुई।' });
   }
 });
 
 app.put('/api/subjects', async (req, res) => {
   const { original, updated } = req.body;
-  
   try {
     const result = await Subject.updateOne(
-      { 
-        class: original.class, 
-        section: original.section, 
-        term: original.term, 
-        name: original.name 
-      },
-      { 
-        $set: { 
-          class: updated.class, 
-          section: updated.section, 
-          term: updated.term, 
-          name: updated.name, 
-          fullMarks: updated.fullMarks,
-          passingMarks: updated.passingMarks
-        } 
-      }
+      { class: original.class, section: original.section, term: original.term, name: original.name },
+      { $set: { class: updated.class, section: updated.section, term: updated.term, name: updated.name, fullMarks: updated.fullMarks, passingMarks: updated.passingMarks } }
     );
-
     if (result.matchedCount === 0) {
       return res.status(404).json({ error: 'Subject not found.' });
     }
     res.status(200).json({ message: 'Subject successfully updated.' });
-
   } catch (error) {
-    console.error('Error updating subject:', error);
     res.status(500).json({ error: 'Failed to update subject.' });
   }
 });
@@ -192,7 +197,6 @@ app.delete('/api/subjects', async (req, res) => {
       res.status(404).json({ error: 'Subject not found.' });
     }
   } catch (error) {
-    console.error('Error deleting subject:', error);
     res.status(500).json({ error: 'Failed to delete subject.' });
   }
 });
@@ -207,7 +211,6 @@ app.post('/teacher-login', async (req, res) => {
       res.status(401).json({ error: 'Invalid credentials or teacher not found.' });
     }
   } catch (error) {
-    console.error('Teacher login error:', error);
     res.status(500).json({ error: 'Server error during login.' });
   }
 });
@@ -219,12 +222,10 @@ app.post('/add-teacher', async (req, res) => {
     if (existingTeacher) {
         return res.status(400).json({ error: 'इस क्लास और सेक्शन के लिए एक शिक्षक पहले से मौजूद है।' });
     }
-
     const newTeacher = new Teacher({ name, class: teacherClass, section, password });
     await newTeacher.save();
     res.status(201).json({ message: 'शिक्षक सफलतापूर्वक जोड़ा गया!' });
   } catch (error) {
-    console.error('Error adding teacher:', error);
     res.status(500).json({ error: 'शिक्षक को जोड़ते समय सर्वर त्रुटि हुई।' });
   }
 });
@@ -234,7 +235,6 @@ app.get('/get-teachers', async (req, res) => {
     const teachers = await Teacher.find({});
     res.status(200).json(teachers.map(t => ({ id: t.teacherId, name: t.name, class: t.class, section: t.section })));
   } catch (error) {
-    console.error('Error fetching teachers:', error);
     res.status(500).json({ error: 'शिक्षकों को प्राप्त करते समय सर्वर त्रुटि हुई।' });
   }
 });
@@ -242,13 +242,11 @@ app.get('/get-teachers', async (req, res) => {
 app.put('/update-teacher/:id', async (req, res) => {
     const teacherId = req.params.id;
     const { name, class: teacherClass, section, password } = req.body;
-
     try {
         const teacher = await Teacher.findOne({ teacherId: teacherId });
         if (!teacher) {
             return res.status(404).json({ error: 'शिक्षक नहीं मिला।' });
         }
-
         if ((teacherClass && teacherClass !== teacher.class) || (section && section !== teacher.section)) {
             const existingTeacherInNewClassSection = await Teacher.findOne({
                 class: teacherClass || teacher.class,
@@ -259,16 +257,13 @@ app.put('/update-teacher/:id', async (req, res) => {
                 return res.status(400).json({ error: 'इस क्लास और सेक्शन के लिए एक शिक्षक पहले से मौजूद है।' });
             }
         }
-
         if (name) teacher.name = name;
         if (teacherClass) teacher.class = teacherClass;
         if (section) teacher.section = section;
         if (password) teacher.password = password;
-
         await teacher.save();
         res.status(200).json({ message: 'शिक्षक सफलतापूर्वक अपडेट किया गया!' });
     } catch (error) {
-        console.error('Error updating teacher:', error);
         res.status(500).json({ error: 'शिक्षक को अपडेट करते समय सर्वर त्रुटि हुई।' });
     }
 });
@@ -283,33 +278,22 @@ app.delete('/delete-teacher/:id', async (req, res) => {
       res.status(404).json({ error: 'शिक्षक नहीं मिला।' });
     }
   } catch (error) {
-    console.error('Error deleting teacher:', error);
     res.status(500).json({ error: 'शिक्षक को हटाते समय सर्वर त्रुटि हुई।' });
   }
 });
 
-
 app.post('/save-student', async (req, res) => {
-  // --- FIX START ---
-  const { 
-    name, fatherName, motherName, rollNumber, dob, 
-    class: studentClass, section, examTerm, academicSession, attendance, discipline, // ✅ FIX: 'discipline' को req.body से निकाला गया
-    subjects, coScholastic, fullMarks, id
-  } = req.body;
-  // --- FIX END ---
+  const { name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, academicSession, attendance, discipline, subjects, coScholastic, fullMarks, id } = req.body;
   const { role, teacherClass, teacherSection } = req.query; 
 
   if (role === 'teacher' && (studentClass !== teacherClass || section !== teacherSection)) {
       return res.status(403).json({ error: 'आप केवल अपने क्लास के छात्रों के परिणाम सहेज सकते हैं।' });
   }
-
   try {
     let studentResult;
     if (id) {
       studentResult = await StudentResult.findById(id);
-      if (!studentResult) {
-        return res.status(404).json({ error: 'अपडेट करने के लिए छात्र परिणाम नहीं मिला।' });
-      }
+      if (!studentResult) { return res.status(404).json({ error: 'अपडेट करने के लिए छात्र परिणाम नहीं मिला।' }); }
       studentResult.name = name;
       studentResult.fatherName = fatherName;
       studentResult.motherName = motherName;
@@ -318,29 +302,18 @@ app.post('/save-student', async (req, res) => {
       studentResult.class = studentClass;
       studentResult.section = section;
       studentResult.examTerm = examTerm;
-      // --- FIX START ---
       studentResult.academicSession = academicSession; 
       studentResult.attendance = attendance;           
-      studentResult.discipline = discipline;           // ✅ FIX: 'discipline' को अपडेट किया गया
-      // --- FIX END ---
+      studentResult.discipline = discipline;           
       studentResult.subjects = subjects;
       studentResult.coScholastic = coScholastic;       
       studentResult.fullMarks = fullMarks;
     } else {
-      studentResult = new StudentResult({
-        name, fatherName, motherName, rollNumber, dob, 
-        class: studentClass, section, examTerm, 
-        // --- FIX START ---
-        academicSession, attendance, discipline, // ✅ FIX: 'discipline' को नए रिकॉर्ड में जोड़ा गया
-        // --- FIX END ---
-        subjects, coScholastic, fullMarks
-      });
+      studentResult = new StudentResult({ name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, academicSession, attendance, discipline, subjects, coScholastic, fullMarks });
     }
-
     await studentResult.save();
     res.status(200).json({ message: 'छात्र परिणाम सफलतापूर्वक सहेजा/अपडेट किया गया!' });
   } catch (error) {
-    console.error('Error saving student result:', error);
     res.status(500).json({ error: 'छात्र परिणाम सहेजते समय सर्वर त्रुटि हुई।' });
   }
 });
@@ -348,12 +321,9 @@ app.post('/save-student', async (req, res) => {
 app.get('/get-students', async (req, res) => {
     const { role, teacherClass, teacherSection, rollNumber, name, dob, studentClass, section, examTerm } = req.query;
     let filter = {};
-
     if (role === 'teacher' && teacherClass && teacherSection) {
         filter = { class: teacherClass, section: teacherSection };
-        if (rollNumber) {
-            filter.rollNumber = rollNumber;
-        }
+        if (rollNumber) { filter.rollNumber = rollNumber; }
     } else if (role !== 'teacher') {
         if (name) filter.name = new RegExp(name, 'i');
         if (rollNumber) filter.rollNumber = rollNumber;
@@ -362,12 +332,10 @@ app.get('/get-students', async (req, res) => {
         if (section) filter.section = section;
         if (examTerm) filter.examTerm = examTerm;
     }
-
     try {
         const studentResults = await StudentResult.find(filter).sort({ rank: 1 });
         res.status(200).json(studentResults);
     } catch (error) {
-        console.error('Error fetching student results:', error);
         res.status(500).json({ error: 'छात्र परिणाम प्राप्त करते समय सर्वर त्रुटि हुई।' });
     }
 });
@@ -375,20 +343,14 @@ app.get('/get-students', async (req, res) => {
 app.get('/get-student/:id', async (req, res) => {
   const studentId = req.params.id;
   const { role, teacherClass, teacherSection } = req.query;
-
   try {
     const student = await StudentResult.findById(studentId);
-    if (!student) {
-      return res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' });
-    }
-
+    if (!student) { return res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' }); }
     if (role === 'teacher' && (student.class !== teacherClass || student.section !== teacherSection)) {
         return res.status(403).json({ error: 'आप इस छात्र को देखने/संपादित करने के लिए अधिकृत नहीं हैं।' });
     }
-
     res.status(200).json(student);
   } catch (error) {
-    console.error('Error fetching single student result:', error);
     res.status(500).json({ error: 'एकल छात्र परिणाम प्राप्त करते समय सर्वर त्रुटि हुई।' });
   }
 });
@@ -396,40 +358,105 @@ app.get('/get-student/:id', async (req, res) => {
 app.delete('/delete-student/:id', async (req, res) => {
   const studentId = req.params.id;
   const { role, teacherClass, teacherSection } = req.query;
-
   try {
     const studentToDelete = await StudentResult.findById(studentId);
-
-    if (!studentToDelete) {
-        return res.status(404).json({ error: 'हटाने के लिए छात्र परिणाम नहीं मिला।' });
-    }
-
+    if (!studentToDelete) { return res.status(404).json({ error: 'हटाने के लिए छात्र परिणाम नहीं मिला।' }); }
     if (role === 'teacher' && (studentToDelete.class !== teacherClass || studentToDelete.section !== teacherSection)) {
         return res.status(403).json({ error: 'आप इस छात्र को हटाने के लिए अधिकृत नहीं हैं।' });
     }
-
     await StudentResult.deleteOne({ _id: studentId });
     res.status(200).json({ message: 'छात्र परिणाम सफलतापूर्वक हटा दिया गया।' });
   } catch (error) {
-    console.error('Error deleting student:', error);
     res.status(500).json({ error: 'छात्र परिणाम हटाते समय सर्वर त्रुटि हुई।' });
   }
 });
 
-app.post('/add-student-details', (req, res) => {
+// --- NEW: API ROUTES FOR MOCK TEST SYSTEM ---
+// This section adds the API endpoints from question.js, now adapted to use MongoDB.
+
+// 1. Questions API
+app.get('/api/questions', async (req, res) => {
+    try {
+        const questions = await MockTestQuestion.find({});
+        res.json(questions);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching questions', error });
+    }
 });
-app.get('/get-all-students', (req, res) => {
+
+app.post('/api/questions', async (req, res) => {
+    try {
+        const newQuestionData = req.body;
+        newQuestionData.id = Date.now(); // Create a unique ID like in the original file
+        const newQuestion = new MockTestQuestion(newQuestionData);
+        await newQuestion.save();
+        res.status(201).json(newQuestion);
+    } catch (error) {
+        res.status(500).json({ message: 'Error adding question', error });
+    }
 });
-app.get('/get-student-details/:id', (req, res) => {
+
+app.delete('/api/questions/:id', async (req, res) => {
+    try {
+        const questionId = parseInt(req.params.id, 10);
+        const result = await MockTestQuestion.deleteOne({ id: questionId });
+        if (result.deletedCount > 0) {
+            res.status(200).json({ message: 'Question deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Question not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting question', error });
+    }
 });
-app.put('/update-student-details/:id', (req, res) => {
+
+// 2. Settings API
+app.get('/api/settings', async (req, res) => {
+    try {
+        let settings = await MockTestSettings.findOne({ singleton: true });
+        if (!settings) {
+            settings = new MockTestSettings({ duration: 5, correctMark: 3, incorrectMark: -1 });
+            await settings.save();
+        }
+        res.json(settings);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching settings', error });
+    }
 });
-app.delete('/delete-student-details/:id', (req, res) => {
+
+app.post('/api/settings', async (req, res) => {
+    try {
+        const newSettings = req.body;
+        const updatedSettings = await MockTestSettings.findOneAndUpdate(
+            { singleton: true }, newSettings, { new: true, upsert: true }
+        );
+        res.status(200).json(updatedSettings);
+    } catch (error) {
+        res.status(500).json({ message: 'Error saving settings', error });
+    }
 });
-app.get("/get-student-by-roll", (req, res) => {
+
+// 3. Results API
+app.get('/api/results', async (req, res) => {
+    try {
+        const results = await MockTestResult.find({}).sort({ timestamp: -1 });
+        res.json(results);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching results', error });
+    }
 });
-app.post("/add-student-result/:id", (req, res) => {
+
+app.post('/api/results', async (req, res) => {
+    try {
+        const newResult = new MockTestResult(req.body);
+        await newResult.save();
+        res.status(201).json(newResult);
+    } catch (error) {
+        res.status(500).json({ message: 'Error saving result', error });
+    }
 });
+
+// --- END OF NEW API ROUTES ---
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
