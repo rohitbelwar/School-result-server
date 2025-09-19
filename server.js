@@ -49,14 +49,14 @@ const studentResultSchema = new mongoose.Schema({
   class: { type: String, required: true, trim: true },
   section: { type: String, required: true, trim: true },
   examTerm: { type: String, required: true, trim: true },
-  academicSession: { type: String }, 
-  attendance: { type: String },      
+  academicSession: { type: String },
+  attendance: { type: String },
   fullMarks: { type: Number, required: true },
   subjects: [{
     name: { type: String, required: true },
     marks: { type: Number, required: true }
   }],
-  coScholastic: [{                    
+  coScholastic: [{
     name: { type: String, required: true },
     grade: { type: String, required: true }
   }],
@@ -69,7 +69,7 @@ const studentResultSchema = new mongoose.Schema({
 studentResultSchema.pre('save', async function(next) {
   const totalSubjects = this.subjects.length;
   const maxPossibleMarks = this.fullMarks * totalSubjects;
-  
+
   this.total = this.subjects.reduce((sum, sub) => sum + sub.marks, 0);
   this.percent = maxPossibleMarks > 0 ? (this.total / maxPossibleMarks) * 100 : 0;
 
@@ -84,7 +84,7 @@ studentResultSchema.pre('save', async function(next) {
       studentsInSameGroup[i].rank = i + 1;
       await studentsInSameGroup[i].save({ validateBeforeSave: false });
     }
-    
+
     const currentStudentRank = studentsInSameGroup.findIndex(s => s._id.equals(this._id));
     if (currentStudentRank !== -1) {
         this.rank = currentStudentRank + 1;
@@ -101,7 +101,7 @@ const subjectSchema = new mongoose.Schema({
   term: { type: String, required: true },
   name: { type: String, required: true },
   fullMarks: { type: Number, required: true },
-  passingMarks: { type: Number } 
+  passingMarks: { type: Number }
 });
 
 const Subject = mongoose.model('Subject', subjectSchema);
@@ -130,10 +130,12 @@ const mockTestSettingsSchema = new mongoose.Schema({
 });
 const MockTestSettings = mongoose.model('MockTestSettings', mockTestSettingsSchema);
 
+// CORRECTED: Added 'questions' to the schema
 const mockTestResultSchema = new mongoose.Schema({
   studentDetails: { type: Object, required: true },
   answers: { type: Array, required: true },
   score: { type: Object, required: true },
+  questions: { type: Array, required: true }, // This line is added
   timestamp: { type: Date, default: Date.now }
 });
 const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
@@ -142,10 +144,10 @@ const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
 
 
 // --- EXISTING API ROUTES FOR SCHOOL RESULTS ---
-// ... (यह सेक्शन पहले जैसा ही है, इसमें कोई बदलाव नहीं है)
+// ... (This section remains unchanged)
 app.get('/api/subjects', async (req, res) => {
   try {
-    const subjects = await Subject.find({}).lean(); // .lean() जोड़ा गया
+    const subjects = await Subject.find({}).lean();
     res.status(200).json(subjects);
   } catch (err) {
     res.status(500).json({ error: 'Subjects प्राप्त करने में त्रुटि हुई।' });
@@ -283,7 +285,7 @@ app.delete('/delete-teacher/:id', async (req, res) => {
 
 app.post('/save-student', async (req, res) => {
   const { name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, academicSession, attendance, discipline, subjects, coScholastic, fullMarks, id } = req.body;
-  const { role, teacherClass, teacherSection } = req.query; 
+  const { role, teacherClass, teacherSection } = req.query;
 
   if (role === 'teacher' && (studentClass !== teacherClass || section !== teacherSection)) {
       return res.status(403).json({ error: 'आप केवल अपने क्लास के छात्रों के परिणाम सहेज सकते हैं।' });
@@ -301,11 +303,11 @@ app.post('/save-student', async (req, res) => {
       studentResult.class = studentClass;
       studentResult.section = section;
       studentResult.examTerm = examTerm;
-      studentResult.academicSession = academicSession; 
-      studentResult.attendance = attendance;           
-      studentResult.discipline = discipline;           
+      studentResult.academicSession = academicSession;
+      studentResult.attendance = attendance;
+      studentResult.discipline = discipline;
       studentResult.subjects = subjects;
-      studentResult.coScholastic = coScholastic;       
+      studentResult.coScholastic = coScholastic;
       studentResult.fullMarks = fullMarks;
     } else {
       studentResult = new StudentResult({ name, fatherName, motherName, rollNumber, dob, class: studentClass, section, examTerm, academicSession, attendance, discipline, subjects, coScholastic, fullMarks });
@@ -376,7 +378,6 @@ app.delete('/delete-student/:id', async (req, res) => {
 // 1. Questions API
 app.get('/api/questions', async (req, res) => {
     try {
-        // FIXED: .lean() जोड़ा गया ताकि शुद्ध डेटा भेजा जा सके
         const questions = await MockTestQuestion.find({}).lean();
         res.json(questions);
     } catch (error) {
@@ -387,14 +388,19 @@ app.get('/api/questions', async (req, res) => {
 app.post('/api/questions', async (req, res) => {
     try {
         const newQuestionData = req.body;
-        newQuestionData.id = Date.now();
+        // Generate a more robust unique ID
+        const lastQuestion = await MockTestQuestion.findOne().sort({ id: -1 });
+        newQuestionData.id = lastQuestion ? lastQuestion.id + 1 : 1;
+        
         const newQuestion = new MockTestQuestion(newQuestionData);
         await newQuestion.save();
         res.status(201).json(newQuestion);
     } catch (error) {
-        res.status(500).json({ message: 'Error adding question', error });
+        console.error("Error adding question:", error);
+        res.status(500).json({ message: 'Error adding question', error: error.message });
     }
 });
+
 
 app.delete('/api/questions/:id', async (req, res) => {
     try {
@@ -438,7 +444,6 @@ app.post('/api/settings', async (req, res) => {
 // 3. Results API
 app.get('/api/results', async (req, res) => {
     try {
-        // FIXED: .lean() जोड़ा गया
         const results = await MockTestResult.find({}).sort({ timestamp: -1 }).lean();
         res.json(results);
     } catch (error) {
