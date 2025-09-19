@@ -2,15 +2,13 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(express.json());
+app.use(express.json()); // Replaces bodyParser.json()
 
 const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI, {
@@ -130,12 +128,11 @@ const mockTestSettingsSchema = new mongoose.Schema({
 });
 const MockTestSettings = mongoose.model('MockTestSettings', mockTestSettingsSchema);
 
-// CORRECTED: Added 'questions' to the schema
 const mockTestResultSchema = new mongoose.Schema({
   studentDetails: { type: Object, required: true },
   answers: { type: Array, required: true },
   score: { type: Object, required: true },
-  questions: { type: Array, required: true }, // This line is added
+  questions: { type: Array, required: true },
   timestamp: { type: Date, default: Date.now }
 });
 const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
@@ -143,8 +140,7 @@ const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
 // --- END OF NEW SCHEMAS ---
 
 
-// --- EXISTING API ROUTES FOR SCHOOL RESULTS ---
-// ... (This section remains unchanged)
+// --- EXISTING API ROUTES FOR SCHOOL RESULTS (FULL CODE) ---
 app.get('/api/subjects', async (req, res) => {
   try {
     const subjects = await Subject.find({}).lean();
@@ -388,15 +384,20 @@ app.get('/api/questions', async (req, res) => {
 app.post('/api/questions', async (req, res) => {
     try {
         const newQuestionData = req.body;
-        // Generate a more robust unique ID
-        const lastQuestion = await MockTestQuestion.findOne().sort({ id: -1 });
-        newQuestionData.id = lastQuestion ? lastQuestion.id + 1 : 1;
+        
+        // More robust ID generation logic
+        const lastQuestion = await MockTestQuestion.findOne({}, {}, { sort: { 'id': -1 } });
+        const nextId = (lastQuestion && typeof lastQuestion.id === 'number') ? lastQuestion.id + 1 : 1;
+        newQuestionData.id = nextId;
         
         const newQuestion = new MockTestQuestion(newQuestionData);
         await newQuestion.save();
         res.status(201).json(newQuestion);
     } catch (error) {
         console.error("Error adding question:", error);
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: 'Validation Error: ' + error.message, error: error });
+        }
         res.status(500).json({ message: 'Error adding question', error: error.message });
     }
 });
