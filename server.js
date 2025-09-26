@@ -3,12 +3,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path'); // path मॉड्यूल जोड़ा गया
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+// 静적 फाइलों (HTML, CSS, JS) को 'public' फ़ोल्डर से सर्व करें
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI, {
