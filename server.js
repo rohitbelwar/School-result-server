@@ -3,15 +3,13 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const path = require('path'); // path मॉड्यूल जोड़ा गया
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
-// 静적 फाइलों (HTML, CSS, JS) को 'public' फ़ोल्डर से सर्व करें
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -383,6 +381,37 @@ app.post('/api/questions', async (req, res) => {
     res.status(500).json({ message: 'Error adding question', error: error.message });
   }
 });
+
+// NEW: Endpoint for bulk question upload
+app.post('/api/questions/bulk', async (req, res) => {
+  try {
+    const questionsData = req.body; // This should be an array
+    if (!Array.isArray(questionsData) || questionsData.length === 0) {
+      return res.status(400).json({ message: 'Request body must be a non-empty array of questions.' });
+    }
+
+    const lastQuestion = await MockTestQuestion.findOne({}, {}, { sort: { 'id': -1 } });
+    let nextId = (lastQuestion && typeof lastQuestion.id === 'number') ? lastQuestion.id + 1 : 1;
+
+    const questionsToInsert = questionsData.map(q => {
+      const questionDoc = { ...q, id: nextId };
+      nextId++;
+      return questionDoc;
+    });
+
+    const insertedQuestions = await MockTestQuestion.insertMany(questionsToInsert);
+    
+    res.status(201).json({ message: `Successfully added ${insertedQuestions.length} questions.`, data: insertedQuestions });
+
+  } catch (error) {
+    console.error("Error adding bulk questions:", error);
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ message: 'Validation Error: ' + error.message, error: error });
+    }
+    res.status(500).json({ message: 'Error adding questions in bulk', error: error.message });
+  }
+});
+
 
 app.delete('/api/questions/:id', async (req, res) => {
   try {
