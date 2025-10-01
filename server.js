@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' })); // Increased limit for face descriptors
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -21,7 +21,31 @@ mongoose.connect(MONGODB_URI, {
   .then(() => console.log('✅ MongoDB Connected Successfully'))
   .catch(err => console.error('❌ MongoDB Connection Failed:', err));
 
-// --- EXISTING SCHEMAS FOR SCHOOL RESULTS ---
+// --- NEW SCHEMAS FOR FACE ATTENDANCE ---
+
+const faceSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    class: { type: String, required: true },
+    section: { type: String, required: true },
+    rollNumber: { type: String, required: true },
+    descriptors: { type: [[Number]], required: true }
+});
+// Create a compound index to ensure one face registration per student
+faceSchema.index({ class: 1, section: 1, rollNumber: 1 }, { unique: true });
+const FaceData = mongoose.model('FaceData', faceSchema);
+
+const attendanceSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    class: { type: String, required: true },
+    section: { type: String, required: true },
+    rollNumber: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now },
+    status: { type: String, default: 'Present' }
+});
+const Attendance = mongoose.model('Attendance', attendanceSchema);
+
+
+// --- EXISTING SCHEMAS (FROM ORIGINAL FILE) ---
 const teacherSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   class: { type: String, required: true, trim: true },
@@ -89,20 +113,14 @@ const subjectSchema = new mongoose.Schema({
 });
 const Subject = mongoose.model('Subject', subjectSchema);
 
-
-// --- SCHEMAS FOR MOCK TEST SYSTEM ---
 const mockTestQuestionSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
   class: { type: String, required: true },
   section: { type: String, required: true },
   subject: { type: String, required: true },
   chapter: { type: String, required: true },
-  question: {
-    en: { type: String, required: true },
-  },
-  options: [{
-    en: { type: String, required: true },
-  }],
+  question: { en: { type: String, required: true } },
+  options: [{ en: { type: String, required: true } }],
   correctAnswer: { type: Number, required: true }
 });
 const MockTestQuestion = mongoose.model('MockTestQuestion', mockTestQuestionSchema);
@@ -125,7 +143,83 @@ const mockTestResultSchema = new mongoose.Schema({
 const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
 
 
-// --- API ROUTES FOR SCHOOL RESULTS (FULL CODE) ---
+// --- NEW API ROUTES FOR FACE ATTENDANCE ---
+app.post('/api/face/register', async (req, res) => {
+  const { name, class: studentClass, section, rollNumber, descriptors } = req.body;
+  if (!name || !studentClass || !section || !rollNumber || !descriptors || descriptors.length === 0) {
+    return res.status(400).json({ error: 'Missing required fields.' });
+  }
+  try {
+    const filter = { class: studentClass, section, rollNumber };
+    const update = { name, descriptors };
+    await FaceData.findOneAndUpdate(filter, update, { upsert: true, new: true });
+    res.status(200).json({ message: `Face for ${name} saved!` });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error saving face data.' });
+  }
+});
+
+app.get('/api/faces', async (req, res) => {
+  try {
+    const faces = await FaceData.find({}).lean();
+    res.status(200).json(faces);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error fetching face data.' });
+  }
+});
+
+app.post('/api/attendance', async (req, res) => {
+    const { name, class: studentClass, section, rollNumber } = req.body;
+    if (!name || !studentClass || !section || !rollNumber) {
+        return res.status(400).json({ error: 'Missing student details.' });
+    }
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const existingRecord = await Attendance.findOne({
+            class: studentClass,
+            section,
+            rollNumber,
+            timestamp: { $gte: today, $lt: tomorrow }
+        });
+
+        if (existingRecord) {
+            return res.status(200).json({ message: 'Attendance already marked for today.' });
+        }
+        const newRecord = new Attendance({ name, class: studentClass, section, rollNumber });
+        await newRecord.save();
+        res.status(201).json({ message: 'Attendance marked successfully.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error marking attendance.' });
+    }
+});
+
+app.get('/api/attendance/report', async (req, res) => {
+    const { startDate, endDate, studentClass, section } = req.query;
+    if (!startDate || !endDate || !studentClass || !section) {
+        return res.status(400).json({ error: 'Missing required filter parameters.' });
+    }
+    try {
+        const report = await Attendance.find({
+            class: studentClass,
+            section,
+            timestamp: {
+                $gte: new Date(startDate),
+                $lt: new Date(endDate)
+            }
+        }).sort({ timestamp: -1 }).lean();
+        res.status(200).json(report);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error fetching attendance report.' });
+    }
+});
+
+
+// --- ALL EXISTING API ROUTES (FROM ORIGINAL FILE) ---
+
 app.get('/api/subjects', async (req, res) => {
   try {
     const subjects = await Subject.find({}).lean();
@@ -352,9 +446,6 @@ app.delete('/delete-student/:id', async (req, res) => {
   }
 });
 
-
-// --- API ROUTES FOR MOCK TEST SYSTEM ---
-
 app.get('/api/questions', async (req, res) => {
   try {
     const questions = await MockTestQuestion.find({}).lean();
@@ -374,7 +465,6 @@ app.post('/api/questions', async (req, res) => {
     await newQuestion.save();
     res.status(201).json(newQuestion);
   } catch (error) {
-    console.error("Error adding question:", error);
     if (error.name === 'ValidationError') {
       return res.status(400).json({ message: 'Validation Error: ' + error.message, error: error });
     }
@@ -382,29 +472,18 @@ app.post('/api/questions', async (req, res) => {
   }
 });
 
-// NEW: Endpoint for bulk question upload
 app.post('/api/questions/bulk', async (req, res) => {
   try {
-    const questionsData = req.body; // This should be an array
+    const questionsData = req.body;
     if (!Array.isArray(questionsData) || questionsData.length === 0) {
       return res.status(400).json({ message: 'Request body must be a non-empty array of questions.' });
     }
-
     const lastQuestion = await MockTestQuestion.findOne({}, {}, { sort: { 'id': -1 } });
     let nextId = (lastQuestion && typeof lastQuestion.id === 'number') ? lastQuestion.id + 1 : 1;
-
-    const questionsToInsert = questionsData.map(q => {
-      const questionDoc = { ...q, id: nextId };
-      nextId++;
-      return questionDoc;
-    });
-
+    const questionsToInsert = questionsData.map(q => ({ ...q, id: nextId++ }));
     const insertedQuestions = await MockTestQuestion.insertMany(questionsToInsert);
-    
     res.status(201).json({ message: `Successfully added ${insertedQuestions.length} questions.`, data: insertedQuestions });
-
   } catch (error) {
-    console.error("Error adding bulk questions:", error);
     if (error.name === 'ValidationError') {
       return res.status(400).json({ message: 'Validation Error: ' + error.message, error: error });
     }
