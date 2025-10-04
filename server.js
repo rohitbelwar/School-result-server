@@ -197,20 +197,68 @@ app.post('/api/attendance', async (req, res) => {
     }
 });
 
+// --- FIXED AND NEW ENDPOINTS ---
+
+// **NEW** This endpoint calculates and returns the summary for today's attendance.
+// **नया** यह एंडपॉइंट आज की उपस्थिति के लिए सारांश की गणना करता है और लौटाता है।
+app.get('/api/attendance/summary/today', async (req, res) => {
+    try {
+        // We use StudentResult to get the total count of all students in the school.
+        // हम स्कूल में सभी छात्रों की कुल संख्या प्राप्त करने के लिए StudentResult का उपयोग करते हैं।
+        const totalStudents = await StudentResult.countDocuments();
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Start of today
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1); // Start of tomorrow
+
+        // Count students who are marked as 'Present' today.
+        // आज 'उपस्थित' के रूप में चिह्नित छात्रों की गणना करें।
+        const presentToday = await Attendance.countDocuments({
+            timestamp: { $gte: today, $lt: tomorrow },
+            status: 'Present'
+        });
+
+        const absentToday = totalStudents - presentToday;
+
+        res.status(200).json({
+            totalStudents: totalStudents,
+            presentToday: presentToday,
+            absentToday: absentToday
+        });
+    } catch (error) {
+        console.error('Error fetching attendance summary:', error);
+        res.status(500).json({ error: 'Server error fetching attendance summary.' });
+    }
+});
+
+// **FIXED** This endpoint now correctly handles the "All Classes" filter.
+// **ठीक किया गया** यह एंडपॉइंट अब "All Classes" फ़िल्टर को सही ढंग से संभालता है।
 app.get('/api/attendance/report', async (req, res) => {
     const { startDate, endDate, studentClass, section } = req.query;
-    if (!startDate || !endDate || !studentClass || !section) {
-        return res.status(400).json({ error: 'Missing required filter parameters.' });
+    
+    // Only start and end dates are mandatory.
+    // केवल प्रारंभ और समाप्ति तिथियां अनिवार्य हैं।
+    if (!startDate || !endDate) {
+        return res.status(400).json({ error: 'Start date and end date are required.' });
     }
+
     try {
-        const report = await Attendance.find({
-            class: studentClass,
-            section,
+        const filter = {
             timestamp: {
                 $gte: new Date(startDate),
                 $lt: new Date(endDate)
             }
-        }).sort({ timestamp: -1 }).lean();
+        };
+
+        // If a specific class is chosen (not "All Classes"), add it to the filter.
+        // यदि कोई विशिष्ट कक्षा चुनी जाती है ("All Classes" नहीं), तो उसे फ़िल्टर में जोड़ें।
+        if (studentClass && studentClass !== 'All Classes' && section) {
+            filter.class = studentClass;
+            filter.section = section;
+        }
+
+        const report = await Attendance.find(filter).sort({ timestamp: -1 }).lean();
         res.status(200).json(report);
     } catch (error) {
         res.status(500).json({ error: 'Server error fetching attendance report.' });
