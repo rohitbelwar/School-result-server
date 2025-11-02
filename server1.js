@@ -33,7 +33,9 @@ const mockTestStudentSchema = new mongoose.Schema({
     section: { type: String, required: true, trim: true },
     dob: { type: String, required: true }, // Original DOB को संदर्भ के लिए स्टोर करें
     paymentStatus: { type: String, default: 'pending' }, // Admin इसे 'completed' में बदल सकता है
-    transactionId: { type: String, required: true },
+    
+    // --- FIX: Transaction ID को unique और trimmed बनाया गया ---
+    transactionId: { type: String, required: true, unique: true, trim: true },
     
     // --- NEW FIELDS (नए फ़ील्ड) ---
     fatherName: { type: String, trim: true },
@@ -232,6 +234,14 @@ app.post('/api/mock-student/register', async (req, res) => {
             return res.status(400).json({ message: 'This roll number is already registered in this class.' });
         }
 
+        // --- FIX: डुप्लीकेट Transaction ID की जाँच करें ---
+        // नोट: `unique: true` को स्कीमा में भी जोड़ा गया है
+        const existingTransaction = await MockTestStudent.findOne({ transactionId: transactionId.trim() });
+        if (existingTransaction) {
+            return res.status(400).json({ message: 'This Payment Transaction ID has already been used.' });
+        }
+        // --- End of FIX ---
+
         // पासवर्ड (DOB) को हैश करें
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -244,7 +254,7 @@ app.post('/api/mock-student/register', async (req, res) => {
             class: studentClass,
             section,
             dob, 
-            transactionId,
+            transactionId: transactionId.trim(), // Trimmed ID को सेव करें
             paymentStatus: 'pending',
             
             // नए फ़ील्ड सेव करें
@@ -264,6 +274,10 @@ app.post('/api/mock-student/register', async (req, res) => {
 
     } catch (error) {
         console.error('Registration Error:', error);
+        // Mongoose 'unique' एरर को पकड़ें
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.transactionId) {
+            return res.status(400).json({ message: 'This Payment Transaction ID has already been used.' });
+        }
         res.status(500).json({ message: 'Server error during registration.', error: error.message });
     }
 });
@@ -673,7 +687,7 @@ app.get('/get-student/:id', async (req, res) => {
   try {
     const student = await StudentResult.findById(studentId).lean();
     if (!student) {
-      return res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' });
+      return res.status(44).json({ error: 'छात्र परिणाम नहीं मिला।' });
     }
     if (role === 'teacher' && (student.class !== teacherClass || student.section !== teacherSection)) {
       return res.status(403).json({ error: 'आप इस छात्र को देखने/संपादित करने के लिए अधिकृत नहीं हैं।' });
