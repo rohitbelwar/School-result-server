@@ -32,7 +32,12 @@ const mockTestStudentSchema = new mongoose.Schema({
     class: { type: String, required: true, trim: true },
     section: { type: String, required: true, trim: true },
     dob: { type: String, required: true }, // Original DOB को संदर्भ के लिए स्टोर करें
+    
+    // --- Payment Status (मैनुअल वेरिफिकेशन के लिए) ---
     paymentStatus: { type: String, default: 'pending' }, // Admin इसे 'completed' में बदल सकता है
+    
+    // --- NEW FIELD: Admin द्वारा approve किए जाने का समय ---
+    approvedAt: { type: Date, default: null },
     
     // --- FIX: Transaction ID को unique और trimmed बनाया गया ---
     transactionId: { type: String, required: true, unique: true, trim: true },
@@ -235,7 +240,6 @@ app.post('/api/mock-student/register', async (req, res) => {
         }
 
         // --- FIX: डुप्लीकेट Transaction ID की जाँच करें ---
-        // नोट: `unique: true` को स्कीमा में भी जोड़ा गया है
         const existingTransaction = await MockTestStudent.findOne({ transactionId: transactionId.trim() });
         if (existingTransaction) {
             return res.status(400).json({ message: 'This Payment Transaction ID has already been used.' });
@@ -255,7 +259,10 @@ app.post('/api/mock-student/register', async (req, res) => {
             section,
             dob, 
             transactionId: transactionId.trim(), // Trimmed ID को सेव करें
-            paymentStatus: 'pending',
+            
+            // --- MANUAL VERIFICATION ---
+            // paymentStatus डिफ़ॉल्ट रूप से 'pending' पर सेट है
+            paymentStatus: 'pending', 
             
             // नए फ़ील्ड सेव करें
             fatherName,
@@ -270,7 +277,9 @@ app.post('/api/mock-student/register', async (req, res) => {
         });
 
         await newStudent.save();
-        res.status(201).json({ message: 'Registration successful! You can now log in.' });
+        
+        // --- Success Message Changed ---
+        res.status(201).json({ message: 'Registration received. Your account is pending verification.' });
 
     } catch (error) {
         console.error('Registration Error:', error);
@@ -282,7 +291,7 @@ app.post('/api/mock-student/register', async (req, res) => {
     }
 });
 
-// POST /api/mock-student/login
+// POST /api/mock-student/login (UPDATED FOR VERIFICATION AND 5-HOUR DELAY)
 // छात्र को लॉगिन करने के लिए
 app.post('/api/mock-student/login', async (req, res) => {
     const { email, password } = req.body; // password यहाँ DOB है
@@ -303,6 +312,32 @@ app.post('/api/mock-student/login', async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials. (Password incorrect)' });
         }
+
+        // --- !! SECURITY CHECK (UPDATED) !! ---
+        // 1. जाँचें कि क्या एडमिन ने पेमेंट को मंजूरी दे दी है
+        if (student.paymentStatus !== 'completed') {
+            return res.status(401).json({ 
+                message: 'Account not active. Your payment verification is pending. Please try again later.' 
+            });
+        }
+        
+        // 2. जाँचें कि क्या मंजूरी के बाद 5 घंटे बीत चुके हैं
+        if (!student.approvedAt) {
+             // यह स्थिति तब नहीं आनी चाहिए अगर 'approve' लॉजिक सही है, लेकिन यह एक फॉलबैक है
+             return res.status(401).json({ message: 'Account approval error. Please contact admin.' });
+        }
+        
+        // मिलीसेकंड को घंटे में बदलें
+        const hoursPassed = (new Date() - new Date(student.approvedAt)) / (1000 * 60 * 60);
+        
+        if (hoursPassed < 5) {
+            const hoursRemaining = 5 - hoursPassed;
+            return res.status(401).json({ 
+                message: `Account approved. Please wait approximately ${hoursRemaining.toFixed(1)} more hours for activation.`
+            });
+        }
+        // --- End of SECURITY CHECK ---
+
 
         // लॉगिन सफल! एक JWT टोकन बनाएं
         const payload = {
@@ -360,28 +395,75 @@ const verifyToken = (req, res, next) => {
 app.get('/api/mock-student/me', verifyToken, async (req, res) => {
     try {
         // req.user को मिडलवेयर द्वारा सेट किया गया है
-        // हम चाहें तो ताज़ा डेटाबेस से यूज़र को फिर से फ़ेच कर सकते हैं
         const student = await MockTestStudent.findById(req.user.id).select('-password');
         if (!student) {
             return res.status(404).json({ message: 'Student not found.' });
         }
+        
+        // --- सुरक्षा जाँच (यदि एडमिन ने अकाउंट को बाद में 'पेंडिंग' पर सेट कर दिया हो) ---
+        if (student.paymentStatus !== 'completed') {
+             return res.status(401).json({ message: 'Account is no longer active.' });
+        }
+        
+        // --- 5-HOUR DELAY CHECK (यहाँ भी लागू किया गया) ---
+        // (यह सुनिश्चित करता है कि अगर वे 5 घंटे से पहले टोकन का उपयोग करते हैं तो वे बाहर हो जाएं)
+        if (!student.approvedAt) {
+             return res.status(401).json({ message: 'Account approval error. Please contact admin.' });
+        }
+        const hoursPassed = (new Date() - new Date(student.approvedAt)) / (1000 * 60 * 60);
+        if (hoursPassed < 5) {
+            return res.status(401).json({ message: 'Account is not yet active.' });
+        }
+        // --- End of 5-HOUR CHECK ---
+
         res.json(student);
     } catch (error) {
         res.status(500).json({ message: 'Server error.' });
     }
 });
 
-// --- NEW ADMIN ENDPOINT (नया एडमिन एपीआई) ---
+// --- ADMIN ENDPOINTS ---
+
 // GET /api/mock-students/all
 // एडमिन पैनल के लिए सभी रजिस्टर्ड छात्रों को लाने के लिए
 app.get('/api/mock-students/all', async (req, res) => {
-    // बाद में यहाँ एडमिन प्रमाणीकरण (admin auth) जोड़ा जा सकता है
+    // !! बाद में यहाँ एडमिन प्रमाणीकरण (admin auth) जोड़ा जाना चाहिए !!
     try {
         const students = await MockTestStudent.find({}).select('-password').sort({ registeredAt: -1 });
         res.json(students);
     } catch (error) {
         console.error('Error fetching all students:', error);
         res.status(500).json({ message: 'Server error fetching students.' });
+    }
+});
+
+// POST /api/mock-student/approve (UPDATED)
+// यह API 'bcstexam_contro.html' द्वारा छात्र को मंज़ूरी देने के लिए इस्तेमाल किया जाएगा
+app.post('/api/mock-student/approve', async (req, res) => {
+    // !! यह एक सुरक्षित एडमिन-ओनली रूट होना चाहिए !!
+    // अभी के लिए, हम मान रहे हैं कि जिसके पास 'bcstexam_contro.html' का एक्सेस है, वह एडमिन है।
+    
+    const { studentId } = req.body;
+    if (!studentId) {
+        return res.status(400).json({ message: 'Student ID is required.' });
+    }
+
+    try {
+        const student = await MockTestStudent.findById(studentId);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found.' });
+        }
+        
+        student.paymentStatus = 'completed';
+        // --- ADDED --- मंजूरी का वर्तमान समय सेट करें
+        student.approvedAt = new Date(); 
+        
+        await student.save();
+        
+        res.json({ message: `Student ${student.name} approved successfully. Activation will start in 5 hours.` });
+    } catch (error) {
+        console.error('Error approving student:', error);
+        res.status(500).json({ message: 'Server error approving student.' });
     }
 });
 
@@ -687,7 +769,7 @@ app.get('/get-student/:id', async (req, res) => {
   try {
     const student = await StudentResult.findById(studentId).lean();
     if (!student) {
-      return res.status(44).json({ error: 'छात्र परिणाम नहीं मिला।' });
+      return res.status(404).json({ error: 'छात्र परिणाम नहीं मिला।' });
     }
     if (role === 'teacher' && (student.class !== teacherClass || student.section !== teacherSection)) {
       return res.status(403).json({ error: 'आप इस छात्र को देखने/संपादित करने के लिए अधिकृत नहीं हैं।' });
