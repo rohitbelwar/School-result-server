@@ -467,6 +467,38 @@ app.post('/api/mock-student/approve', async (req, res) => {
     }
 });
 
+// --- [NAYA CODE] STUDENT DELETE ROUTE ---
+// DELETE /api/mock-student/delete/:id
+// यह API 'bcstexam_control.html' द्वारा छात्र को हटाने के लिए इस्तेमाल किया जाएगा
+app.delete('/api/mock-student/delete/:id', async (req, res) => {
+    // !! यह भी एक सुरक्षित एडमिन-ओनली रूट होना चाहिए !!
+    
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: 'Student ID is required.' });
+    }
+
+    try {
+        // ID द्वारा छात्र को ढूंढें और हटाएं
+        const deletedStudent = await MockTestStudent.findByIdAndDelete(id);
+        
+        if (!deletedStudent) {
+            return res.status(404).json({ message: 'Student not found.' });
+        }
+        
+        res.json({ message: `Student ${deletedStudent.name} (ID: ${id}) deleted successfully.` });
+
+    } catch (error) {
+        console.error('Error deleting student:', error);
+        // Mongoose 'CastError' को संभालें (अगर ID का फॉर्मेट गलत है)
+        if (error.name === 'CastError') {
+            return res.status(400).json({ message: 'Invalid Student ID format.' });
+        }
+        res.status(500).json({ message: 'Server error deleting student.' });
+    }
+});
+// --- [END NAYA CODE] ---
+
 
 // --- FACE ATTENDANCE API ROUTES ---
 app.post('/api/face/register', async (req, res) => {
