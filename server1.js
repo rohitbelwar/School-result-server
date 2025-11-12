@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/school_db'; // Fallback added
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -23,26 +23,24 @@ mongoose.connect(MONGODB_URI, {
   .catch(err => console.error('❌ MongoDB Connection Failed:', err));
 
 // --- MOCK TEST STUDENT SCHEMA (UPDATED) ---
-// छात्र रजिस्ट्रेशन के लिए अपडेट किया गया स्कीमा
 const mockTestStudentSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    password: { type: String, required: true }, // यह hashed DOB होगा
+    password: { type: String, required: true }, 
     name: { type: String, required: true, trim: true },
     rollNumber: { type: String, required: true, trim: true },
     class: { type: String, required: true, trim: true },
     section: { type: String, required: true, trim: true },
-    dob: { type: String, required: true }, // Original DOB को संदर्भ के लिए स्टोर करें
+    dob: { type: String, required: true }, 
     
-    // --- Payment Status (मैनुअल वेरिफिकेशन के लिए) ---
-    paymentStatus: { type: String, default: 'pending' }, // Admin इसे 'completed' में बदल सकता है
-    
-    // --- NEW FIELD: Admin द्वारा approve किए जाने का समय ---
+    // --- NEW FIELD: Phone Number (Point 2) ---
+    phoneNumber: { type: String, trim: true },
+
+    // --- Payment Status ---
+    paymentStatus: { type: String, default: 'pending' }, 
     approvedAt: { type: Date, default: null },
-    
-    // --- FIX: Transaction ID को unique और trimmed बनाया गया ---
     transactionId: { type: String, required: true, unique: true, trim: true },
     
-    // --- NEW FIELDS (नए फ़ील्ड) ---
+    // --- NEW FIELDS ---
     fatherName: { type: String, trim: true },
     motherName: { type: String, trim: true },
     address: { type: String, trim: true },
@@ -52,14 +50,30 @@ const mockTestStudentSchema = new mongoose.Schema({
     postOffice: { type: String, trim: true },
     policeStation: { type: String, trim: true },
     pinCode: { type: String, trim: true },
-    // --- End of NEW FIELDS ---
+
+    // --- NEW FIELD: Single Device Login (Point 1) ---
+    // यह फ़ील्ड उस टोकन को स्टोर करेगा जो अभी एक्टिव है। 
+    // यदि कोई नया लॉगिन होता है, तो यह बदल जाएगा और पुराना टोकन अमान्य हो जाएगा।
+    activeToken: { type: String, default: null },
 
     registeredAt: { type: Date, default: Date.now }
 });
 
-// Compound index यह सुनिश्चित करने के लिए कि एक क्लास/सेक्शन में एक ही रोल नंबर हो
 mockTestStudentSchema.index({ class: 1, section: 1, rollNumber: 1 }, { unique: true });
 const MockTestStudent = mongoose.model('MockTestStudent', mockTestStudentSchema);
+
+// --- NEW SCHEMA: CHAT/DOUBT SYSTEM (Point 3) ---
+const studentDoubtSchema = new mongoose.Schema({
+    studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'MockTestStudent', required: true },
+    studentName: { type: String, required: true },
+    studentClass: { type: String },
+    message: { type: String, required: true }, // Student का सवाल
+    reply: { type: String, default: null },     // Admin का जवाब
+    status: { type: String, default: 'pending' }, // pending, replied
+    timestamp: { type: Date, default: Date.now },
+    repliedAt: { type: Date }
+});
+const StudentDoubt = mongoose.model('StudentDoubt', studentDoubtSchema);
 
 
 // --- EXISTING SCHEMAS ---
@@ -148,7 +162,6 @@ const subjectSchema = new mongoose.Schema({
 });
 const Subject = mongoose.model('Subject', subjectSchema);
 
-// --- सामान्य मॉक टेस्ट प्रश्न ---
 const mockTestQuestionSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
   class: { type: String, required: true },
@@ -161,7 +174,6 @@ const mockTestQuestionSchema = new mongoose.Schema({
 });
 const MockTestQuestion = mongoose.model('MockTestQuestion', mockTestQuestionSchema);
 
-// --- (नया) BCST मॉक टेस्ट प्रश्न ---
 const bcstMockTestQuestionSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
   class: { type: String, required: true },
@@ -187,7 +199,7 @@ const mockTestResultSchema = new mongoose.Schema({
   studentDetails: { type: Object, required: true },
   answers: { type: Array, required: true },
   score: { type: Object, required: true },
-  questions: { type: Array, required: true },
+  questions: { type: Array, required: true }, // For detailed review
   timestamp: { type: Date, default: Date.now }
 });
 const MockTestResult = mongoose.model('MockTestResult', mockTestResultSchema);
@@ -205,30 +217,24 @@ const mockTestNoticeSchema = new mongoose.Schema({
 const MockTestNotice = mongoose.model('MockTestNotice', mockTestNoticeSchema);
 
 
-// --- NEW STUDENT AUTH API ROUTES ---
+// --- STUDENT AUTH API ROUTES ---
 
-// POST /api/mock-student/register (UPDATED)
-// नया छात्र रजिस्टर करने के लिए
+// POST /api/mock-student/register (UPDATED with PhoneNumber)
 app.post('/api/mock-student/register', async (req, res) => {
     const { 
-        email, password, name, rollNumber, class: studentClass, section, dob, transactionId,
-        // नए फ़ील्ड
+        email, password, name, rollNumber, class: studentClass, section, dob, transactionId, phoneNumber, // Added phoneNumber
         fatherName, motherName, address, schoolName, state, district, postOffice, policeStation, pinCode 
     } = req.body;
 
-    // मूल फ़ील्ड की जाँच
     if (!email || !password || !name || !rollNumber || !studentClass || !section || !dob || !transactionId) {
         return res.status(400).json({ message: 'Please fill all required basic fields.' });
     }
     
-    // नए फ़ील्ड की जाँच
     if (!fatherName || !motherName || !address || !schoolName || !state || !district || !postOffice || !policeStation || !pinCode) {
         return res.status(400).json({ message: 'Please fill all address and parent details.' });
     }
 
-
     try {
-        // देखें कि क्या ईमेल या रोल नंबर पहले से मौजूद है
         const existingEmail = await MockTestStudent.findOne({ email });
         if (existingEmail) {
             return res.status(400).json({ message: 'This email is already registered.' });
@@ -239,14 +245,11 @@ app.post('/api/mock-student/register', async (req, res) => {
             return res.status(400).json({ message: 'This roll number is already registered in this class.' });
         }
 
-        // --- FIX: डुप्लीकेट Transaction ID की जाँच करें ---
         const existingTransaction = await MockTestStudent.findOne({ transactionId: transactionId.trim() });
         if (existingTransaction) {
             return res.status(400).json({ message: 'This Payment Transaction ID has already been used.' });
         }
-        // --- End of FIX ---
 
-        // पासवर्ड (DOB) को हैश करें
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -258,32 +261,17 @@ app.post('/api/mock-student/register', async (req, res) => {
             class: studentClass,
             section,
             dob, 
-            transactionId: transactionId.trim(), // Trimmed ID को सेव करें
-            
-            // --- MANUAL VERIFICATION ---
-            // paymentStatus डिफ़ॉल्ट रूप से 'pending' पर सेट है
+            transactionId: transactionId.trim(),
+            phoneNumber: phoneNumber ? phoneNumber.trim() : '', // Save Phone Number
             paymentStatus: 'pending', 
-            
-            // नए फ़ील्ड सेव करें
-            fatherName,
-            motherName,
-            address,
-            schoolName,
-            state,
-            district,
-            postOffice,
-            policeStation,
-            pinCode
+            fatherName, motherName, address, schoolName, state, district, postOffice, policeStation, pinCode
         });
 
         await newStudent.save();
-        
-        // --- Success Message Changed ---
         res.status(201).json({ message: 'Registration received. Your account is pending verification.' });
 
     } catch (error) {
         console.error('Registration Error:', error);
-        // Mongoose 'unique' एरर को पकड़ें
         if (error.code === 11000 && error.keyPattern && error.keyPattern.transactionId) {
             return res.status(400).json({ message: 'This Payment Transaction ID has already been used.' });
         }
@@ -291,55 +279,43 @@ app.post('/api/mock-student/register', async (req, res) => {
     }
 });
 
-// POST /api/mock-student/login (UPDATED FOR VERIFICATION AND 5-HOUR DELAY)
-// छात्र को लॉगिन करने के लिए
+// POST /api/mock-student/login (UPDATED for Single Device Login)
 app.post('/api/mock-student/login', async (req, res) => {
-    const { email, password } = req.body; // password यहाँ DOB है
+    const { email, password } = req.body; 
 
     if (!email || !password) {
         return res.status(400).json({ message: 'Please enter email and Date of Birth.' });
     }
 
     try {
-        // छात्र को ईमेल से ढूंढें
         const student = await MockTestStudent.findOne({ email });
         if (!student) {
             return res.status(401).json({ message: 'Invalid credentials. (Email not found)' });
         }
 
-        // दिए गए पासवर्ड (DOB) की तुलना हैश किए गए पासवर्ड से करें
         const isMatch = await bcrypt.compare(password, student.password);
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials. (Password incorrect)' });
         }
 
-        // --- !! SECURITY CHECK (UPDATED) !! ---
-        // 1. जाँचें कि क्या एडमिन ने पेमेंट को मंजूरी दे दी है
         if (student.paymentStatus !== 'completed') {
             return res.status(401).json({ 
                 message: 'Account not active. Your payment verification is pending. Please try again later.' 
             });
         }
         
-        // 2. जाँचें कि क्या मंजूरी के बाद 5 घंटे बीत चुके हैं
         if (!student.approvedAt) {
-             // यह स्थिति तब नहीं आनी चाहिए अगर 'approve' लॉजिक सही है, लेकिन यह एक फॉलबैक है
              return res.status(401).json({ message: 'Account approval error. Please contact admin.' });
         }
         
-        // मिलीसेकंड को घंटे में बदलें
         const hoursPassed = (new Date() - new Date(student.approvedAt)) / (1000 * 60 * 60);
-        
         if (hoursPassed < 5) {
             const hoursRemaining = 5 - hoursPassed;
             return res.status(401).json({ 
                 message: `Account approved. Please wait approximately ${hoursRemaining.toFixed(1)} more hours for activation.`
             });
         }
-        // --- End of SECURITY CHECK ---
 
-
-        // लॉगिन सफल! एक JWT टोकन बनाएं
         const payload = {
             user: {
                 id: student._id,
@@ -352,15 +328,23 @@ app.post('/api/mock-student/login', async (req, res) => {
             }
         };
 
+        // Generate Token
         jwt.sign(
             payload,
             JWT_SECRET,
-            { expiresIn: '1d' }, // टोकन 1 दिन के लिए वैध है
-            (err, token) => {
+            { expiresIn: '1d' },
+            async (err, token) => {
                 if (err) throw err;
+
+                // --- SINGLE DEVICE LOGIN LOGIC ---
+                // इस नए टोकन को डेटाबेस में सेव करें।
+                // इससे पुराना टोकन (अगर कोई है) अमान्य हो जाएगा क्योंकि DB में मैच नहीं करेगा।
+                student.activeToken = token;
+                await student.save();
+
                 res.json({ 
                     token, 
-                    user: payload.user // क्लाइंट पर यूज़र डेटा भेजने के लिए
+                    user: payload.user
                 });
             }
         );
@@ -371,11 +355,10 @@ app.post('/api/mock-student/login', async (req, res) => {
     }
 });
 
-// --- Token Verification Middleware ---
-// यह फ़ंक्शन API अनुरोधों को सुरक्षित करेगा
-const verifyToken = (req, res, next) => {
+// --- Token Verification Middleware (UPDATED for Single Device Check) ---
+const verifyToken = async (req, res, next) => {
     const authHeader = req.header('Authorization');
-    const token = authHeader && authHeader.split(' ')[1]; // "Bearer TOKEN"
+    const token = authHeader && authHeader.split(' ')[1]; 
 
     if (!token) {
         return res.status(401).json({ message: 'Access denied. No token provided.' });
@@ -383,7 +366,23 @@ const verifyToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.user = decoded.user; // { id, email, name, ... }
+        req.user = decoded.user; 
+
+        // --- SINGLE DEVICE CHECK ---
+        // DB से स्टूडेंट को लाएं और चेक करें कि क्या टोकन मैच करता है
+        const student = await MockTestStudent.findById(req.user.id);
+        if (!student) {
+             return res.status(401).json({ message: 'User not found.' });
+        }
+
+        // अगर रिक्वेस्ट का टोकन और DB का टोकन अलग है, मतलब नए डिवाइस पर लॉगिन हुआ है
+        if (student.activeToken !== token) {
+            return res.status(401).json({ 
+                message: 'You have logged in on another device. Please login again.', 
+                forceLogout: true 
+            });
+        }
+
         next();
     } catch (ex) {
         res.status(400).json({ message: 'Invalid token.' });
@@ -391,22 +390,17 @@ const verifyToken = (req, res, next) => {
 };
 
 // GET /api/mock-student/me
-// टोकन से यूज़र डेटा प्राप्त करने के लिए (पेज लोड पर सत्र बनाए रखने के लिए)
 app.get('/api/mock-student/me', verifyToken, async (req, res) => {
     try {
-        // req.user को मिडलवेयर द्वारा सेट किया गया है
-        const student = await MockTestStudent.findById(req.user.id).select('-password');
+        const student = await MockTestStudent.findById(req.user.id).select('-password -activeToken');
         if (!student) {
             return res.status(404).json({ message: 'Student not found.' });
         }
         
-        // --- सुरक्षा जाँच (यदि एडमिन ने अकाउंट को बाद में 'पेंडिंग' पर सेट कर दिया हो) ---
         if (student.paymentStatus !== 'completed') {
              return res.status(401).json({ message: 'Account is no longer active.' });
         }
         
-        // --- 5-HOUR DELAY CHECK (यहाँ भी लागू किया गया) ---
-        // (यह सुनिश्चित करता है कि अगर वे 5 घंटे से पहले टोकन का उपयोग करते हैं तो वे बाहर हो जाएं)
         if (!student.approvedAt) {
              return res.status(401).json({ message: 'Account approval error. Please contact admin.' });
         }
@@ -414,7 +408,6 @@ app.get('/api/mock-student/me', verifyToken, async (req, res) => {
         if (hoursPassed < 5) {
             return res.status(401).json({ message: 'Account is not yet active.' });
         }
-        // --- End of 5-HOUR CHECK ---
 
         res.json(student);
     } catch (error) {
@@ -422,14 +415,76 @@ app.get('/api/mock-student/me', verifyToken, async (req, res) => {
     }
 });
 
+// --- CHAT BOT / DOUBT API ROUTES (Point 4) ---
+
+// 1. Student डाउट भेजता है
+app.post('/api/doubts/ask', verifyToken, async (req, res) => {
+    const { message } = req.body;
+    if (!message) {
+        return res.status(400).json({ message: 'Message content is required.' });
+    }
+    try {
+        const newDoubt = new StudentDoubt({
+            studentId: req.user.id,
+            studentName: req.user.name,
+            studentClass: req.user.class,
+            message: message
+        });
+        await newDoubt.save();
+        res.status(201).json({ message: 'Doubt sent to admin successfully.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error sending doubt.' });
+    }
+});
+
+// 2. Student अपने डाउट्स और जवाब देखता है
+app.get('/api/doubts/my', verifyToken, async (req, res) => {
+    try {
+        const doubts = await StudentDoubt.find({ studentId: req.user.id }).sort({ timestamp: -1 });
+        res.json(doubts);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching doubts.' });
+    }
+});
+
+// 3. Admin सभी डाउट्स देखता है (For Admin Panel)
+app.get('/api/doubts/all', async (req, res) => {
+    // (Secure this with Admin Auth later)
+    try {
+        const doubts = await StudentDoubt.find({}).sort({ timestamp: -1 });
+        res.json(doubts);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching all doubts.' });
+    }
+});
+
+// 4. Admin डाउट का जवाब देता है (For Admin Panel)
+app.put('/api/doubts/reply', async (req, res) => {
+    // (Secure this with Admin Auth later)
+    const { doubtId, reply } = req.body;
+    if (!doubtId || !reply) return res.status(400).json({ message: 'ID and Reply required.' });
+
+    try {
+        const doubt = await StudentDoubt.findById(doubtId);
+        if (!doubt) return res.status(404).json({ message: 'Doubt not found.' });
+
+        doubt.reply = reply;
+        doubt.status = 'replied';
+        doubt.repliedAt = new Date();
+        await doubt.save();
+
+        res.json({ message: 'Reply sent successfully.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error replying to doubt.' });
+    }
+});
+
+
 // --- ADMIN ENDPOINTS ---
 
-// GET /api/mock-students/all
-// एडमिन पैनल के लिए सभी रजिस्टर्ड छात्रों को लाने के लिए
 app.get('/api/mock-students/all', async (req, res) => {
-    // !! बाद में यहाँ एडमिन प्रमाणीकरण (admin auth) जोड़ा जाना चाहिए !!
     try {
-        const students = await MockTestStudent.find({}).select('-password').sort({ registeredAt: -1 });
+        const students = await MockTestStudent.find({}).select('-password -activeToken').sort({ registeredAt: -1 });
         res.json(students);
     } catch (error) {
         console.error('Error fetching all students:', error);
@@ -437,12 +492,7 @@ app.get('/api/mock-students/all', async (req, res) => {
     }
 });
 
-// POST /api/mock-student/approve (UPDATED)
-// यह API 'bcstexam_contro.html' द्वारा छात्र को मंज़ूरी देने के लिए इस्तेमाल किया जाएगा
 app.post('/api/mock-student/approve', async (req, res) => {
-    // !! यह एक सुरक्षित एडमिन-ओनली रूट होना चाहिए !!
-    // अभी के लिए, हम मान रहे हैं कि जिसके पास 'bcstexam_contro.html' का एक्सेस है, वह एडमिन है।
-    
     const { studentId } = req.body;
     if (!studentId) {
         return res.status(400).json({ message: 'Student ID is required.' });
@@ -455,9 +505,7 @@ app.post('/api/mock-student/approve', async (req, res) => {
         }
         
         student.paymentStatus = 'completed';
-        // --- ADDED --- मंजूरी का वर्तमान समय सेट करें
         student.approvedAt = new Date(); 
-        
         await student.save();
         
         res.json({ message: `Student ${student.name} approved successfully. Activation will start in 5 hours.` });
@@ -467,19 +515,13 @@ app.post('/api/mock-student/approve', async (req, res) => {
     }
 });
 
-// --- [NAYA CODE] STUDENT DELETE ROUTE ---
-// DELETE /api/mock-student/delete/:id
-// यह API 'bcstexam_control.html' द्वारा छात्र को हटाने के लिए इस्तेमाल किया जाएगा
 app.delete('/api/mock-student/delete/:id', async (req, res) => {
-    // !! यह भी एक सुरक्षित एडमिन-ओनली रूट होना चाहिए !!
-    
     const { id } = req.params;
     if (!id) {
         return res.status(400).json({ message: 'Student ID is required.' });
     }
 
     try {
-        // ID द्वारा छात्र को ढूंढें और हटाएं
         const deletedStudent = await MockTestStudent.findByIdAndDelete(id);
         
         if (!deletedStudent) {
@@ -490,14 +532,12 @@ app.delete('/api/mock-student/delete/:id', async (req, res) => {
 
     } catch (error) {
         console.error('Error deleting student:', error);
-        // Mongoose 'CastError' को संभालें (अगर ID का फॉर्मेट गलत है)
         if (error.name === 'CastError') {
             return res.status(400).json({ message: 'Invalid Student ID format.' });
         }
         res.status(500).json({ message: 'Server error deleting student.' });
     }
 });
-// --- [END NAYA CODE] ---
 
 
 // --- FACE ATTENDANCE API ROUTES ---
@@ -602,7 +642,6 @@ app.get('/api/attendance/report', async (req, res) => {
 
 
 // --- EXISTING ADMIN/TEACHER API ROUTES ---
-// (इनमें कोई बदलाव नहीं किया गया है)
 
 app.get('/api/subjects', async (req, res) => {
   try {
@@ -894,7 +933,7 @@ app.delete('/api/questions/:id', async (req, res) => {
 });
 
 
-// --- (नया) BCST MOCK TEST API ROUTES ---
+// --- BCST MOCK TEST API ROUTES ---
 
 app.get('/api/bcst-questions', async (req, res) => {
   try {
@@ -938,8 +977,6 @@ app.delete('/api/bcst-questions/:id', async (req, res) => {
   }
 });
 
-// --- (समाप्त) BCST MOCK TEST API ROUTES ---
-
 
 app.get('/api/settings', async (req, res) => {
   try {
@@ -972,11 +1009,25 @@ app.get('/api/results', async (req, res) => {
   }
 });
 
+// POST /api/results (UPDATED to prevent duplicates)
 app.post('/api/results', async (req, res) => {
-    // इस एंडपॉइंट को अब सुरक्षित (verifyToken) किया जा सकता है,
-    // लेकिन सादगी के लिए, हम अभी भी क्लाइंट से studentDetails ले रहे हैं।
-    // एक बेहतर कार्यान्वयन studentDetails को req.user (टोकन से) से लेगा।
   try {
+    // --- DUPLICATE CHECK (Point 2b - Double Result Fix) ---
+    // चेक करें कि क्या इसी स्टूडेंट ने पिछले 1 मिनट में रिजल्ट सबमिट किया है?
+    const studentId = req.body.studentDetails?.id;
+    if (studentId) {
+        const oneMinuteAgo = new Date(Date.now() - 60000);
+        const existingResult = await MockTestResult.findOne({
+            'studentDetails.id': studentId,
+            timestamp: { $gte: oneMinuteAgo }
+        });
+
+        if (existingResult) {
+            return res.status(200).json({ message: 'Result already submitted recently.', duplicate: true });
+        }
+    }
+    // --- End of Duplicate Check ---
+
     const newResult = new MockTestResult(req.body);
     await newResult.save();
     res.status(201).json(newResult);
