@@ -492,6 +492,33 @@ app.get('/api/mock-students/all', async (req, res) => {
     }
 });
 
+// NEW ENDPOINT for Class-wise PDF Report Data
+app.get('/api/mock-students/class-report', async (req, res) => {
+    const { class: studentClass, section } = req.query;
+    let filter = {};
+
+    if (studentClass && studentClass !== 'All') {
+        filter.class = studentClass;
+    }
+    if (section && section !== 'All') {
+        filter.section = section;
+    }
+
+    try {
+        // Only select necessary fields, excluding password and activeToken
+        const students = await MockTestStudent.find(filter).select('-password -activeToken').sort({ rollNumber: 1, name: 1 });
+        
+        if (students.length === 0 && (studentClass && studentClass !== 'All')) {
+            return res.status(404).json({ message: 'No students found for the selected class/section.' });
+        }
+
+        res.json(students);
+    } catch (error) {
+        console.error('Error fetching students for class report:', error);
+        res.status(500).json({ message: 'Server error fetching class report data.' });
+    }
+});
+
 app.post('/api/mock-student/approve', async (req, res) => {
     const { studentId } = req.body;
     if (!studentId) {
