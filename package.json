@@ -4,7 +4,11 @@
   "description": "Server for school results and mock tests",
   "main": "server1.js",
   "scripts": {
-    "start": "node server1.js"
+    "start": "node server1.js",
+    "start:school": "node server1.js",
+    "omr:create-admin": "node scripts/create-omr-admin.js",
+    "start:omr-standalone": "node server2.js",
+    "test:omr": "node --test OMR-AutoChecker/tests/api.test.mjs OMR-AutoChecker/tests/server2.test.mjs"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +21,8 @@
     "mongoose": "^8.4.1",
     "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2"
+  },
+  "engines": {
+    "node": ">=22.5"
   }
 }

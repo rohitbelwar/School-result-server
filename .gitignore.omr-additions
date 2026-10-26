@@ -1,0 +1,7 @@
+# ADD these lines to your existing .gitignore (do not replace it)
+.env
+OMR-AutoChecker/backend/data/
+*.db
+*.db-wal
+*.db-shm
+secrets.json

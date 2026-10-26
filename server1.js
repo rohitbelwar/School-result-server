@@ -10,8 +10,22 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-very-secret-key-fallback'; // .env फ़ाइल में एक SECRET KEY सेट करें
 
+// OMR Auto-Checker licence APIs are mounted into this SAME Express server.
+// Keep this dispatcher BEFORE cors/body-parser so the OMR raw HTTP handler can read request bodies.
+// OMR paths are deliberately namespaced; all existing school routes continue through the original middleware.
+const omrLicense = require('./OMR-AutoChecker/backend/server.js');
+const isOmrLicensePath = (p) =>
+  p === '/healthz' || p === '/admin' || p.startsWith('/admin/') ||
+  p.startsWith('/api/omr/') || p.startsWith('/api/v1/') || p.startsWith('/api/admin/');
+app.use((req, res, next) => {
+  if (!isOmrLicensePath(req.path)) return next();
+  omrLicense.server.emit('request', req, res);
+});
+
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+// OMR Auto-Checker frontend is served by the same origin/port as server1.js.
+app.use('/omr', express.static(path.join(__dirname, 'OMR-AutoChecker', 'frontend')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/school_db'; // Fallback added

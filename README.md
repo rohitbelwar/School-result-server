@@ -1,14 +1,15 @@
+# School-result-server + OMR Auto-Checker
 
-# Mock Test - Updated Package
+The existing school application remains in place. OMR Auto-Checker is in `OMR-AutoChecker/` and its licensing API is mounted into the existing `server1.js` process, so the default setup uses one port.
 
-This package contains a standalone mock-test HTML (`Moct_test.html`) plus supportive files.
-Features added/ensured by the assistant:
-- `Moct_test.html`: Self-contained mock-test (questions loaded from embedded array)
-- `questions.json`: Example question bank (5 items)
-- `index.html`: Simple landing page
-- Autosave to localStorage, export results, print, reset, timer
-- No server required — purely client-side
+## Start
+1. Use Node.js 22.5 or newer.
+2. Configure `.env` using `.env.example` (do not commit secrets).
+3. Run `npm install`.
+4. Run `npm start`.
+5. Open `/omr/` on the same host/port. The OMR admin panel is `/admin`.
+6. Create the OMR administrator once with `npm run omr:create-admin -- owner`.
 
-How to use:
-1. Unzip and open `Moct_test.html` in a browser.
-2. Or open `index.html` and click the link to the test.
+The original `server1.js` school routes are retained. OMR licence API handling is mounted before JSON body parsing so its raw request-body parser continues to work.
+
+Review `OMR-AutoChecker/README.md` before production deployment. Confirm UPI QR details, use HTTPS, persistent storage, strong secrets, and an authenticated admin account.
